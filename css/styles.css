@@ -1,0 +1,160 @@
+:root{
+  --bg-1:#0a1124;
+  --bg-2:#182646;
+  --surface:#0f1a33;
+  --card:#ffffff0d;
+  --text:#eef3ff;
+  --muted:#c9d4ffcc;
+  --accent:#8ab4f8;
+  --accent-2:#ffd166;
+  --success:#4ade80;
+  --danger:#ef4444;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --radius:16px;
+  --radius-lg:20px;
+  --max:1200px;
+
+  /* alto del navbar (JS lo ajusta al real en runtime) */
+  --nav-h:64px;
+}
+
+/* scroll suave */
+html { scroll-behavior: smooth; }
+
+/* base */
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 1200px at 80% -10%, var(--bg-2), transparent 60%),
+    radial-gradient(1000px 900px at -10% 10%, #1b2b52 10%, transparent 60%),
+    linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, 'Helvetica Neue', Arial, "Apple Color Emoji","Segoe UI Emoji";
+  line-height:1.6;
+
+  /* compensa el espacio del header fijo */
+  padding-top: var(--nav-h);
+}
+
+h1,h2,h3{font-family:'Playfair Display', serif; line-height:1.2; margin:0 0 .5rem}
+h1{font-size:clamp(2rem, 3vw + 1rem, 3.25rem)}
+h2{font-size:clamp(1.5rem, 2vw + .6rem, 2.25rem)}
+h3{font-size:1.25rem}
+p{margin:.5rem 0 1rem; color:var(--muted)}
+a{color:inherit; text-decoration:none}
+img{max-width:100%; display:block}
+
+/* que las anclas no queden tapadas */
+.section, .hero { scroll-margin-top: calc(var(--nav-h) + 12px); }
+
+.container{max-width:var(--max); margin-inline:auto; padding:0 1rem}
+.btn{display:inline-flex; gap:.5rem; align-items:center; border:none; cursor:pointer; font-weight:700; padding:.9rem 1.2rem; border-radius:14px; text-decoration:none; transition:transform .15s ease, opacity .2s ease, background .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--accent); color:#0b1226}
+.btn-ghost{background:transparent; border:1px solid #ffffff2a}
+.btn-ghost:hover{background:#ffffff14}
+.badge{display:inline-block; padding:.35rem .6rem; border-radius:999px; font-size:.75rem; background:#ffffff1a; color:#fff}
+
+/* NAV fijo + animación mostrar/ocultar */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:40;
+  backdrop-filter:saturate(140%) blur(10px);
+  background:linear-gradient(180deg, #0b1328cc, #0b132844);
+  border-bottom:1px solid #ffffff12;
+
+  transform: translateY(0);
+  transition: transform .25s ease; /* suavidad del hide/show */
+}
+.nav.nav--hidden{ transform: translateY(calc(-1 * var(--nav-h))); }
+
+.nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:.8rem 0}
+.brand{display:flex; align-items:center; gap:.6rem}
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+.brand h3{letter-spacing:.4px}
+.nav-links{display:flex; gap:1rem}
+.nav-links a{padding:.6rem .8rem; border-radius:10px; color:#dbe7ff}
+.nav-links a:hover{background:#ffffff14}
+.nav-links a.active, #mobileMenu a.active { background:#ffffff1a; color:#fff; }
+
+.menu-btn{display:none; background:transparent; border:1px solid #ffffff2a; padding:.55rem .7rem; border-radius:12px}
+
+/* HERO */
+.hero{position:relative; padding:5.5rem 0 3rem; overflow:hidden}
+.hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:2rem; align-items:center}
+.hero p{font-size:1.05rem}
+.hero-actions{display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.2rem}
+.hero-card{background:var(--card); border:1px solid #ffffff1a; padding:1rem; border-radius:var(--radius); box-shadow:var(--shadow)}
+.hero-media{position:relative; border-radius:var(--radius-lg); overflow:hidden; border:1px solid #ffffff1a; box-shadow:var(--shadow)}
+.hero-media img{width:100%; height:100%; object-fit:cover}
+.hero-overlay{position:absolute; inset:auto 0 0; padding:1rem; background:linear-gradient(180deg, transparent, #0b1328a6 30%, #0b1328f0)}
+
+/* GRIDS y secciones */
+.grid{display:grid; gap:1.2rem}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card); border:1px solid #ffffff1a; padding:1rem; border-radius:var(--radius); box-shadow:var(--shadow)}
+.card:hover{outline:1px solid #ffffff30}
+.card h3{margin-top:.4rem}
+.section{padding:3.5rem 0}
+.section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; margin-bottom:1.4rem}
+.section-head p{max-width:700px}
+
+/* HORARIOS */
+.schedule{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem}
+.slot{padding:1rem; border-radius:14px; background:#ffffff10; border:1px dashed #ffffff2a}
+
+/* EVENTOS */
+.filters{display:flex; gap:.6rem; flex-wrap:wrap}
+.filters .btn{padding:.5rem .8rem; font-weight:600}
+.event-card{display:flex; flex-direction:column; overflow:hidden}
+.event-cover{height:160px; border-radius:12px; overflow:hidden; border:1px solid #ffffff16}
+.event-meta{display:flex; gap:.8rem; flex-wrap:wrap; font-size:.85rem; color:#c6d3ff}
+
+/* SERMONES */
+.video{aspect-ratio:16/9; width:100%; border-radius:16px; overflow:hidden; border:1px solid #ffffff1a; box-shadow:var(--shadow)}
+
+/* CONTACTO */
+form{display:grid; gap:.8rem}
+.field{display:grid; gap:.35rem}
+.input{background:#ffffff10; border:1px solid #ffffff2a; color:var(--text); padding:.8rem .9rem; border-radius:12px; outline:none}
+.input:focus{border-color:var(--accent)}
+
+/* FOOTER */
+footer{padding:2.5rem 0; border-top:1px solid #ffffff1a; background:linear-gradient(180deg, #0b132833, #0b132866)}
+.footer-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:1.2rem}
+.social{display:flex; gap:.6rem}
+.social a{display:inline-flex; width:38px; height:38px; border-radius:11px; border:1px solid #ffffff1f; align-items:center; justify-content:center}
+.social a:hover{background:#ffffff14}
+
+/* Utilities */
+.muted{color:var(--muted)}
+.divider{height:1px; background:#ffffff12; margin:1.4rem 0}
+
+/* Responsive */
+@media (max-width: 960px){
+  .hero-grid{grid-template-columns:1fr; gap:1.4rem}
+  .schedule{grid-template-columns:1fr;}
+  .grid-3{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .menu-btn{display:inline-flex}
+  .footer-grid{grid-template-columns:1fr}
+}
+
+/* Reveal animations */
+[data-reveal]{opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease}
+[data-reveal].visible{opacity:1; transform:none}
+
+/* Menú móvil: que cada link ocupe su propia línea */
+#mobileMenu .card a{
+  display:block;
+  padding:.75rem .25rem;
+}

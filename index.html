@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iglesia Adventista del Séptimo Día</title>
+  <meta name="description" content="Sitio oficial de la Iglesia Adventista – horarios, ministerios, eventos y sermones." />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-wrap">
+      <a class="brand" href="#" id="brandTop" aria-label="Inicio">
+        <img src="img/logo_igle.ico" alt="Logo Iglesia Adventista" class="brand-logo" />
+        <h3>Iglesia Adventista De Dios Del Septimo Dia En Reforma</h3>
+      </a>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="#ministerios">Ministerios</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#sermones">Sermones</a>
+        <a href="#horarios">Horarios</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#recursos">Himnario</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="#cfe0ff" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <!-- menú móvil -->
+    <div id="mobileMenu" hidden class="container" style="padding-bottom:.8rem">
+      <div class="card" role="menu">
+        <a role="menuitem" href="#ministerios">Ministerios</a>
+        <div class="divider"></div>
+        <a role="menuitem" href="#eventos">Eventos</a>
+        <div class="divider"></div>
+        <a role="menuitem" href="#sermones">Sermones</a>
+        <div class="divider"></div>
+        <a role="menuitem" href="#horarios">Horarios</a>
+        <div class="divider"></div>
+        <a role="menuitem" href="#contacto">Contacto</a>
+        <a role="menuitem" href="#recursos">Himnario</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div data-reveal>
+        <span class="badge">Eres bienvenido</span>
+        <h1>Conoce, crece y comparte la esperanza</h1>
+        <p>Somos una comunidad que busca reflejar a Jesús a través del servicio, la adoración y el estudio de la Biblia. Planifica tu visita o mira el último sermón en línea.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#sermones">Ver sermón</a>
+          <a class="btn btn-ghost" href="#contacto">Planificar visita</a>
+        </div>
+
+        <div class="hero-card" style="margin-top:1.2rem">
+          <strong>Dirección:</strong>
+          <p class="muted">Av. Esperanza #123, San Miguel, El Salvador</p>
+          <div class="event-meta"><span>📅 Sábados 9:00 AM – Escuela Sabática</span><span>⛪ Culto 10:45 AM</span></div>
+        </div>
+      </div>
+
+      <div class="hero-media" data-reveal>
+        <img src="img/iglesia.ico" alt="Fachada de iglesia al atardecer"/>
+        <div class="hero-overlay">
+          <small class="muted">“Tu palabra es una lámpara a mis pies.” — Salmo 119:105</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HORARIOS -->
+  <section id="horarios" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Horarios Principales</h2>
+          <p>Únete a nosotros en nuestros programas semanales. Todos son bienvenidos — hay espacios para niños, jóvenes y adultos.</p>
+        </div>
+      </div>
+      <div class="schedule" data-reveal>
+        <div class="slot"><strong>Miércoles</strong><p class="muted">7:00 PM – Oración y estudio</p></div>
+        <div class="slot"><strong>Sábado</strong><p class="muted">9:00 AM – Escuela Sabática</p></div>
+        <div class="slot"><strong>Sábado</strong><p class="muted">10:45 AM – Culto Divino</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINISTERIOS -->
+  <section id="ministerios" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Ministerios</h2>
+          <p>Servimos a la comunidad a través de distintos ministerios. Descubre cómo participar o recibir apoyo.</p>
+        </div>
+        <a class="btn btn-ghost" href="#contacto">Quiero involucrarme</a>
+      </div>
+
+      <div class="grid grid-4" data-reveal>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop" alt="Ministerio de jóvenes"/>
+          <h3>Jóvenes</h3>
+          <p>Encuentros, discipulado y servicio misionero.</p>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop" alt="Ministerio de niños"/>
+          <h3>Niños</h3>
+          <p>Clases creativas y actividades para los más pequeños.</p>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1520974735194-85d75d8ae6dc?q=80&w=1200&auto=format&fit=crop" alt="Ministerio de salud"/>
+          <h3>Salud y Vida</h3>
+          <p>Talleres y ferias de salud para el bienestar integral.</p>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?q=80&w=1200&auto=format&fit=crop" alt="Ministerio de música"/>
+          <h3>Música</h3>
+          <p>Adoración a través del canto y los instrumentos.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS / HIMNARIO -->
+<section id="recursos" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Recursos</h2>
+        <p>Consulta nuestro himnario para alabar con nosotros.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-3" data-reveal>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Himnario" />
+        <h3>Himnario Adventista</h3>
+        <p class="muted">Letras y pistas para el servicio de adoración.</p>
+        <div style="margin-top:.6rem">
+          <a class="btn btn-primary" href="himnario/index.html">Ver himnario</a>
+        </div>
+      </article>
+      <!-- Si luego agregas más recursos, añade más <article> aquí -->
+    </div>
+  </div>
+</section>
+
+
+  <!-- EVENTOS -->
+  <section id="eventos" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Próximos Eventos</h2>
+          <p>Mira lo que viene y participa. Usa los filtros para ver por tipo.</p>
+        </div>
+        <div class="filters" role="toolbar" aria-label="Filtros de eventos">
+          <button class="btn btn-ghost" data-filter="all">Todos</button>
+          <button class="btn btn-ghost" data-filter="culto">Culto</button>
+          <button class="btn btn-ghost" data-filter="jovenes">Jóvenes</button>
+          <button class="btn btn-ghost" data-filter="comunidad">Comunidad</button>
+        </div>
+      </div>
+
+      <div id="eventList" class="grid grid-3" data-reveal></div>
+    </div>
+  </section>
+
+  <!-- SERMONES -->
+  <section id="sermones" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Último Sermón</h2>
+          <p>Si no pudiste asistir, puedes ver el último mensaje aquí.</p>
+        </div>
+        <a class="btn btn-primary" href="#">Ver todos los sermones</a>
+      </div>
+      <div class="video" data-reveal>
+        <iframe width="560" height="315" src="https://www.youtube.com/watch?v=4EyIRWhExoc" title="Sermón reciente"
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- DONACIONES / CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="card" data-reveal>
+        <h2>Apoya la misión</h2>
+        <p>Tu contribución ayuda a sostener ministerios, proyectos comunitarios y la predicación del evangelio.</p>
+        <a class="btn btn-primary" href="#">Donar ahora</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Planifica tu visita</h2>
+          <p>¿Preguntas o peticiones de oración? Escríbenos y nos pondremos en contacto.</p>
+        </div>
+      </div>
+      <div class="grid grid-3" data-reveal>
+        <div class="card" style="grid-column: span 2">
+          <form id="contactForm" novalidate>
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input class="input" id="nombre" name="nombre" required placeholder="Tu nombre completo" />
+            </div>
+            <div class="field">
+              <label for="email">Correo</label>
+              <input class="input" id="email" name="email" type="email" required placeholder="tucorreo@ejemplo.com" />
+            </div>
+            <div class="field">
+              <label for="mensaje">Mensaje</label>
+              <textarea class="input" id="mensaje" name="mensaje" rows="5" required placeholder="¿En qué podemos ayudarte?"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Enviar mensaje</button>
+            <p id="formMsg" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
+          </form>
+        </div>
+        <div class="card">
+          <h3>Contacto</h3>
+          <p class="muted">Tel: (503) 2222-2222<br>Correo: contacto@iglesiaadventista.sv</p>
+          <div class="divider"></div>
+          <h3>Ubicación</h3>
+          <p class="muted">Av. Esperanza #123, San Miguel</p>
+          <div style="aspect-ratio: 4/3; border-radius:12px; overflow:hidden; border:1px solid #ffffff1a">
+            <iframe title="Mapa" width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.761984043476!2d-88.175!3d13.483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDI5JzAwLjAiTiA4OMKwMTAnMzAuMCJX!5e0!3m2!1ses!2ssv!4v1700000000000"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:.6rem">
+          <span class="brand-logo"></span>
+          <h3>Iglesia Adventista</h3>
+        </div>
+        <p class="muted">Una familia para crecer en fe, servir con amor y compartir esperanza.</p>
+        <div class="social" aria-label="Redes sociales">
+          <a href="#" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 9h3V6h-3c-1.657 0-3 1.343-3 3v2H8v3h3v7h3v-7h3l1-3h-4V9c0-.552.448-1 1-1Z" stroke="#cfe0ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 12s0-3.5-.45-5A3 3 0 0 0 19.68 4.7C18.12 4.3 12 4.3 12 4.3s-6.12 0-7.68.4A3 3 0 0 0 2.45 7C2 8.5 2 12 2 12s0 3.5.45 5A3 3 0 0 0 4.32 19.3c1.56.4 7.68.4 7.68.4s6.12 0 7.68-.4A3 3 0 0 0 21.55 17c.45-1.5.45-5 .45-5ZM10 9.75 15.5 12 10 14.25V9.75Z" stroke="#cfe0ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 3H7a4 4 0 0 0-4 4v10a4 4 0 0 0 4 4h10a4 4 0 0 0 4-4V7a4 4 0 0 0-4-4Zm-5 13a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm4.5-8.5h.01" stroke="#cfe0ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3>Enlaces</h3>
+        <ul style="list-style:none; padding:0; margin:0">
+          <li><a href="#horarios">Horarios</a></li>
+          <li><a href="#eventos">Eventos</a></li>
+          <li><a href="#sermones">Sermones</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#recursos">Himnario</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Boletín</h3>
+        <p class="muted">Recibe novedades y recordatorios.</p>
+        <form id="newsletterForm" class="inline-form" novalidate>
+          <input class="input" id="newsletterEmail" type="email" placeholder="Tu correo" required aria-label="Correo para boletín"/>
+          <button class="btn btn-primary" type="submit" style="margin-top:.6rem">Suscribirme</button>
+          <p id="newsMsg" class="muted" role="status" aria-live="polite" style="margin-top:.4rem"></p>
+        </form>
+      </div>
+    </div>
+    <div class="container" style="margin-top:1rem">
+      <small class="muted">© <span id="year"></span> Iglesia Adventista del Séptimo Día — San Miguel.</small>
+    </div>
+  </footer>
+
+  <!-- Botón volver arriba -->
+  <button id="toTop" class="btn btn-primary" style="position:fixed; right:1rem; bottom:1rem; display:none" aria-label="Volver arriba">↑</button>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

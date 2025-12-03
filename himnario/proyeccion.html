@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyección del Himno</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:,">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(circle at center, #1b2b52, #0a1124);
+      color: #fff;
+      font-family: 'Lora', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      transition: background 0.8s ease;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* Bloque siempre horizontal y ancho */
+    #bloque {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.28s ease, transform 0.28s ease;
+
+      width: 100vw;              /* ocupa todo el ancho */
+      max-width: 2000px;         /* para proyectores grandes */
+      padding: 0 2.5vw;
+      box-sizing: border-box;
+      margin: 0 auto;
+
+      white-space: pre-wrap;     /* respeta \n */
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+    }
+    #bloque.visible { opacity: 1; transform: translateY(0); }
+
+    #tituloBloque {
+      font-size: 1.8rem;         /* subido de 1.6rem */
+      font-family: 'Playfair Display', serif;
+      color: #8ab4f8;
+      margin-bottom: 0.6rem;
+      letter-spacing: 1px;
+    }
+
+    /* Tamaño base; auto-fit podrá bajarlo o subirlo (smart-grow) */
+    #textoBloque {
+      font-size: 3.2rem;         /* base más grande */
+      line-height: 1.44;
+      font-weight: 500;
+      text-shadow: 0 0 25px rgba(255,255,255,0.15);
+
+      /* Mantener en horizontal, sin cortar cada letra */
+      overflow-wrap: normal;
+      word-break: keep-all;
+      hyphens: auto;
+
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+    }
+
+    .fullscreen-btn {
+      position: fixed;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: #ffffff1a;
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 10;
+      backdrop-filter: blur(6px);
+      transition: background 0.3s ease;
+    }
+    .fullscreen-btn:hover { background: #ffffff33; }
+
+    .info {
+      position: fixed;
+      bottom: 0.6rem;
+      right: 1rem;
+      font-size: 0.8rem;
+      color: #ffffff88;
+      font-style: italic;
+      user-select: none;
+    }
+
+    .badge {
+      position: fixed;
+      top: 0.8rem;
+      left: 0.8rem;
+      background: #ffffff1a;
+      color: #fff;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      backdrop-filter: blur(6px);
+      letter-spacing: .3px;
+      user-select: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 0.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #00000066;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #fff;
+      opacity: 0;
+      transition: opacity .25s ease;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <button class="fullscreen-btn" onclick="activarPantallaCompleta()">⛶</button>
+  <div class="badge" id="badge">—</div>
+  <div id="bloque">
+    <div id="tituloBloque"></div>
+    <div id="textoBloque"></div>
+  </div>
+  <div class="info">← → / Espacio · Números: saltar a estrofa</div>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const bloque = document.getElementById("bloque");
+    const tituloBloque = document.getElementById("tituloBloque");
+    const textoBloque = document.getElementById("textoBloque");
+    const badge = document.getElementById("badge");
+    const toast = document.getElementById("toast");
+
+    const raw = localStorage.getItem("himnoSeleccionado");
+    let contenido = [];
+    let indice = 0;
+
+    // Mapeo estrofa N (1-based) -> índice en 'contenido'
+    let verseToContentIndex = [];
+    let totalVerses = 0;
+
+    // Buffer para números multi-dígito
+    let numberBuffer = "";
+    let bufferTimer = null;
+    const BUFFER_DELAY = 800; // ms
+
+    const isChorus = (b) => b && (b.type === "chorus" || (b.label||"").toLowerCase().includes("coro"));
+    const isVerse  = (b) => b && b.type === "verse";
+    const clone    = (b) => JSON.parse(JSON.stringify(b));
+    const normalizeChorus = (b) => {
+      const c = clone(b || {});
+      c.type = "chorus";
+      c.label = c.label && c.label.trim() ? c.label : "Coro";
+      c.lines = Array.isArray(c.lines) ? c.lines : [];
+      return c;
+    };
+
+    // ====== AUTO-FIT con smart-grow ======
+    const BASE_FONT_REM = 3.2;  // punto de partida
+    const MIN_FONT_REM  = 1.6;  // mínimo
+    const MAX_FONT_REM  = 3.6;  // máximo de crecimiento
+    const STEP_REM      = 0.05;
+
+    function alturaDisponibleTexto() {
+      const paddingSeguridad = 40;
+      const infoAlt = 28;
+      const r = tituloBloque.getBoundingClientRect();
+      const disponible = window.innerHeight - r.top - r.height - infoAlt - paddingSeguridad;
+      return Math.max(120, disponible);
+    }
+
+    function fitTextoBloque() {
+      const maxH = alturaDisponibleTexto();
+
+      // Función helper para probar un tamaño
+      const fits = (rem) => {
+        textoBloque.style.fontSize = `${rem}rem`;
+        void textoBloque.offsetHeight;
+        return textoBloque.scrollHeight <= maxH;
+      };
+
+      // 1) Partimos en BASE. Si no cabe, buscamos hacia abajo (MIN..BASE)
+      let current = BASE_FONT_REM;
+      if (!fits(current)) {
+        let lo = MIN_FONT_REM, hi = BASE_FONT_REM, best = MIN_FONT_REM;
+        while (hi - lo > STEP_REM) {
+          const mid = (lo + hi) / 2;
+          if (fits(mid)) { best = mid; lo = mid + STEP_REM; }
+          else { hi = mid - STEP_REM; }
+        }
+        textoBloque.style.fontSize = `${Math.max(MIN_FONT_REM, best).toFixed(2)}rem`;
+        return;
+      }
+
+      // 2) Si cabe en BASE, intentamos crecer (BASE..MAX) para aprovechar espacio
+      let lo = BASE_FONT_REM, hi = MAX_FONT_REM, best = BASE_FONT_REM;
+      while (hi - lo > STEP_REM) {
+        const mid = (lo + hi) / 2;
+        if (fits(mid)) { best = mid; lo = mid + STEP_REM; }
+        else { hi = mid - STEP_REM; }
+      }
+      textoBloque.style.fontSize = `${Math.min(MAX_FONT_REM, best).toFixed(2)}rem`;
+    }
+
+    function debounce(fn, wait=120) {
+      let t;
+      return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), wait); };
+    }
+    const fitDebounced = debounce(fitTextoBloque, 60);
+    // =====================================
+
+    // --- Carga y expansión (coro automático si hay exactamente 1) ---
+    (function init() {
+      if (!raw) {
+        textoBloque.innerText = "⚠️ No se encontró el himno en memoria.";
+        return;
+      }
+      try {
+        const himno = JSON.parse(raw);
+        const original = Array.isArray(himno.content) ? himno.content : [];
+        const chorusIndices = original.map((b,i)=>isChorus(b)?i:-1).filter(i=>i!==-1);
+
+        if (chorusIndices.length === 1) {
+          const coroBase = normalizeChorus(original[chorusIndices[0]]);
+          const expandido = [];
+          for (let i = 0; i < original.length; i++) {
+            const actual = original[i];
+            expandido.push(clone(actual));
+            if (isVerse(actual)) {
+              const siguiente = original[i + 1];
+              const vieneCoroDespues = isChorus(siguiente);
+              if (!vieneCoroDespues) expandido.push(clone(coroBase));
+            }
+          }
+          if (expandido.length && isVerse(expandido[expandido.length - 1])) {
+            expandido.push(clone(coroBase));
+          }
+          contenido = expandido;
+        } else {
+          contenido = original;
+        }
+
+        construirIndiceDeEstrofas();
+        mostrarBloque(indice);
+      } catch {
+        textoBloque.innerText = "⚠️ Error al cargar el himno.";
+      }
+    })();
+
+    function construirIndiceDeEstrofas() {
+      verseToContentIndex = [];
+      for (let i = 0; i < contenido.length; i++) {
+        if (isVerse(contenido[i])) verseToContentIndex.push(i);
+      }
+      totalVerses = verseToContentIndex.length;
+      actualizarBadge();
+    }
+
+    function mostrarBloque(i) {
+      if (!contenido[i]) return;
+      const { label, lines, type } = contenido[i];
+      bloque.classList.remove("visible");
+      setTimeout(() => {
+        tituloBloque.innerText = (label || "").trim();
+        textoBloque.innerText  = (Array.isArray(lines) ? lines : []).join("\n");
+
+        // Auto-fit con smart-grow
+        fitTextoBloque();
+
+        bloque.classList.add("visible");
+        cambiarColorFondo(type);
+        actualizarBadge();
+      }, 160);
+    }
+
+    function cambiarColorFondo(type) {
+      const colores = {
+        verse:  "radial-gradient(circle at center, #1b2b52, #0a1124)",
+        chorus: "radial-gradient(circle at center, #253f73, #0a1124)"
+      };
+      document.body.style.background = colores[type] || colores.verse;
+    }
+
+    function activarPantallaCompleta() {
+      const de = document.documentElement;
+      if (de.requestFullscreen) return de.requestFullscreen();
+      if (de.webkitRequestFullscreen) return de.webkitRequestFullscreen();
+    }
+
+    function numeroEstrofaActual() {
+      const idx = verseToContentIndex.indexOf(indice);
+      return idx >= 0 ? (idx + 1) : null;
+    }
+
+    function actualizarBadge() {
+      const n = numeroEstrofaActual();
+      badge.textContent = n ? `E${n}/${totalVerses}` : `Coro`;
+    }
+
+    function toastMsg(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => toast.classList.remove("show"), 900);
+    }
+
+    function irAEstrofa(n) {
+      if (!Number.isInteger(n) || n < 1 || n > totalVerses) {
+        toastMsg(`No existe la estrofa ${n}`);
+        return;
+      }
+      indice = verseToContentIndex[n - 1];
+      mostrarBloque(indice);
+      toastMsg(`Estrofa ${n}`);
+    }
+
+    // Navegación teclado
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " ") {
+        if (indice < contenido.length - 1) { indice++; mostrarBloque(indice); }
+        return;
+      }
+      if (e.key === "ArrowLeft") {
+        if (indice > 0) { indice--; mostrarBloque(indice); }
+        return;
+      }
+      if (/^\d$/.test(e.key)) {
+        if (numberBuffer === "" && e.key === "0") return;
+        numberBuffer += e.key;
+        if (bufferTimer) clearTimeout(bufferTimer);
+        toastMsg(`E${numberBuffer}…`);
+        bufferTimer = setTimeout(() => {
+          const n = parseInt(numberBuffer, 10);
+          numberBuffer = "";
+          irAEstrofa(n);
+        }, BUFFER_DELAY);
+      }
+      if (e.key === "Escape") {
+        numberBuffer = "";
+        if (bufferTimer) clearTimeout(bufferTimer);
+        toastMsg("Cancelado");
+      }
+    });
+
+    // Recalcular auto-fit al cambiar tamaño/FS
+    window.addEventListener('resize', fitDebounced);
+    document.addEventListener('fullscreenchange', fitDebounced);
+  </script>
+</body>
+</html>

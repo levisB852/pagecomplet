@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis Himnos Favoritos</title>
+  <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/logo2.ico">
+</head>
+<body>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <nav id="menuOpciones" class="menu-opciones">
+    <button onclick="abrirMiHimnario()">🗂️ Mi Himnario</button>
+    <button onclick="verFavoritos()">⭐ Favoritos</button>
+    <button onclick="abrirConfiguracion()">⚙️ Configuración</button>
+  </nav>
+    <button onclick="window.location.href='inicio.html'" class="volver-btn">← Volver</button>
+  <h1>⭐ Himnos Favoritos</h1>
+  <div id="hymnList" class="hymn-grid"></div>
+
+
+  <script src="js/app.js"></script>
+  <script>
+    fetch('js/himnos_seccion_1.json')
+      .then(res => res.json())
+      .then(data => {
+        const favoritos = (JSON.parse(localStorage.getItem('favoritos')) || []).map(Number);
+        const favoritosFiltrados = data.filter(h => favoritos.includes(h.number));
+        renderList(favoritosFiltrados);
+      });
+  </script>
+  <div id="panelConfiguracion" class="panel-config">
+  <h3>🎨 Personaliza tu lectura</h3>
+
+  <label for="estiloSelect">Modo de estilo:</label>
+  <select id="estiloSelect">
+    <option value="claro">☀️ Claro</option>
+    <option value="oscuro">🌙 Oscuro</option>
+  </select>
+  
+<label for="fuenteSelect">Estilo de letra:</label>
+<select id="fuenteSelect">
+  <option value="Raleway">Raleway (moderna)</option>
+  <option value="Georgia">Georgia (clásica)</option>
+  <option value="Roboto">Roboto (limpia)</option>
+  <option value="Playfair Display">Playfair (elegante)</option>
+  <option value="Open Sans">Open Sans (versátil)</option>
+  <option value="Merriweather">Merriweather (serif cálida)</option>
+  <option value="Lora">Lora (literaria)</option>
+  <option value="Quicksand">Quicksand (suave)</option>
+  <option value="Poppins">Poppins (redondeada)</option>
+  <option value="Nunito">Nunito (amistosa)</option>
+  <option value="Montserrat">Montserrat (moderna)</option>
+  <option value="Oswald">Oswald (condensada)</option>
+  <option value="Raleway Dots">Raleway Dots (decorativa)</option>
+  <option value="Indie Flower">Indie Flower (manuscrita)</option>
+  <option value="Amatic SC">Amatic SC (dibujada)</option>
+  <option value="Shadows Into Light">Shadows Into Light (amistosa)</option>
+  <option value="PT Serif">PT Serif (clásica)</option>
+  <option value="Josefin Sans">Josefin Sans (con estilo)</option>
+  <option value="Cinzel">Cinzel (romana)</option>
+  <option value="Exo 2">Exo 2 (tecnológica)</option>
+  <option value="Karla">Karla (legible)</option>
+  <option value="Source Sans Pro">Source Sans Pro (profesional)</option>
+</select>
+
+
+  <label for="tamanoSelect">Tamaño de letra:</label>
+  <select id="tamanoSelect">
+    <option value="16px">Pequeño</option>
+    <option value="18px">Mediano</option>
+    <option value="20px">Grande</option>
+    <option value="24px">Muy grande</option>
+  </select>
+</div>
+<script>
+  (function(){
+    const root = document.documentElement;
+    const body = document.body;
+    const fuente = localStorage.getItem('fuenteHimnos');
+    const tamano = localStorage.getItem('tamanoHimnos');
+    const modo = localStorage.getItem('modoOscuro');
+
+    if (fuente) root.style.setProperty('--fuente-himnos', `'${fuente}', sans-serif`);
+    if (tamano) root.style.setProperty('--tamano-himnos', tamano);
+    if (modo === 'true') body.classList.add('modo-oscuro');
+  })();
+</script>
+
+
+  <script src="js/fondo.js"></script>
+  <script src="js/estilosUsuario.js"></script>
+
+
+  <div class="creditos-footer">
+  © 2025 Iglesia Adventista de Dios en Reforma – Himnario Digital
+</div>
+</body>
+</html>

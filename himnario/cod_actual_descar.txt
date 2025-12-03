@@ -1,0 +1,11 @@
+
+//"este es para actualizar o subirlo al git hub"//
+git add .
+git commit -m "dentro de estas comias podes poner cualquier comentatrio para recordarte que modificaste"
+git push origin main
+
+
+
+//"este para descargar las actualizaciones del git hub"//
+git pull origin main
+

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Himno</title>
+  <link rel="stylesheet" href="style.css"/>
+    <link rel="icon" href="img/logo2.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto&family=Playfair+Display&family=Open+Sans&family=Merriweather&family=Lora&family=Quicksand&family=Poppins&family=Nunito&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Menú hamburguesa -->
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <nav id="menuOpciones" class="menu-opciones">
+    <button onclick="abrirMiHimnario()">🗂️ Mi Himnario</button>
+    <button onclick="verFavoritos()">⭐ Favoritos</button>
+    <button onclick="abrirConfiguracion()">⚙️ Configuración</button>
+  </nav>
+
+  <!-- Botón para volver al inicio -->
+  <button id="backBtn" class="volver-btn">← Volver al inicio</button>
+
+  <!-- Botón para agregar al himnario -->
+  <button id="favBtn" class="nav-btn" onclick="agregarAHimnario()">➕ Agregar a mi Himnario</button>
+
+  
+  <!-- Contenido del himno -->
+  <main id="hymnContent">
+    
+    <div class="compartir-wrapper">
+      <button class="btn-proyector" onclick="activarModoProyeccion()" title="Proyectar himno">
+           <img src="img/infographic_2572455.png" alt="Proyector" />
+      </button>
+      <button id="btnToggleCompartir" class="btn-icono">
+        <img src="icons/share.svg" alt="Compartir" />
+      </button>
+      <div id="menuCompartir" class="menu-compartir oculto">
+        <button onclick="compartirPorWhatsApp()" title="WhatsApp">
+          <img src="icons/whatsapp.svg" alt="WhatsApp" />
+        </button>
+        <button onclick="compartirPorTelegram()" title="Telegram">
+          <img src="icons/telegram.svg" alt="Telegram" />
+        </button>
+        <button onclick="compartirPorEmail()" title="Email">
+          <img src="icons/gmail.svg" alt="Email" />
+        </button>
+        <button onclick="copiarAlPortapapeles()" title="Copiar">
+          <img src="icons/copy.svg" alt="Copiar" />
+        </button>
+      </div>
+    </div>
+    <h2 id="hymnTitle"></h2>
+    <div id="hymnLyrics"></div>
+    <audio id="audioPlayer" controls></audio>
+    <div id="navButtons"></div>
+    
+  </main>
+
+  
+
+
+  <!-- Panel de configuración -->
+  <div id="panelConfiguracion" class="panel-config">
+    <h3>🎨 Personaliza tu lectura</h3>
+
+    <label for="estiloSelect">Modo de estilo:</label>
+    <select id="estiloSelect">
+      <option value="claro">☀️ Claro</option>
+      <option value="oscuro">🌙 Oscuro</option>
+    </select>
+
+    <label for="fuenteSelect">Estilo de letra:</label>
+    <select id="fuenteSelect">
+      <option value="Raleway">Raleway (moderna)</option>
+      <option value="Georgia">Georgia (clásica)</option>
+      <option value="Roboto">Roboto (limpia)</option>
+      <option value="Playfair Display">Playfair (elegante)</option>
+      <option value="Open Sans">Open Sans (versátil)</option>
+      <option value="Merriweather">Merriweather (serif cálida)</option>
+      <option value="Lora">Lora (literaria)</option>
+      <option value="Quicksand">Quicksand (suave)</option>
+      <option value="Poppins">Poppins (redondeada)</option>
+      <option value="Nunito">Nunito (amistosa)</option>
+      <option value="Montserrat">Montserrat (moderna)</option>
+      <option value="Oswald">Oswald (condensada)</option>
+      <option value="Raleway Dots">Raleway Dots (decorativa)</option>
+      <option value="Indie Flower">Indie Flower (manuscrita)</option>
+      <option value="Amatic SC">Amatic SC (dibujada)</option>
+      <option value="Shadows Into Light">Shadows Into Light (amistosa)</option>
+      <option value="PT Serif">PT Serif (clásica)</option>
+      <option value="Josefin Sans">Josefin Sans (con estilo)</option>
+      <option value="Cinzel">Cinzel (romana)</option>
+      <option value="Exo 2">Exo 2 (tecnológica)</option>
+      <option value="Karla">Karla (legible)</option>
+      <option value="Source Sans Pro">Source Sans Pro (profesional)</option>
+    </select>
+
+    <label for="tamanoSelect">Tamaño de letra:</label>
+    <select id="tamanoSelect">
+      <option value="16px">Pequeño</option>
+      <option value="18px">Mediano</option>
+      <option value="20px">Grande</option>
+      <option value="24px">Muy grande</option>
+    </select>
+  </div>
+
+  <!-- Créditos -->
+  <div class="creditos-footer">
+    © 2025 Iglesia Adventista en Reforma – Himnario Digital
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/fondo.js"></script>
+  <script src="js/estilosUsuario.js"></script>
+  <script src="js/hymn.js"></script>
+
+  <script>
+    (function(){
+      try {
+        const root = document.documentElement;
+        const body = document.body;
+        const fuente = localStorage.getItem('fuenteHimnos');
+        const tamano = localStorage.getItem('tamanoHimnos');
+        const modo = localStorage.getItem('modoOscuro');
+        if (fuente) root.style.setProperty('--fuente-himnos', `'${fuente}', sans-serif`);
+        if (tamano) root.style.setProperty('--tamano-himnos', tamano);
+        if (modo === 'true') body.classList.add('modo-oscuro');
+        if (fuente) {
+          const family = fuente.replace(/\s+/g, '+');
+          const id = 'gf-inline-' + family;
+          if (!document.getElementById(id)) {
+            const link = document.createElement('link');
+            link.id = id;
+            link.rel = 'stylesheet';
+            link.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(fuente).replace(/%20/g,'+') + '&display=swap';
+            document.head.appendChild(link);
+          }
+        }
+      } catch(e){ console.warn('Init estilos inline:', e); }
+    })();
+  </script>
+</body>
+<script>
+  function activarModoProyeccion() {
+  // Intenta obtener el himno actual desde la variable global o el DOM
+  let himno = window.hymnData;
+
+  // Si no existe, lo construimos desde lo que está visible en la página
+  if (!himno) {
+    const titulo = document.getElementById("hymnTitle")?.innerText || "Himno sin título";
+    const estrofas = [];
+    document.querySelectorAll("#hymnLyrics > div").forEach(div => {
+      const tipo = div.classList.contains("coro") ? "chorus" : "verse";
+      const label = div.querySelector("h4")?.innerText || "";
+      const lineas = Array.from(div.querySelectorAll("p")).map(p => p.innerText);
+      estrofas.push({ type: tipo, label: label, lines: lineas });
+    });
+    himno = { title: titulo, content: estrofas };
+  }
+
+  // Verificación antes de proyectar
+  if (!himno.content || himno.content.length === 0) {
+    alert("No se encontró contenido del himno para proyectar.");
+    return;
+  }
+
+  // Guardar en el almacenamiento local
+  localStorage.setItem("himnoSeleccionado", JSON.stringify(himno));
+
+  // Abrir la pantalla de proyección
+  window.open("proyeccion.html", "_blank");
+}
+</script>

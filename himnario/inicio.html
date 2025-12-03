@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Himnario</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="img/logo2.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto&family=Playfair+Display&family=Open+Sans&family=Merriweather&family=Lora&family=Quicksand&family=Poppins&family=Nunito&family=Montserrat&family=Oswald&family=Raleway+Dots&family=Indie+Flower&family=Amatic+SC&family=Shadows+Into+Light&family=PT+Serif&family=Josefin+Sans&family=Cinzel&family=Exo+2&family=Karla&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+  
+</head>
+
+<body> 
+
+<header class="encabezado">
+  <div class="logo-container">
+    <img src="img/logo1.png" alt="Logo 1" class="logo-himnario" />
+    <h1 class="titulo-himnario">Himnario Digital</h1>
+    <img src="img/logo2.png" alt="Logo 2" class="logo-himnario" />
+  </div>
+</header>
+
+
+
+  <section class="search">
+    <input type="text" id="searchInput" placeholder="Buscar himno..." />
+  </section>
+<!-- Botón hamburguesa flotante -->
+<div class="menu-toggle" onclick="toggleMenu()">
+  <span class="line"></span>
+  <span class="line"></span>
+  <span class="line"></span>
+</div><!-- Menú oculto -->
+<nav id="menuOpciones" class="menu-opciones">
+  <button onclick="abrirMiHimnario()">🗂️ Mi Himnario</button>
+  <button onclick="verFavoritos()">⭐ Favoritos</button>
+  <button onclick="abrirConfiguracion()">⚙️ Configuración</button>
+</nav>
+<div id="paginationControls" class="pagination-controls"></div>
+
+
+<section id="hymnList" class="hymn-grid"></section>
+
+
+
+<div id="panelConfiguracion" class="panel-config">
+  <h3>🎨 Personaliza tu lectura</h3>
+
+  <label for="estiloSelect">Modo de estilo:</label>
+  <select id="estiloSelect">
+    <option value="claro">☀️ Claro</option>
+    <option value="oscuro">🌙 Oscuro</option>
+  </select>
+  
+<label for="fuenteSelect">Estilo de letra:</label>
+<select id="fuenteSelect">
+  <option value="Raleway">Raleway (moderna)</option>
+  <option value="Georgia">Georgia (clásica)</option>
+  <option value="Roboto">Roboto (limpia)</option>
+  <option value="Playfair Display">Playfair (elegante)</option>
+  <option value="Open Sans">Open Sans (versátil)</option>
+  <option value="Merriweather">Merriweather (serif cálida)</option>
+  <option value="Lora">Lora (literaria)</option>
+  <option value="Quicksand">Quicksand (suave)</option>
+  <option value="Poppins">Poppins (redondeada)</option>
+  <option value="Nunito">Nunito (amistosa)</option>
+  <option value="Montserrat">Montserrat (moderna)</option>
+  <option value="Oswald">Oswald (condensada)</option>
+  <option value="Raleway Dots">Raleway Dots (decorativa)</option>
+  <option value="Indie Flower">Indie Flower (manuscrita)</option>
+  <option value="Amatic SC">Amatic SC (dibujada)</option>
+  <option value="Shadows Into Light">Shadows Into Light (amistosa)</option>
+  <option value="PT Serif">PT Serif (clásica)</option>
+  <option value="Josefin Sans">Josefin Sans (con estilo)</option>
+  <option value="Cinzel">Cinzel (romana)</option>
+  <option value="Exo 2">Exo 2 (tecnológica)</option>
+  <option value="Karla">Karla (legible)</option>
+  <option value="Source Sans Pro">Source Sans Pro (profesional)</option>
+</select>
+
+
+  <label for="tamanoSelect">Tamaño de letra:</label>
+  <select id="tamanoSelect">
+    <option value="16px">Pequeño</option>
+    <option value="18px">Mediano</option>
+    <option value="20px">Grande</option>
+    <option value="24px">Muy grande</option>
+  </select>
+</div>
+<script>
+  (function(){
+    try {
+      const root = document.documentElement;
+      const body = document.body;
+      const fuente = localStorage.getItem('fuenteHimnos');
+      const tamano = localStorage.getItem('tamanoHimnos');
+      const modo = localStorage.getItem('modoOscuro');
+      if (fuente) root.style.setProperty('--fuente-himnos', `'${fuente}', sans-serif`);
+      if (tamano) root.style.setProperty('--tamano-himnos', tamano);
+      if (modo === 'true') body.classList.add('modo-oscuro');
+      if (fuente) {
+        const family = fuente.replace(/\s+/g, '+');
+        const id = 'gf-inline-' + family;
+        if (!document.getElementById(id)) {
+          const link = document.createElement('link');
+          link.id = id;
+          link.rel = 'stylesheet';
+          link.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(fuente).replace(/%20/g,'+') + '&display=swap';
+          document.head.appendChild(link);
+        }
+      }
+    } catch(e){ console.warn('Init estilos inline:', e); }
+  })();
+</script>
+
+
+  <script src="js/app.js"></script>
+  <script src="js/fondo.js"></script>
+  <script src="js/estilosUsuario.js"></script>
+
+<div class="creditos-footer">
+  © 2025 Iglesia Adventista de Dios en Reforma – Himnario Digital
+</div>
+</body>
+</html>
