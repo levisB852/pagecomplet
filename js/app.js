@@ -30,7 +30,7 @@ if (menuBtn && mobileMenu) {
   });
 }
 
-// Datos de eventos (puedes reemplazar por fetch a tu API)
+// Datos de eventos (si no usas eventos, este bloque no afecta nada)
 const EVENTS = [
   { id:1, title:'Vigilia de Oración', type:'culto', date:'2025-11-15', time:'7:00 PM', cover:'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop', place:'Templo principal' },
   { id:2, title:'Encuentro de Jóvenes', type:'jovenes', date:'2025-11-22', time:'4:00 PM', cover:'https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?q=80&w=1200&auto=format&fit=crop', place:'Salón multiusos' },
