@@ -3,16 +3,51 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Iglesia Adventista — Reforma</title>
-  <meta name="description" content="Recursos, historia, misión y visión, contacto." />
+
+  <!-- SEO básico -->
+  <title>Iglesia Adventista del Séptimo Día en Reforma | iadsder.org</title>
+  <meta name="description" content="Sitio oficial de la Iglesia Adventista del Séptimo Día en Reforma. Himnario, estatutos, manual doctrinal, misión, visión y contacto en El Salvador." />
+  <link rel="canonical" href="https://iadsder.org/">
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph (Facebook/WhatsApp) -->
+  <meta property="og:title" content="Iglesia Adventista del Séptimo Día en Reforma">
+  <meta property="og:description" content="Himnario, estatutos, manual doctrinal, misión, visión y contacto.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://iadsder.org/">
+  <meta property="og:image" content="https://iadsder.org/img/iglesia.ico">
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Datos estructurados (SEO local / Church) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Church",
+    "name": "Iglesia Adventista del Séptimo Día en Reforma",
+    "url": "https://iadsder.org/",
+    "logo": "https://iadsder.org/img/logo_igle.ico",
+    "image": "https://iadsder.org/img/iglesia.ico",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Esperanza #123",
+      "addressLocality": "San Miguel",
+      "addressCountry": "SV"
+    }
+  }
+  </script>
+
+  <!-- Fuentes + CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
   <!-- NAV -->
   <header class="nav">
     <div class="container nav-wrap">
-      <a class="brand" href="#" id="brandTop" aria-label="Inicio">
+      <a class="brand" href="#inicio" id="brandTop" aria-label="Inicio">
         <img src="img/logo_igle.ico" alt="Logo Iglesia Adventista" class="brand-logo" />
         <h3>Iglesia Adventista — Reforma</h3>
       </a>
@@ -22,12 +57,14 @@
         <a href="#mision-vision">Misión y Visión</a>
         <a href="#contacto">Contacto</a>
       </nav>
+
       <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M4 6h16M4 12h16M4 18h16" stroke="#1f3d2a" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
       </button>
     </div>
+
     <!-- Menú móvil -->
     <div id="mobileMenu" hidden class="container" style="padding-bottom:.8rem">
       <div class="card" role="menu">
@@ -47,13 +84,21 @@
     <div class="container hero-grid">
       <div data-reveal>
         <span class="badge">Bienvenido</span>
-        <h1>Esperanza, servicio y fe en comunidad</h1>
+
+        <!-- H1 optimizado para búsquedas -->
+        <h1>Iglesia Adventista del Séptimo Día en Reforma</h1>
+        <p class="muted" style="margin-top:.25rem">
+          Comunidad cristiana en El Salvador — esperanza, servicio y fe en comunidad.
+        </p>
+
         <p>Conoce nuestros recursos, nuestra historia y el propósito que nos guía. ¡Eres bienvenido!</p>
+
         <div class="hero-actions">
           <a class="btn btn-primary" href="#recursos">Ver recursos</a>
           <a class="btn btn-ghost" href="#contacto">Planificar visita</a>
         </div>
       </div>
+
       <div class="hero-media" data-reveal>
         <img src="img/iglesia.ico" alt="Iglesia en Reforma"/>
         <div class="hero-overlay">
@@ -91,7 +136,7 @@
         <article class="card">
           <img src="img/iglesia.ico" alt="Manual Doctrinal"/>
           <h3>Manual Doctrinal</h3>
-          <p class="muted">Recursos musicales para el culto.</p>
+          <p class="muted">Documento doctrinal y de orientación para la iglesia.</p>
           <a class="btn btn-ghost" href="archivos/manual.html">Ver manual</a>
         </article>
       </div>
@@ -153,6 +198,7 @@
           <p>¿Preguntas o peticiones de oración? Escríbenos.</p>
         </div>
       </div>
+
       <div class="grid grid-3" data-reveal>
         <div class="card" style="grid-column: span 2">
           <form id="contactForm" novalidate>
@@ -172,12 +218,19 @@
             <p id="formMsg" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
           </form>
         </div>
+
         <div class="card">
           <h3>Ubicación</h3>
           <p class="muted">Av. Esperanza #123, San Miguel — El Salvador</p>
           <div style="aspect-ratio: 4/3; border-radius:12px; overflow:hidden; border:1px solid var(--line)">
-            <iframe title="Mapa" width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.761984043476!2d-88.175!3d13.483"></iframe>
+            <iframe
+              title="Mapa"
+              width="100%" height="100%"
+              style="border:0"
+              loading="lazy"
+              allowfullscreen
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.761984043476!2d-88.175!3d13.483">
+            </iframe>
           </div>
         </div>
       </div>
@@ -188,11 +241,12 @@
     <div class="container footer-grid">
       <div>
         <div class="brand" style="margin-bottom:.6rem">
-          <img src="img/logo_igle.ico" alt="" class="brand-logo" />
+          <img src="img/logo_igle.ico" alt="Logo" class="brand-logo" />
           <h3>Iglesia Adventista — Reforma</h3>
         </div>
         <p class="muted">Una familia para crecer en fe, servir con amor y compartir esperanza.</p>
       </div>
+
       <div>
         <h3>Enlaces</h3>
         <ul class="list">
@@ -202,6 +256,7 @@
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </div>
+
       <div>
         <h3>Boletín</h3>
         <p class="muted">Recibe novedades y recordatorios.</p>
@@ -212,6 +267,7 @@
         </form>
       </div>
     </div>
+
     <div class="container" style="margin-top:1rem">
       <small class="muted">© <span id="year"></span> Iglesia Adventista — Reforma.</small>
     </div>
