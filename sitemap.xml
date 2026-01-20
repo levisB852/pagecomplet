@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Página principal -->
   <url>
     <loc>https://iadsder.org/</loc>
     <lastmod>2026-01-20</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.00</priority>
+  </url>
+
+  <!-- Himnario -->
+  <url>
+    <loc>https://iadsder.org/himnario/</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Estatutos -->
+  <url>
+    <loc>https://iadsder.org/archivos/estatutos.html</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Manual doctrinal -->
+  <url>
+    <loc>https://iadsder.org/archivos/manual.html</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.80</priority>
   </url>
 
 </urlset>
