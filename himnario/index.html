@@ -54,15 +54,29 @@
   </div>
 
   <script src="js/versiculo.js"></script>
-  <script>
-    const button = document.querySelector('.hero-button');
-    button.addEventListener('click', function (e) {
+
+<script>
+  const button = document.querySelector('.hero-button');
+
+  // Siempre restaurar al volver (evita pantalla negra)
+  function resetFade() {
+    document.body.classList.remove('fade-out');
+  }
+
+  window.addEventListener('load', resetFade);
+  window.addEventListener('pageshow', resetFade);
+
+  if (button) {
+    button.addEventListener('click', e => {
       e.preventDefault();
       document.body.classList.add('fade-out');
+
       setTimeout(() => {
         window.location.href = button.href;
-      }, 500);
+      }, 450);
     });
-  </script>
+  }
+</script>
+
 </body>
 </html>
