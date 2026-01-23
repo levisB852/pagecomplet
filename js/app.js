@@ -156,3 +156,21 @@ if (brandTop) {
     }
   }, { passive:true });
 })();
+// ---- Toggle mapas en Iglesias Filiales ----
+document.querySelectorAll('.toggle-map').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.filial-card');
+    if (!card) return;
+    const map = card.querySelector('.filial-map');
+    if (!map) return;
+
+    const isHidden = map.hasAttribute('hidden');
+    if (isHidden) {
+      map.removeAttribute('hidden');
+      btn.textContent = 'Ocultar ubicación';
+    } else {
+      map.setAttribute('hidden', '');
+      btn.textContent = 'Ver ubicación';
+    }
+  });
+});
