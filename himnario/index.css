@@ -38,15 +38,14 @@ body.fade-out {
   filter: brightness(0.5);
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;     /* ✅ antes -1 */
+  display: block;
 }
 
-/* ======================
-   OVERLAY
-====================== */
 .hero-overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;     /* ✅ overlay arriba */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,6 +53,7 @@ body.fade-out {
   text-align: center;
   padding: 1rem 2rem;
 }
+
 
 /* ======================
    TEXTOS
