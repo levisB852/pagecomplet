@@ -383,4 +383,5 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
   border:0;
   border-radius:14px;
   box-shadow: var(--shadow-xs);
+  display:block;
 }
