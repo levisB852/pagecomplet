@@ -174,3 +174,13 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     }
   });
 });
+// ====== Mensaje simple al enviar el formulario (sin romper Netlify Forms) ======
+(function contactSendingMsg(){
+  const form = document.getElementById('contactForm');
+  const msg = document.getElementById('formMsg');
+  if (!form || !msg) return;
+
+  form.addEventListener('submit', () => {
+    msg.textContent = 'Enviando...';
+  });
+})();

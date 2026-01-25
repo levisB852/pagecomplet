@@ -57,7 +57,6 @@
         <a href="#recursos">Recursos</a>
         <a href="#historia">Historia</a>
         <a href="#mision-vision">Misión y Visión</a>
-        <a href="#filiales">Filiales</a>
         <a href="#contacto">Contacto</a>
       </nav>
 
@@ -213,36 +212,41 @@
 
       <div class="grid grid-3" data-reveal>
         <div class="card" style="grid-column: span 2">
-          <form id="contactForm" novalidate>
-            <div class="field">
-              <label for="nombre">Nombre</label>
-              <input class="input" id="nombre" name="nombre" required placeholder="Tu nombre completo" />
-            </div>
-            <div class="field">
-              <label for="email">Correo</label>
-              <input class="input" id="email" name="email" type="email" required placeholder="tucorreo@ejemplo.com" />
-            </div>
-            <div class="field">
-              <label for="mensaje">Mensaje</label>
-              <textarea class="input" id="mensaje" name="mensaje" rows="5" required placeholder="¿En qué podemos ayudarte?"></textarea>
-            </div>
-            <button class="btn btn-primary" type="submit">Enviar mensaje</button>
-            <p id="formMsg" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
-          </form>
+          <form id="contactForm"
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="./archivos/gracias.html">
+
+  <input type="hidden" name="form-name" value="contact" />
+  <p style="display:none">
+    <label>No llenar: <input name="bot-field" /></label>
+  </p>
+
+  <div class="field">
+    <label for="nombre">Nombre</label>
+    <input class="input" id="nombre" name="nombre" required placeholder="Tu nombre completo" />
+  </div>
+
+  <div class="field">
+    <label for="email">Correo</label>
+    <input class="input" id="email" name="email" type="email" required placeholder="tucorreo@ejemplo.com" />
+  </div>
+
+  <div class="field">
+    <label for="mensaje">Mensaje</label>
+    <textarea class="input" id="mensaje" name="mensaje" rows="5" required placeholder="¿En qué podemos ayudarte?"></textarea>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Enviar mensaje</button>
+  <p id="formMsg" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
+</form>
+
+
+
         </div>
 
-        <div class="card">
-          <h3>Ubicación</h3>
-          <p class="muted">Av. Esperanza #123, San Miguel — El Salvador</p>
-          <div style="aspect-ratio: 4/3; border-radius:12px; overflow:hidden; border:1px solid var(--line)">
-            <iframe
-              title="Mapa"
-              width="100%" height="100%"
-              style="border:0"
-              loading="lazy"
-              allowfullscreen
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.761984043476!2d-88.175!3d13.483">
-            </iframe>
           </div>
         </div>
       </div>
