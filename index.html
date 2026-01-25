@@ -142,14 +142,13 @@
           <p class="muted">Documento doctrinal y de orientación para la iglesia.</p>
           <a class="btn btn-primary" href="archivos/manual.html">Ver manual</a>
         </article>
-        
-        <article class="card">
-  <img src="img/iglesia.jpg" alt="Iglesias filiales"/>
-  <h3>Filiales</h3>
-  <p class="muted">Conoce nuestras iglesias filiales, direcciones y ubicación en Google Maps.</p>
-  <a class="btn btn-primary" href="./archivos/filiales.html">Ver filiales</a>
-</article>
 
+        <article class="card">
+          <img src="img/iglesia.jpg" alt="Iglesias filiales"/>
+          <h3>Filiales</h3>
+          <p class="muted">Conoce nuestras iglesias filiales, direcciones y ubicación en Google Maps.</p>
+          <a class="btn btn-primary" href="./archivos/filiales.html">Ver filiales</a>
+        </article>
       </div>
     </div>
   </section>
@@ -212,42 +211,38 @@
 
       <div class="grid grid-3" data-reveal>
         <div class="card" style="grid-column: span 2">
+
           <form id="contactForm"
-      name="contact"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      action="./archivos/gracias.html">
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                action="/">
 
-  <input type="hidden" name="form-name" value="contact" />
-  <p style="display:none">
-    <label>No llenar: <input name="bot-field" /></label>
-  </p>
+            <input type="hidden" name="form-name" value="contact" />
+            <p style="display:none">
+              <label>No llenar: <input name="bot-field" /></label>
+            </p>
 
-  <div class="field">
-    <label for="nombre">Nombre</label>
-    <input class="input" id="nombre" name="nombre" required placeholder="Tu nombre completo" />
-  </div>
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input class="input" id="nombre" name="nombre" required placeholder="Tu nombre completo" />
+            </div>
 
-  <div class="field">
-    <label for="email">Correo</label>
-    <input class="input" id="email" name="email" type="email" required placeholder="tucorreo@ejemplo.com" />
-  </div>
+            <div class="field">
+              <label for="email">Correo</label>
+              <input class="input" id="email" name="email" type="email" required placeholder="tucorreo@ejemplo.com" />
+            </div>
 
-  <div class="field">
-    <label for="mensaje">Mensaje</label>
-    <textarea class="input" id="mensaje" name="mensaje" rows="5" required placeholder="¿En qué podemos ayudarte?"></textarea>
-  </div>
+            <div class="field">
+              <label for="mensaje">Mensaje</label>
+              <textarea class="input" id="mensaje" name="mensaje" rows="5" required placeholder="¿En qué podemos ayudarte?"></textarea>
+            </div>
 
-  <button class="btn btn-primary" type="submit">Enviar mensaje</button>
-  <p id="formMsg" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
-</form>
+            <button class="btn btn-primary" type="submit">Enviar mensaje</button>
+            <p id="formMsg" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
+          </form>
 
-
-
-        </div>
-
-          </div>
         </div>
       </div>
     </div>
@@ -295,4 +290,3 @@
   <script src="js/app.js"></script>
 </body>
 </html>
-

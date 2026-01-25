@@ -125,23 +125,22 @@ if (brandTop) {
 
   let lastY = window.scrollY;
   let ticking = false;
-  const downHideStart = 80;   // desde qué distancia empezamos a ocultar
-  const minDelta = 8;         // mínimo desplazamiento para reaccionar (anti-jitter)
+  const downHideStart = 80;
+  const minDelta = 8;
 
   function onScroll() {
     const y = window.scrollY;
     const delta = y - lastY;
 
-    // si el menú móvil está abierto, no ocultar
     const menuOpen = mobileMenu && !mobileMenu.hasAttribute('hidden');
 
     if (Math.abs(delta) > minDelta && !menuOpen) {
       const goingDown = delta > 0;
 
       if (goingDown && y > downHideStart) {
-        nav.classList.add('nav--hidden');      // ocultar al bajar
+        nav.classList.add('nav--hidden');
       } else {
-        nav.classList.remove('nav--hidden');   // mostrar al subir aunque sea poquito
+        nav.classList.remove('nav--hidden');
       }
 
       lastY = y;
@@ -156,6 +155,7 @@ if (brandTop) {
     }
   }, { passive:true });
 })();
+
 // ---- Toggle mapas en Iglesias Filiales ----
 document.querySelectorAll('.toggle-map').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -174,13 +174,49 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     }
   });
 });
-// ====== Mensaje simple al enviar el formulario (sin romper Netlify Forms) ======
-(function contactSendingMsg(){
+
+
+// ============================================================
+// ✅ NETLIFY FORMS: Enviar contacto SIN redirigir (AJAX GRATIS)
+// ============================================================
+(function netlifyAjaxContact(){
   const form = document.getElementById('contactForm');
-  const msg = document.getElementById('formMsg');
+  const msg  = document.getElementById('formMsg');
   if (!form || !msg) return;
 
-  form.addEventListener('submit', () => {
+  function setDisabled(disabled) {
+    const btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = disabled;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
     msg.textContent = 'Enviando...';
+    setDisabled(true);
+
+    const body = new URLSearchParams(new FormData(form)).toString();
+    const action = form.getAttribute('action') || '/';
+
+    try {
+      const res = await fetch(action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+      });
+
+      const ok = res.ok || (res.status >= 300 && res.status < 400);
+
+      if (ok) {
+        msg.textContent = '✅ Mensaje enviado correctamente. Gracias por escribirnos.';
+        form.reset();
+      } else {
+        msg.textContent = `❌ No se pudo enviar (código ${res.status}). Intenta más tarde.`;
+      }
+    } catch (err) {
+      msg.textContent = '❌ Error de conexión. Intenta nuevamente.';
+    } finally {
+      setDisabled(false);
+    }
   });
 })();
