@@ -184,37 +184,3 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     msg.textContent = 'Enviando...';
   });
 })();
-
-// ====== Envío AJAX correcto para Netlify Forms (GRATIS) ======
-(function netlifyAjaxForm(){
-  const form = document.getElementById('contactForm');
-  const msg = document.getElementById('formMsg');
-  if (!form || !msg) return;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    msg.textContent = 'Enviando...';
-
-    const data = new URLSearchParams(new FormData(form)).toString();
-
-    try {
-      const res = await fetch('/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: data
-      });
-
-      if (res.ok) {
-        msg.textContent = '✅ Mensaje enviado correctamente. Gracias por escribirnos.';
-        form.reset();
-      } else {
-        msg.textContent = '❌ No se pudo enviar el mensaje. Intenta más tarde.';
-      }
-    } catch (err) {
-      msg.textContent = '❌ Error de conexión. Intenta nuevamente.';
-    }
-  });
-})();
