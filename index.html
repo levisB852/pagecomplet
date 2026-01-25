@@ -216,8 +216,7 @@
       name="contact"
       method="POST"
       data-netlify="true"
-      netlify-honeypot="bot-field"
-      action="./archivos/gracias.html">
+      netlify-honeypot="bot-field">
 
   <input type="hidden" name="form-name" value="contact" />
   <p style="display:none">
@@ -226,25 +225,24 @@
 
   <div class="field">
     <label for="nombre">Nombre</label>
-    <input class="input" id="nombre" name="nombre" required placeholder="Tu nombre completo" />
+    <input class="input" id="nombre" name="nombre" required />
   </div>
 
   <div class="field">
     <label for="email">Correo</label>
-    <input class="input" id="email" name="email" type="email" required placeholder="tucorreo@ejemplo.com" />
+    <input class="input" id="email" name="email" type="email" required />
   </div>
 
   <div class="field">
     <label for="mensaje">Mensaje</label>
-    <textarea class="input" id="mensaje" name="mensaje" rows="5" required placeholder="¿En qué podemos ayudarte?"></textarea>
+    <textarea class="input" id="mensaje" name="mensaje" rows="5" required></textarea>
   </div>
 
   <button class="btn btn-primary" type="submit">Enviar mensaje</button>
   <p id="formMsg" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
 </form>
 
-
-
+          
         </div>
 
           </div>

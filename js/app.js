@@ -184,3 +184,34 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     msg.textContent = 'Enviando...';
   });
 })();
+
+// ====== Envío AJAX para Netlify Forms (GRATIS, sin redirección) ======
+(function netlifyAjaxForm(){
+  const form = document.getElementById('contactForm');
+  const msg = document.getElementById('formMsg');
+  if (!form || !msg) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // detenemos envío normal
+
+    msg.textContent = 'Enviando...';
+
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (res.ok) {
+        msg.textContent = '✅ Mensaje enviado correctamente. Gracias por escribirnos.';
+        form.reset();
+      } else {
+        msg.textContent = '❌ No se pudo enviar el mensaje. Intenta más tarde.';
+      }
+    } catch (err) {
+      msg.textContent = '❌ Error de conexión. Intenta nuevamente.';
+    }
+  });
+})();
