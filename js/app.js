@@ -175,9 +175,8 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
   });
 });
 
-
 // ============================================================
-// ✅ NETLIFY FORMS: Enviar contacto SIN redirigir (AJAX GRATIS)
+// ✅ NETLIFY FORMS: Enviar contacto SIN redirigir (AJAX GRATIS) - FIX 404
 // ============================================================
 (function netlifyAjaxContact(){
   const form = document.getElementById('contactForm');
@@ -196,10 +195,10 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     setDisabled(true);
 
     const body = new URLSearchParams(new FormData(form)).toString();
-    const action = form.getAttribute('action') || '/';
 
     try {
-      const res = await fetch(action, {
+      // 👇 endpoint correcto para Netlify Forms
+      const res = await fetch('/.netlify/forms', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body
