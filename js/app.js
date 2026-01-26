@@ -219,3 +219,60 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     }
   });
 })();
+
+// ====== Videos YouTube: reproducir en modal o abrir en YouTube ======
+(function youtubeCards(){
+  const modal = document.getElementById('videoModal');
+  const frame = document.getElementById('videoFrame');
+  const titleEl = document.getElementById('videoTitle');
+  const openYtBtn = document.getElementById('videoOpenYoutube');
+
+  if (!modal || !frame || !titleEl || !openYtBtn) return;
+
+  const openModal = (id, title='') => {
+    // autoplay + modestbranding para que se vea más limpio
+    frame.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+    titleEl.textContent = title || 'Video';
+    openYtBtn.href = `https://www.youtube.com/watch?v=${id}`;
+    modal.hidden = false;
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    modal.hidden = true;
+    modal.setAttribute('aria-hidden', 'true');
+    frame.src = ''; // importante: parar el video
+    document.body.style.overflow = '';
+  };
+
+  // Delegación: clicks en tarjetas
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.video-card');
+    if (!card) return;
+
+    const id = card.getAttribute('data-youtube-id');
+    const title = card.getAttribute('data-title') || '';
+
+    // Botones "Reproducir aquí" o play sobre la imagen
+    if (e.target.closest('.video-open') || e.target.closest('.video-play')) {
+      openModal(id, title);
+    }
+
+    // Link "Abrir en YouTube" (web/app)
+    const ytLink = card.querySelector('.video-youtube');
+    if (ytLink) {
+      ytLink.href = `https://www.youtube.com/watch?v=${id}`;
+    }
+  });
+
+  // Cerrar modal: click fuera o botón X
+  modal.addEventListener('click', (e) => {
+    if (e.target.matches('[data-close]')) closeModal();
+  });
+
+  // Cerrar con ESC
+  window.addEventListener('keydown', (e) => {
+    if (!modal.hidden && e.key === 'Escape') closeModal();
+  });
+})();
