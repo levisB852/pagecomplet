@@ -503,4 +503,17 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
     background: rgba(0,0,0,.35);
     border-color: rgba(255,255,255,.35);
   }
+}@media (max-width: 960px){
+  .nav{
+    padding: 6px 10px;
+  }
+
+  .nav-wrap{
+    border-radius: 14px;
+  }
+}
+@media (max-width: 960px){
+  #mobileMenu{
+    margin-inline: 6px;
+  }
 }
