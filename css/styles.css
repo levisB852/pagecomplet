@@ -495,3 +495,12 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
   height: 16px;
   display: block;
 }
+@media (max-width: 960px){
+  .menu-btn svg path{
+    stroke: #fff !important;
+  }
+  .menu-btn{
+    background: rgba(0,0,0,.35);
+    border-color: rgba(255,255,255,.35);
+  }
+}
