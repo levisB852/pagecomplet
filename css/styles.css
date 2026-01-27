@@ -468,3 +468,30 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
   margin-top:.85rem;
   flex-wrap: wrap;
 }
+
+.whatsapp-contact{
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.btn-whatsapp-small{
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .45rem .75rem;
+  font-size: .9rem;
+  border-radius: 999px;
+  background: #7dcbf8;
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-whatsapp-small:hover{
+  background: #e582ee;
+}
+
+.btn-whatsapp-small .wa-icon{
+  width: 16px;
+  height: 16px;
+  display: block;
+}
