@@ -1145,8 +1145,9 @@
           "Contigo en las luchas victorias ganamos.",
           "Tu nombre sea honrado, oh Salvador."
         ]
-      },
-      
+      }
+    ]
+    },
   {
     "number": 25,
     "title": "¡Suenen dulces himnos!",
@@ -1167,12 +1168,11 @@
         "lines": [
           "¡Gloria!, ¡gloria sea a nuestro Dios!",
           "¡Gloria!, sí cantemos a una voz.",
-          "En Belén, sea nuestro cántico también."
+          "Y el cantar de gloria que se oyó",
+          "en Belén, sea nuestro cántico también."
         ]
-      }
-    ]
-  },
-  {
+      },
+      {
         "type": "verse",
         "label": "Estrofa 2",
         "lines": [
