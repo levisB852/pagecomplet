@@ -71,90 +71,130 @@
     </div>
   </section>
 
-  <!-- LISTA DE FILIALES -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>Ubicaciones</h2>
-          <p>Estas son algunas de nuestras iglesias filiales.</p>
-        </div>
-      </div>
-
-      <div class="grid grid-3" data-reveal>
-
-        <!-- FILIAL COJUTEPEQUE -->
-        <article class="card filial-card">
-          <h3>Iglesia Filial Cojutepeque</h3>
-          <p class="muted">Dirección: </p>
-
-          <div class="filial-actions">
-            <a class="btn btn-primary" target="_blank" rel="noopener"
-              href="https://maps.app.goo.gl/2y1d1pHdCJRySLwT8">
-              Abrir en Google Maps
-            </a>
-          </div>
-
-          <div class="filial-map">
-            <iframe
-              title="Mapa Filial Cojutepeque"
-              loading="lazy"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1937.9563384372314!2d-88.94559830060635!3d13.723736395415413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f634fea4c23b161%3A0xb37c315efcfb2927!2sIglesia%20Adventista%20del%20S%C3%A9ptimo%20D%C3%ADa%20En%20Reforma!5e0!3m2!1ses-419!2ssv!4v1769199242656!5m2!1ses-419!2ssv">
-            </iframe>
-          </div>
-        </article>
-
-        <!-- FILIAL RÍO FRÍO -->
-        <article class="card filial-card">
-          <h3>Iglesia Filial Río Frío</h3>
-          <p class="muted">Dirección: </p>
-
-          <div class="filial-actions">
-            <a class="btn btn-primary" target="_blank" rel="noopener"
-              href="https://maps.app.goo.gl/n128SFDfiNXiJJUR8">
-              Abrir en Google Maps
-            </a>
-          </div>
-
-          <div class="filial-map">
-            <iframe
-              title="Mapa Filial Río Frío"
-              loading="lazy"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2114.442794756477!2d-88.61422078176868!3d13.602607696558037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64b3e226470317%3A0xa7ce63600f0620a1!2sIglesia%20Adventista%20de%20Dios%20del%20septimo%20dia%20en%20reforma!5e0!3m2!1ses-419!2ssv!4v1769194567884!5m2!1ses-419!2ssv">
-            </iframe>
-          </div>
-        </article>
-
-        <!-- FILIAL 3 (PLANTILLA) -->
-        <article class="card filial-card">
-          <h3>Iglesia Filial San Miguel</h3>
-          <p class="muted">Dirección: </p>
-
-          <div class="filial-actions">
-            <a class="btn btn-primary" target="_blank" rel="noopener"
-            href="https://maps.app.goo.gl/4ze8oP4YThN3Bm366">
-            Abrir en Google Maps
-            </a>
-          </div>
-
-          <div class="filial-map">
-            <iframe
-              title="Mapa Filial 3"
-              loading="lazy"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1153.4731018835391!2d-88.1614974217002!3d13.486074259861214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7ad5004f27c529%3A0x7731ea0bcd4c822c!2sIglesia%20Adventista%20de%20Dios%20del%20s%C3%A9ptimo%20d%C3%ADa%20en%20reforma!5e0!3m2!1ses-419!2ssv!4v1769286541171!5m2!1ses-419!2ssv">
-            </iframe>
-          </div>
-        </article>
-
+<!-- LISTA DE FILIALES -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Ubicaciones</h2>
+        <p>Estas son algunas de nuestras iglesias filiales.</p>
       </div>
     </div>
-  </section>
+
+    <div class="grid grid-3" data-reveal>
+
+      <!-- FILIAL COJUTEPEQUE -->
+      <article class="card filial-card">
+        <h3>Iglesia Filial Cojutepeque</h3>
+        <p class="muted">Dirección: Cojutepeque, El Salvador</p>
+
+        <div class="filial-actions">
+          <button class="btn btn-primary toggle-map" type="button">
+            Ver ubicación
+          </button>
+
+          <a class="btn btn-ghost" target="_blank" rel="noopener"
+             href="https://maps.app.goo.gl/2y1d1pHdCJRySLwT8">
+            Abrir en Google Maps
+          </a>
+        </div>
+
+        <div class="filial-map" hidden>
+          <iframe
+            title="Mapa Filial Cojutepeque"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1937.9563384372314!2d-88.94559830060635!3d13.723736395415413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f634fea4c23b161%3A0xb37c315efcfb2927!2sIglesia%20Adventista%20del%20S%C3%A9ptimo%20D%C3%ADa%20En%20Reforma!5e0!3m2!1ses-419!2ssv">
+          </iframe>
+        </div>
+      </article>
+
+      <!-- FILIAL RÍO FRÍO -->
+      <article class="card filial-card">
+        <h3>Iglesia Filial Río Frío</h3>
+        <p class="muted">Dirección: Río Frío, El Salvador</p>
+
+        <div class="filial-actions">
+          <button class="btn btn-primary toggle-map" type="button">
+            Ver ubicación
+          </button>
+
+          <a class="btn btn-ghost" target="_blank" rel="noopener"
+             href="https://maps.app.goo.gl/n128SFDfiNXiJJUR8">
+            Abrir en Google Maps
+          </a>
+        </div>
+
+        <div class="filial-map" hidden>
+          <iframe
+            title="Mapa Filial Río Frío"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2114.442794756477!2d-88.61422078176868!3d13.602607696558037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64b3e226470317%3A0xa7ce63600f0620a1!2sIglesia%20Adventista%20de%20Dios%20del%20septimo%20dia%20en%20reforma!5e0!3m2!1ses-419!2ssv">
+          </iframe>
+        </div>
+      </article>
+
+      <!-- FILIAL SAN MIGUEL -->
+      <article class="card filial-card">
+        <h3>Iglesia Filial San Miguel</h3>
+        <p class="muted">Dirección: San Miguel, El Salvador</p>
+
+        <div class="filial-actions">
+          <button class="btn btn-primary toggle-map" type="button">
+            Ver ubicación
+          </button>
+
+          <a class="btn btn-ghost" target="_blank" rel="noopener"
+             href="https://maps.app.goo.gl/4ze8oP4YThN3Bm366">
+            Abrir en Google Maps
+          </a>
+        </div>
+
+        <div class="filial-map" hidden>
+          <iframe
+            title="Mapa Filial San Miguel"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1153.4731018835391!2d-88.1614974217002!3d13.486074259861214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7ad5004f27c529%3A0x7731ea0bcd4c822c!2sIglesia%20Adventista%20de%20Dios%20del%20s%C3%A9ptimo%20d%C3%ADa%20en%20reforma!5e0!3m2!1ses-419!2ssv">
+          </iframe>
+        </div>
+      </article>
+
+      <!-- FILIAL ZAPOTITÁN -->
+      <article class="card filial-card">
+        <h3>Iglesia Filial Zapotitán</h3>
+        <p class="muted">Dirección: Zapotitán, El Salvador</p>
+
+        <div class="filial-actions">
+          <button class="btn btn-primary toggle-map" type="button">
+            Ver ubicación
+          </button>
+
+          <a class="btn btn-ghost" target="_blank" rel="noopener"
+             href="https://maps.app.goo.gl/JwJRHieKuVBbzekW9">
+            Abrir en Google Maps
+          </a>
+        </div>
+
+        <div class="filial-map" hidden>
+          <iframe
+            title="Mapa Filial Zapotitán"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2112.654628436369!2d-89.44714906036867!3d13.801429706935052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f62d9fad9af995b%3A0xb7127c64b1ad9739!2sIglesia%20adventista%20de%20Dios%20del%20s%C3%A9ptimo%20d%C3%ADa%20en%20reforma%20zapotitan!5e0!3m2!1ses-419!2ssv">
+          </iframe>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 
   <footer>
     <div class="container footer-grid">
