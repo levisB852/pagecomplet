@@ -11,7 +11,7 @@
 
   <!-- CANONICAL: ajusta si tu URL final es distinta -->
   <link rel="canonical" href="https://iadsder.org/archivos/manual-doctrina/" />
-
+    <link rel="icon" href="../img/Logo_IADSDER.png">
   <link rel="stylesheet" href="../css/styles.css" />
 
   <!-- Open Graph -->
@@ -29,15 +29,34 @@
   <header class="nav">
     <div class="container nav-wrap">
       <a class="brand" href="../index.html#inicio">
-        <img src="../img/logo_igle.ico" alt="Logo" class="brand-logo" />
-        <h3>IADSDER</h3>
+        <img src="../img/Logo_IADSDER.png" alt="Logo" class="brand-logo" />
+        <h3>Iglesia Adventista de Dios del Séptimo Día en Reforma</h3>
       </a>
-      <nav class="nav-links">
+
+      <nav class="nav-links" aria-label="Principal">
         <a href="../index.html#recursos">Recursos</a>
         <a href="../index.html#historia">Historia</a>
         <a href="../index.html#mision-vision">Misión y Visión</a>
         <a href="../index.html#contacto">Contacto</a>
       </nav>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="#7b8aa6" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" hidden class="container" style="padding-bottom:.8rem">
+      <div class="card" role="menu">
+        <a role="menuitem" href="../index.html#recursos">Recursos</a>
+        <div class="divider"></div>
+        <a role="menuitem" href="../index.html#historia">Historia</a>
+        <div class="divider"></div>
+        <a role="menuitem" href="../index.html#mision-vision">Misión y Visión</a>
+        <div class="divider"></div>
+        <a role="menuitem" href="../index.html#contacto">Contacto</a>
+      </div>
     </div>
   </header>
 
@@ -116,27 +135,29 @@
   </section>
 
   <!-- FOOTER -->
-  <footer>
+<footer>
     <div class="container footer-grid">
       <div>
-        <div class="brand">
-          <img src="../img/Logo_IADSDER.png" class="brand-logo" alt="">
-          <h3>IADSDER</h3>
+        <div class="brand" style="margin-bottom:.6rem">
+          <img src="../img/Logo_IADSDER.png" alt="Logo" class="brand-logo" />
+          <h3>Iglesia Adventista de Dios del Séptimo día en Reforma</h3>
         </div>
-        <p class="muted">Manual doctrinal oficial.</p>
+        <p class="muted">Una familia para crecer en fe, servir con amor y compartir esperanza.</p>
       </div>
 
       <div>
         <h3>Enlaces</h3>
         <ul class="list">
-          <li><a href="../index.html#recursos">Recursos</a></li>
-          <li><a href="../index.html#contacto">Contacto</a></li>
+          <li><a href="#recursos">Recursos</a></li>
+          <li><a href="#historia">Historia</a></li>
+          <li><a href="#mision-vision">Misión y Visión</a></li>
+          <li><a href="#contacto">Contacto</a></li>
         </ul>
       </div>
-    </div>
+
 
     <div class="container" style="margin-top:1rem">
-      <small class="muted">© <span id="year"></span> IADSDER</small>
+      <small class="muted">© <span id="year"></span> Iglesia Adventista de Dios del Séptimo día En Reforma.</small>
     </div>
   </footer>
 
