@@ -276,3 +276,34 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     if (!modal.hidden && e.key === 'Escape') closeModal();
   });
 })();
+
+(function galleryLightbox(){
+  const modal = document.getElementById("imgModal");
+  const view  = document.getElementById("imgModalView");
+  if(!modal || !view) return;
+
+  function open(src, alt){
+    view.src = src;
+    view.alt = alt || "Imagen";
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+  function close(){
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden","true");
+    view.src = "";
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".gallery-item img").forEach(img=>{
+    img.parentElement.addEventListener("click", ()=> open(img.src, img.alt));
+  });
+
+  modal.addEventListener("click", (e)=>{
+    if(e.target.matches("[data-close]")) close();
+  });
+  document.addEventListener("keydown", (e)=>{
+    if(!modal.hidden && e.key === "Escape") close();
+  });
+})();
