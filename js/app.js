@@ -276,7 +276,6 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     if (!modal.hidden && e.key === 'Escape') closeModal();
   });
 })();
-
 (function galleryLightbox(){
   const modal = document.getElementById("imgModal");
   const view  = document.getElementById("imgModalView");
@@ -296,14 +295,22 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     document.body.style.overflow = "";
   }
 
+  // ✅ Galería
   document.querySelectorAll(".gallery-item img").forEach(img=>{
+    img.parentElement.addEventListener("click", ()=> open(img.src, img.alt));
+  });
+
+  // ✅ Filiales (nuevo)
+  document.querySelectorAll(".filial-item img").forEach(img=>{
     img.parentElement.addEventListener("click", ()=> open(img.src, img.alt));
   });
 
   modal.addEventListener("click", (e)=>{
     if(e.target.matches("[data-close]")) close();
   });
+
   document.addEventListener("keydown", (e)=>{
     if(!modal.hidden && e.key === "Escape") close();
   });
 })();
+
