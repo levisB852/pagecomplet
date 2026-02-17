@@ -839,12 +839,12 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
   display:flex;
   gap:6px;
   margin-top:10px;
-  height:24px;           /* altura fija */
+  height: 38px;           /* altura fija */
   align-items:flex-end;
 }
 
 .radio-wave span{
-  width:5px;
+  width:10px;
   height:100%;
   background:#7c3aed;
   border-radius:999px;
