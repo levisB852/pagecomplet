@@ -314,3 +314,43 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
   });
 })();
 
+(function radioPlayer(){
+  const audio = document.getElementById('radioAudio');
+  const btn = document.getElementById('radioToggle');
+  const vol = document.getElementById('radioVol');
+  const status = document.getElementById('radioStatus');
+
+  if (!audio || !btn || !vol || !status) return;
+
+  const setUI = (playing) => {
+    btn.textContent = playing ? '⏸ Pausar' : '▶ Reproducir';
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+  };
+
+  btn.addEventListener('click', async () => {
+    try {
+      if (audio.paused) {
+        status.textContent = 'Conectando...';
+        await audio.play(); // requiere interacción del usuario: tu click cumple
+        setUI(true);
+        status.textContent = '🔊 Reproduciendo en vivo.';
+      } else {
+        audio.pause();
+        setUI(false);
+        status.textContent = 'Pausado.';
+      }
+    } catch (e) {
+      setUI(false);
+      status.textContent = '❌ No se pudo reproducir. Intenta otra vez (el navegador puede bloquear autoplay).';
+    }
+  });
+
+  vol.addEventListener('input', () => {
+    audio.volume = Number(vol.value);
+  });
+
+  audio.addEventListener('waiting', () => status.textContent = 'Cargando señal...');
+  audio.addEventListener('playing', () => status.textContent = '🔊 Reproduciendo en vivo.');
+  audio.addEventListener('pause', () => status.textContent = 'Pausado.');
+  audio.addEventListener('error', () => status.textContent = '❌ Error al cargar la transmisión.');
+})();

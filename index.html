@@ -145,6 +145,14 @@
           <p class="muted">Conoce nuestras iglesias filiales, direcciones y ubicación en Google Maps.</p>
           <a class="btn btn-primary" href="./archivos/filiales.html">Ver filiales</a>
         </article>
+
+        <article class="card">
+          <img src="img/iglesia.jpg" alt="Plan Maravilloso"/>
+          <h3>Plan Maravilloso</h3>
+          <p class="muted">Conoce el plan maravilloso de Dios para la humanidad.</p>
+          <a class="btn btn-primary" href="./archivos/plan-maravilloso.html">Ver plan</a>
+        </article>
+
       </div>
     </div>
   </section>
@@ -244,6 +252,55 @@
   </div>
 </div>
 
+<section id="radio" class="section alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Radio en Vivo</h2>
+        <p>Escucha nuestra programación cristiana desde cualquier lugar.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-2" data-reveal>
+
+      <article class="card emphasis radio-card" data-reveal>
+  <div class="radio-head">
+    <div>
+      <h3 class="radio-title">📻 IADSDER Radio</h3>
+      <p class="muted" style="margin:.25rem 0 0">Predicaciones, himnos y mensajes de esperanza.</p>
+    </div>
+
+    <span class="radio-live" aria-label="En vivo">
+      <span class="radio-dot" aria-hidden="true"></span> EN VIVO
+    </span>
+  </div>
+
+  <!-- audio real (oculto) -->
+  <audio id="radioAudio" preload="none">
+    <source src="https://stream.zeno.fm/rghmon0t9xauv" type="audio/mpeg">
+  </audio>
+
+  <!-- Controles bonitos -->
+  <div class="radio-controls">
+    <button class="btn btn-primary radio-btn" id="radioToggle" type="button" aria-pressed="false">
+      ▶ Reproducir
+    </button>
+
+    <div class="radio-volume">
+      <span class="muted">Volumen</span>
+      <input id="radioVol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen">
+    </div>
+  </div>
+
+  <p class="muted" id="radioStatus" style="margin-top:.8rem">Listo para reproducir.</p>
+</article>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
 <section id="galeria" class="section">
   <div class="container">
     <div class="section-head">
