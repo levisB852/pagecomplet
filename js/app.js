@@ -319,13 +319,20 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
   const btn = document.getElementById('radioToggle');
   const vol = document.getElementById('radioVol');
   const status = document.getElementById('radioStatus');
+  const card = btn.closest('.radio-card');
+
 
   if (!audio || !btn || !vol || !status) return;
 
   const setUI = (playing) => {
-    btn.textContent = playing ? '⏸ Pausar' : '▶ Reproducir';
-    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
-  };
+  btn.textContent = playing ? '⏸ Pausar' : '▶ Reproducir';
+  btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+
+  if (card) {
+    card.classList.toggle('is-playing', playing);
+  }
+};
+
 
   btn.addEventListener('click', async () => {
     try {
