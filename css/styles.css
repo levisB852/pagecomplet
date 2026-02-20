@@ -614,158 +614,34 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
 .radio-card{
   position: relative;
 }
-
-.radio-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap: 12px;
-}
-
-.radio-title{
-  margin: 0;
-}
-
-.radio-live{
-  display:inline-flex;
-  align-items:center;
-  gap: 8px;
-  font-weight: 650;
-  font-size: .85rem;
-  padding: .35rem .6rem;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(199, 199, 199, 0.75);
-}
-
-.radio-dot{
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: #e11d48;
-  box-shadow: 0 0 0 0 rgba(225,29,72,.55);
-  animation: radioPulse 1.2s infinite;
-}
-
-@keyframes radioPulse{
-  0%{ box-shadow: 0 0 0 0 rgba(225,29,72,.55); }
-  70%{ box-shadow: 0 0 0 10px rgba(225,29,72,0); }
-  100%{ box-shadow: 0 0 0 0 rgba(225,29,72,0); }
-}
-
-.radio-controls{
-  margin-top: 14px;
-  display:flex;
-  align-items:center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.radio-btn{
-  min-width: 160px;
-}
-
-.radio-volume{
-  display:flex;
-  align-items:center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: rgba(59, 57, 57, 0.616);
-}
-
-.radio-volume input[type="range"]{
-  width: 180px;
-}
+/* =========================================================
+   RADIO (LIMPIO, SIN REPETIDOS)
+   ========================================================= */
 
 .radio-card{
-  background:linear-gradient(140deg,#312e81,#020617);
-  color:white;
-  border:0;
-}
-
-.radio-btn{
-  background:#7c3aed;
-  border:none;
-}
-
-.radio-btn:hover{
-  background:#6d28d9;
-}
-/* ===== BADGE EN VIVO dinámico ===== */
-
-.radio-live{
-  transition: all .3s ease;
-  opacity: .6;
-}
-
-/* Estado activo */
-.radio-card.is-playing .radio-live{
-  background: rgba(225,29,72,.15);
-  border-color: rgba(225,29,72,.4);
+  position: relative;
+  border: 0;
   color: #fff;
-  opacity: 1;
+  background: linear-gradient(140deg,#312e81,#020617);
+  overflow: hidden;
+  transition: box-shadow .25s ease;
 }
 
-/* Punto rojo *//* ================= PUNTO RADIO ================= */
-
-/* APAGADO por defecto */
-.radio-dot{
-  width:10px;
-  height:10px;
-  border-radius:999px;
-  background:#333;
-  opacity:.4;
-  box-shadow:none;
-  animation:none;
-  transition:all .25s ease;
+/* glow suave */
+.radio-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at top, rgba(124,58,237,.25), transparent 60%);
+  pointer-events:none;
 }
 
-/* ENCENDIDO solo cuando reproduce */
-.radio-card.is-playing .radio-dot{
-  background:#e11d48;
-  opacity:1;
-  box-shadow:0 0 12px rgba(225,29,72,.6);
-  animation:radioPulse 1.2s infinite;
-}
-
-/* Pulso SOLO cuando está encendido */
-@keyframes radioPulse{
-  0%{ box-shadow:0 0 0 0 rgba(225,29,72,.55); }
-  70%{ box-shadow:0 0 0 12px rgba(225,29,72,0); }
-  100%{ box-shadow:0 0 0 0 rgba(225,29,72,0); }
-}
-
-
-/* Animación solo cuando reproduce */
-.radio-card.is-playing .radio-dot{
-  animation: radioPulse 1.2s infinite;
-}
-
-@keyframes radioPulse{
-  0%{ box-shadow: 0 0 0 0 rgba(225,29,72,.55); }
-  70%{ box-shadow: 0 0 0 12px rgba(225,29,72,0); }
-  100%{ box-shadow: 0 0 0 0 rgba(225,29,72,0); }
-}
-/* ================= RADIO GLOW PRO ================= */
-
-/* transición suave */
-.radio-card,
-.radio-btn,
-.radio-live,
-.radio-player{
-  transition: all .25s ease;
-}
-
-/* Glow general SOLO cuando está reproduciendo */
+/* glow SOLO al reproducir */
 .radio-card.is-playing{
   box-shadow:
     0 18px 45px rgba(124,58,237,.35),
     0 2px 0 rgba(255,255,255,.06) inset;
 }
-
-/* borde/resplandor suave alrededor */
 .radio-card.is-playing::after{
   content:"";
   position:absolute;
@@ -775,71 +651,124 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
   box-shadow: 0 0 0 1px rgba(124,58,237,.35) inset;
 }
 
-/* Botón con glow cuando reproduce */
-.radio-card.is-playing .radio-btn{
+.radio-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 14px;
+}
+
+/* logo + titulo */
+.radio-logo{
+  width:95px;
+  height:95px;
+  object-fit:cover;
+  border-radius:16px;
   box-shadow:
-    0 12px 30px rgba(124,58,237,.55),
-    0 0 0 1px rgba(255,255,255,.10) inset;
-  transform: translateY(-1px);
+    0 8px 25px rgba(124,58,237,.35),
+    0 0 0 1px rgba(255,255,255,.08) inset;
+  transition:transform .25s ease;
 }
+.radio-card.is-playing .radio-logo{ transform: scale(1.05); }
 
-/* Glow leve al pasar mouse (siempre) */
-.radio-btn:hover{
-  box-shadow:
-    0 12px 30px rgba(124,58,237,.35),
-    0 0 0 1px rgba(255,255,255,.10) inset;
-}
+.radio-title{ margin: 0; }
 
-/* Player container con luz al reproducir */
-.radio-card.is-playing .radio-player{
-  border-color: rgba(124,58,237,.35);
-  box-shadow: 0 10px 25px rgba(0,0,0,.25);
-}
-
-/* Opcional: texto de estado un poco más “vivo” */
-.radio-card.is-playing #radioStatus{
-  color: rgba(255,255,255,.92);
-}
-.radio-card.is-playing .radio-live{
-  box-shadow: 0 10px 25px rgba(225,29,72,.25);
-}
-
-
-
-
-/* ================= RADIO UPGRADE ================= */
-
-.radio-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at top,#7c3aed40,transparent 60%);
-  pointer-events:none;
-}
-
+/* ===== BADGE EN VIVO: SIEMPRE 1 SOLA LINEA ===== */
 .radio-live{
-  animation:pulseLive 1.6s infinite;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: .85rem;
+  padding: .45rem .9rem;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.12);
+
+  white-space: nowrap;   /* clave */
+  line-height: 1;        /* clave */
+  opacity: .55;
+  transition: all .25s ease;
+}
+
+/* badge activo solo al reproducir */
+.radio-card.is-playing .radio-live{
+  opacity: 1;
+  border-color: rgba(225,29,72,.35);
+  background: rgba(225,29,72,.12);
+  box-shadow: 0 10px 25px rgba(225,29,72,.18);
+  animation: pulseLive 1.6s infinite;
 }
 
 @keyframes pulseLive{
-  0%,100%{opacity:1}
-  50%{opacity:.6}
+  0%,100%{ opacity: 1; }
+  50%{ opacity: .65; }
+}
+
+/* ===== PUNTO (APAGADO por defecto, ENCENDIDO solo al reproducir) ===== */
+.radio-dot{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  background:#2b2b2b;
+  opacity:.45;
+  box-shadow:none;
+  animation:none;
+  transition: all .25s ease;
+}
+.radio-card.is-playing .radio-dot{
+  background:#e11d48;
+  opacity:1;
+  box-shadow:0 0 12px rgba(225,29,72,.6);
+  animation: radioPulse 1.2s infinite;
+}
+@keyframes radioPulse{
+  0%{ box-shadow:0 0 0 0 rgba(225,29,72,.55); }
+  70%{ box-shadow:0 0 0 12px rgba(225,29,72,0); }
+  100%{ box-shadow:0 0 0 0 rgba(225,29,72,0); }
+}
+
+/* ===== CONTROLES ===== */
+.radio-controls{
+  margin-top: 14px;
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .radio-btn{
-  box-shadow:0 10px 25px #7c3aed66;
+  min-width: 175px;
+  background:#7c3aed;
+  border:none;
+  box-shadow: 0 10px 25px rgba(124,58,237,.4);
+  transition: all .25s ease;
+}
+.radio-btn:hover{
+  background:#6d28d9;
+  box-shadow: 0 12px 30px rgba(124,58,237,.35);
 }
 
-.radio-player{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.15);
+/* volumen */
+.radio-volume{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
 }
-/* ===== Ondas SIN mover layout ===== */
+.radio-volume input[type="range"]{ width: 220px; }
+
+/* ===== ONDAS (no tiembla porque la altura es fija) ===== */
 .radio-wave{
   display:flex;
   gap:6px;
   margin-top:10px;
-  height: 38px;           /* altura fija */
+  height: 40px;
   align-items:flex-end;
 }
 
@@ -850,17 +779,14 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
   border-radius:999px;
   transform: scaleY(.25);
   transform-origin: bottom;
-  opacity:.5;
-  /* IMPORTANTE: por defecto NO animan */
-  animation: none;
+  opacity:.45;
+  animation: none; /* quieto por defecto */
 }
 
-/* Solo animar cuando la tarjeta tenga .is-playing */
 .radio-card.is-playing .radio-wave span{
   opacity:1;
-  animation: waveScale 1.1s infinite ease-in-out;
+  animation: waveScale 1.05s infinite ease-in-out;
 }
-
 .radio-card.is-playing .radio-wave span:nth-child(2){animation-delay:.12s}
 .radio-card.is-playing .radio-wave span:nth-child(3){animation-delay:.24s}
 .radio-card.is-playing .radio-wave span:nth-child(4){animation-delay:.36s}
@@ -870,18 +796,7 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
   0%,100%{ transform: scaleY(.25); opacity:.7; }
   50%{ transform: scaleY(1); opacity:1; }
 }
-
-.radio-logo{
-  width:95px;
-  height:98px;
-  object-fit:cover;
-  border-radius:16px;
-  box-shadow:
-    0 8px 25px rgba(124,58,237,.35),
-    0 0 0 1px rgba(255,255,255,.08) inset;
-  transition:transform .25s ease;
-}
-
-.radio-card.is-playing .radio-logo{
-  transform:scale(1.05);
+#radio .radio-card{
+  max-width: 1050px;      /* prueba 1050px si quieres más */
+  margin-inline: auto;
 }
