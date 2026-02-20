@@ -630,7 +630,7 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
   display:inline-flex;
   align-items:center;
   gap: 8px;
-  font-weight: 700;
+  font-weight: 650;
   font-size: .85rem;
   padding: .35rem .6rem;
   border-radius: 999px;
@@ -869,4 +869,19 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
 @keyframes waveScale{
   0%,100%{ transform: scaleY(.25); opacity:.7; }
   50%{ transform: scaleY(1); opacity:1; }
+}
+
+.radio-logo{
+  width:95px;
+  height:98px;
+  object-fit:cover;
+  border-radius:16px;
+  box-shadow:
+    0 8px 25px rgba(124,58,237,.35),
+    0 0 0 1px rgba(255,255,255,.08) inset;
+  transition:transform .25s ease;
+}
+
+.radio-card.is-playing .radio-logo{
+  transform:scale(1.05);
 }
