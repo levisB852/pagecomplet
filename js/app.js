@@ -361,3 +361,4 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
   audio.addEventListener('pause', () => status.textContent = 'Pausado.');
   audio.addEventListener('error', () => status.textContent = '❌ Error al cargar la transmisión.');
 })();
+
