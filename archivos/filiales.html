@@ -73,13 +73,38 @@
 <section class="section">
   <div class="container">
     <div class="section-head">
-      <div>
-        <h2>Ubicaciones</h2>
-        <p>Estas son algunas de nuestras iglesias filiales.</p>
-      </div>
+  <div>
+    <h2>Ubicaciones</h2>
+    <p>Estas son algunas de nuestras iglesias filiales.</p>
+  </div>
+</div>
+
+<!-- BUSCADOR FILIALES (MISMO ESTILO) -->
+<div class="card filial-search-card" data-reveal>
+  <div class="filial-search">
+    <div class="filial-search__left">
+      <label for="filialSearch" class="muted" style="font-weight:800">Buscar filial</label>
+      <input
+        id="filialSearch"
+        class="input"
+        type="search"
+        placeholder="Ej: San Miguel, Boquín, Chapeltique..."
+        autocomplete="off"
+      />
+      <small class="muted" id="filialCount" aria-live="polite"></small>
     </div>
 
-    <div class="grid grid-3" data-reveal>
+    <button class="btn btn-ghost" id="filialClear" type="button">
+      Limpiar
+    </button>
+  </div>
+
+  <p class="muted" id="filialEmpty" style="margin:.75rem 0 0; display:none">
+    No hay resultados con ese nombre o dirección.
+  </p>
+</div>
+
+<div class="grid grid-3" data-reveal>
 
       <!-- FILIAL COJUTEPEQUE -->
       <article class="card filial-card">
@@ -477,7 +502,7 @@
 <article class="card filial-card">
 
   <button class="filial-item" type="button">
-    <img src="../img/filiales/sesori.JPG" alt="Iglesia Filial Sesori loading="lazy">
+    <img src="../img/filiales/sesori.JPG" alt="Iglesia Filial Sesori" loading="lazy">
   </button>
 
   <h3>Iglesia Filial Sesori</h3>

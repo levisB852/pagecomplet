@@ -315,30 +315,27 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
 })();
 
 (function radioPlayer(){
-  const audio = document.getElementById('radioAudio');
-  const btn = document.getElementById('radioToggle');
-  const vol = document.getElementById('radioVol');
+  const audio  = document.getElementById('radioAudio');
+  const btn    = document.getElementById('radioToggle');
+  const vol    = document.getElementById('radioVol');
   const status = document.getElementById('radioStatus');
-  const card = btn.closest('.radio-card');
 
-
+  // ✅ Si esta página no tiene radio, salimos sin romper nada
   if (!audio || !btn || !vol || !status) return;
 
+  const card = btn.closest('.radio-card'); // ✅ ahora sí es seguro
+
   const setUI = (playing) => {
-  btn.textContent = playing ? '⏸ Pausar' : '▶ Reproducir';
-  btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
-
-  if (card) {
-    card.classList.toggle('is-playing', playing);
-  }
-};
-
+    btn.textContent = playing ? '⏸ Pausar' : '▶ Reproducir';
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    if (card) card.classList.toggle('is-playing', playing);
+  };
 
   btn.addEventListener('click', async () => {
     try {
       if (audio.paused) {
         status.textContent = 'Conectando...';
-        await audio.play(); // requiere interacción del usuario: tu click cumple
+        await audio.play();
         setUI(true);
         status.textContent = '🔊 Reproduciendo en vivo.';
       } else {
@@ -348,7 +345,7 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
       }
     } catch (e) {
       setUI(false);
-      status.textContent = '❌ No se pudo reproducir. Intenta otra vez (el navegador puede bloquear autoplay).';
+      status.textContent = '❌ No se pudo reproducir. Intenta otra vez.';
     }
   });
 
@@ -362,3 +359,58 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
   audio.addEventListener('error', () => status.textContent = '❌ Error al cargar la transmisión.');
 })();
 
+// =========================================================
+// BUSCADOR DE FILIALES (ROBUSTO)
+// =========================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const input   = document.getElementById('filialSearch');
+  const clear   = document.getElementById('filialClear');
+  const countEl = document.getElementById('filialCount');
+  const emptyEl = document.getElementById('filialEmpty');
+
+  // Si no existe el buscador en esta página, no hacemos nada
+  if (!input || !clear || !countEl || !emptyEl) return;
+
+  const cards = Array.from(document.querySelectorAll('article.filial-card'));
+  if (!cards.length) {
+    countEl.textContent = 'No se encontraron tarjetas .filial-card en esta página.';
+    return;
+  }
+
+  // Index: texto completo de cada tarjeta (h3, dirección, etc.)
+  const index = cards.map(card => {
+    const text = (card.innerText || card.textContent || '').toLowerCase();
+    return { card, text };
+  });
+
+  function updateUI(visible){
+    countEl.textContent = `Mostrando ${visible} de ${cards.length} filiales.`;
+    emptyEl.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  function applyFilter(value){
+    const q = (value || '').trim().toLowerCase();
+    let visible = 0;
+
+    index.forEach(({ card, text }) => {
+      const match = q === '' || text.includes(q);
+      card.classList.toggle('is-hidden', !match);
+      if (match) visible++;
+    });
+
+    updateUI(visible);
+  }
+
+  // Inicial
+  applyFilter('');
+
+  // Filtrar escribiendo
+  input.addEventListener('input', () => applyFilter(input.value));
+
+  // Limpiar
+  clear.addEventListener('click', () => {
+    input.value = '';
+    input.focus();
+    applyFilter('');
+  });
+});

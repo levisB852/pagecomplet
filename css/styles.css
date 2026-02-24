@@ -801,3 +801,45 @@ a:focus-visible, button:focus-visible, .menu-btn:focus-visible, .btn:focus-visib
   margin-inline: auto;
 }
 
+/* =========================================================
+   BUSCADOR FILIALES (MISMO ESTILO)
+   ========================================================= */
+
+.filial-search-card{
+  margin-bottom: 1rem;
+}
+
+.filial-search{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filial-search__left{
+  flex: 1;
+  min-width: 260px;
+  display: grid;
+  gap: .35rem;
+}
+
+#filialCount{
+  margin-top: .15rem;
+}
+
+/* Ocultar tarjeta cuando no coincide */
+.filial-card.is-hidden{
+  display: none !important;
+}
+
+/* En móvil, que el botón quede bonito */
+@media (max-width: 960px){
+  .filial-search{
+    align-items: stretch;
+  }
+  #filialClear{
+    width: 100%;
+    justify-content: center;
+  }
+}
