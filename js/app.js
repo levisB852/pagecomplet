@@ -295,14 +295,11 @@ document.querySelectorAll('.toggle-map').forEach(btn => {
     document.body.style.overflow = "";
   }
 
-  // ✅ Galería
-  document.querySelectorAll(".gallery-item img").forEach(img=>{
-    img.parentElement.addEventListener("click", ()=> open(img.src, img.alt));
-  });
-
-  // ✅ Filiales (nuevo)
-  document.querySelectorAll(".filial-item img").forEach(img=>{
-    img.parentElement.addEventListener("click", ()=> open(img.src, img.alt));
+  // ✅ Delegación: sirve para imágenes que se cargan después (Cloudinary)
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest(".gallery-item img, .filial-item img");
+    if (!img) return;
+    open(img.src, img.alt);
   });
 
   modal.addEventListener("click", (e)=>{
@@ -414,3 +411,39 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilter('');
   });
 });
+
+// =========================================================
+// GALERÍA AUTOMÁTICA DESDE CLOUDINARY (vía Netlify Function)
+// =========================================================
+(async function loadGallery(){
+  const grid = document.getElementById('galleryGrid');
+  const msg  = document.getElementById('galleryMsg');
+  if (!grid) return;
+
+  try {
+    if (msg) msg.textContent = 'Cargando galería...';
+
+    // OJO: esta ruta es la de Netlify Functions
+    const res = await fetch('/.netlify/functions/gallery');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const data = await res.json();
+    const images = Array.isArray(data.images) ? data.images : [];
+
+    if (!images.length) {
+      if (msg) msg.textContent = 'No hay imágenes todavía.';
+      return;
+    }
+
+    grid.innerHTML = images.map(img => `
+      <button class="gallery-item" type="button">
+        <img src="${img.url}" alt="${img.alt || 'Galería'}" loading="lazy">
+      </button>
+    `).join('');
+
+    if (msg) msg.textContent = `Mostrando ${images.length} imágenes.`;
+  } catch (e) {
+    if (msg) msg.textContent = '❌ No se pudo cargar la galería.';
+    console.error(e);
+  }
+})();

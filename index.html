@@ -313,46 +313,8 @@
 </div>
 
 <!-- GALERÍA -->
-<section id="galeria" class="section">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <h2>Galería</h2>
-        <p>Momentos de nuestras actividades y cultos.</p>
-      </div>
-    </div>
-
-    <div class="gallery-grid" data-reveal>
-
-      <!-- Cambia las rutas a tus fotos -->
-      <button class="gallery-item" type="button">
-        <img src="img/galeria/03.jpg" alt="Actividad en la iglesia" loading="lazy">
-      </button>
-
-      <button class="gallery-item" type="button">
-        <img src="img/galeria/01.jpg" alt="Culto divino" loading="lazy">
-      </button>
-
-      <button class="gallery-item" type="button">
-        <img src="img/galeria/02.jpg" alt="Convivencia" loading="lazy">
-      </button>
-
-      <button class="gallery-item" type="button">
-        <img src="img/galeria/04.jpg" alt="Alabanza" loading="lazy">
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- MODAL / LIGHTBOX -->
-<div class="img-modal" id="imgModal" hidden aria-hidden="true">
-  <div class="img-modal__backdrop" data-close></div>
-  <div class="img-modal__dialog" role="dialog" aria-modal="true" aria-label="Imagen">
-    <button class="img-modal__close btn btn-ghost" type="button" data-close aria-label="Cerrar">✕</button>
-    <img id="imgModalView" src="" alt="">
-  </div>
-</div>
-
+<div class="gallery-grid" id="galleryGrid" data-reveal></div>
+<p class="muted" id="galleryMsg" style="margin-top:.6rem"></p>
 
   <!-- HISTORIA -->
   <section id="historia" class="section alt">
