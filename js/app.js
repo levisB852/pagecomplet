@@ -600,3 +600,47 @@ document.addEventListener('DOMContentLoaded', () => {
   prev?.addEventListener('click', ()=> go(-1));
   next?.addEventListener('click', ()=> go(1));
 })();
+// ============================================================
+// ✅ LIGHTBOX para GALERÍA (incluye carrusel dinámico)
+// ============================================================
+(function galleryLightbox(){
+  const modal = document.getElementById("imgModal");
+  const view  = document.getElementById("imgModalView");
+  if(!modal || !view) return;
+
+  function open(src, alt){
+    view.src = src;
+    view.alt = alt || "Imagen";
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function close(){
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden","true");
+    view.src = "";
+    document.body.style.overflow = "";
+  }
+
+  // ✅ Delegación: sirve para items creados por JS (Cloudinary) y los estáticos
+  document.addEventListener("click", (e)=>{
+    const btn = e.target.closest(".gallery-item");
+    if(!btn) return;
+
+    const img = btn.querySelector("img");
+    if(!img) return;
+
+    open(img.src, img.alt);
+  });
+
+  // Cerrar al tocar fondo o botón
+  modal.addEventListener("click", (e)=>{
+    if(e.target.matches("[data-close]")) close();
+  });
+
+  // Cerrar con ESC
+  document.addEventListener("keydown", (e)=>{
+    if(!modal.hidden && e.key === "Escape") close();
+  });
+})();
