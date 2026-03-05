@@ -313,8 +313,15 @@
 </div>
 
 <!-- GALERÍA -->
-<div class="gallery-grid" id="galleryGrid" data-reveal></div>
-<p class="muted" id="galleryMsg" style="margin-top:.6rem"></p>
+<div class="gallery-carousel" data-reveal>
+  <button class="gallery-nav prev" type="button" aria-label="Anterior">‹</button>
+
+  <div class="gallery-track" id="galleryTrack" aria-label="Carrusel de fotos">
+    <div class="gallery-loading muted" id="galleryLoading">Cargando fotos...</div>
+  </div>
+
+  <button class="gallery-nav next" type="button" aria-label="Siguiente">›</button>
+</div>
 
   <!-- HISTORIA -->
   <section id="historia" class="section alt">

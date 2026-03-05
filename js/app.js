@@ -447,3 +447,80 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error(e);
   }
 })();
+
+// ===== GALERÍA AUTO (Cloudinary) + Carrusel =====
+(async function galleryFromCloudinary(){
+  const track = document.getElementById('galleryTrack');
+  const loading = document.getElementById('galleryLoading');
+  if (!track) return;
+
+  try {
+    const res = await fetch('/.netlify/functions/gallery');
+    if (!res.ok) throw new Error('No se pudo cargar la galería');
+    const data = await res.json();
+
+    const images = Array.isArray(data.images) ? data.images : [];
+    if (!images.length) {
+      if (loading) loading.textContent = 'No hay fotos todavía.';
+      return;
+    }
+
+    // Limpia loading
+    track.innerHTML = '';
+
+    // Crea items
+    images.forEach(img => {
+      const btn = document.createElement('button');
+      btn.className = 'gallery-item';
+      btn.type = 'button';
+
+      const im = document.createElement('img');
+      im.src = img.url;
+      im.alt = img.alt || 'Foto';
+      im.loading = 'lazy';
+
+      btn.appendChild(im);
+      track.appendChild(btn);
+
+      // Si tienes lightbox (imgModal), lo abre al click
+      const modal = document.getElementById("imgModal");
+      const view  = document.getElementById("imgModalView");
+      if (modal && view) {
+        btn.addEventListener("click", ()=>{
+          view.src = im.src;
+          view.alt = im.alt;
+          modal.hidden = false;
+          modal.setAttribute("aria-hidden","false");
+          document.body.style.overflow = "hidden";
+        });
+      }
+    });
+
+  } catch (e) {
+    if (loading) loading.textContent = 'Error cargando fotos. Revisa Netlify.';
+    console.error(e);
+  }
+})();
+
+(function galleryCarouselControls(){
+  const track = document.getElementById('galleryTrack');
+  if (!track) return;
+
+  const wrap = track.closest('.gallery-carousel');
+  const prev = wrap?.querySelector('.gallery-nav.prev');
+  const next = wrap?.querySelector('.gallery-nav.next');
+
+  function getStep(){
+    const item = track.querySelector('.gallery-item');
+    if (!item) return 300;
+    const gap = 14;
+    return item.getBoundingClientRect().width + gap;
+  }
+
+  function go(dir){
+    track.scrollBy({ left: dir * getStep(), behavior: 'smooth' });
+  }
+
+  prev?.addEventListener('click', ()=> go(-1));
+  next?.addEventListener('click', ()=> go(1));
+})();
