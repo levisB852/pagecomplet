@@ -1,0 +1,26 @@
+{
+  "name": "pagecomplet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levisB852/pagecomplet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/levisB852/pagecomplet/issues"
+  },
+  "homepage": "https://github.com/levisB852/pagecomplet#readme",
+  "dependencies": {
+    "cloudinary": "^2.9.0"
+  }
+}
