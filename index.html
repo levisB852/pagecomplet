@@ -8,28 +8,33 @@
   <title>Iglesia Adventista de Dios del Séptimo Día en Reforma | iadsder.org</title>
   <meta name="description" content="Sitio oficial de la Iglesia Adventista del Séptimo Día en Reforma. Himnario, estatutos, manual doctrinal, misión, visión y contacto en El Salvador." />
   <link rel="canonical" href="https://iadsder.org/">
-  <link rel="icon" href="img/Logo_IADSDER.png" type="image/png">
   <meta name="robots" content="index,follow">
 
-  <!-- Open Graph (Facebook/WhatsApp) -->
-  <meta property="og:title" content="Iglesia Adventista del Séptimo Día en Reforma">
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/logo_igle.ico">
+  <link rel="shortcut icon" href="/img/logo_igle.ico" type="image/png">
+  <link rel="apple-touch-icon" href="/img/logo_igle.ico">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Iglesia Adventista de Dios del Séptimo Día en Reforma">
   <meta property="og:description" content="Himnario, estatutos, manual doctrinal, misión, visión y contacto.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://iadsder.org/">
-  <meta property="og:image" content="https://iadsder.org/img/iglesia.ico">
+  <meta property="og:image" content="https://iadsder.org/img/Logo_IADSDER.png">
 
   <!-- Twitter card -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://iadsder.org/img/Logo_IADSDER.png">
 
-  <!-- Datos estructurados (SEO local / Church) -->
+  <!-- Datos estructurados -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Church",
     "name": "Iglesia Adventista de Dios del Séptimo Día en Reforma",
     "url": "https://iadsder.org/",
-    "logo": "https://iadsder.org/img/logo_igle.ico",
-    "image": "https://iadsder.org/img/iglesia.ico",
+    "logo": "https://iadsder.org/img/Logo_IADSDER.png",
+    "image": "https://iadsder.org/img/Logo_IADSDER.png",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "El Salvador",
@@ -49,7 +54,6 @@
   <header class="nav">
     <div class="container nav-wrap">
       <a class="brand" href="#inicio" id="brandTop" aria-label="Inicio">
-
         <img src="img/Logo_IADSDER.png" alt="Logo Iglesia Adventista" class="brand-logo" />
         <h3>Iglesia Adventista de Dios del Séptimo Día en Reforma</h3>
       </a>
@@ -152,199 +156,169 @@
           <p class="muted">Conoce el plan maravilloso de Dios para la humanidad.</p>
           <a class="btn btn-primary" href="./archivos/plan-maravilloso.html">Ver plan</a>
         </article>
-
       </div>
     </div>
   </section>
-  
-  
-<!-- Radio -->
-<section id="radio" class="section alt">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <h2>Radio en Vivo</h2>
-        <p>Escucha nuestra programación cristiana desde cualquier lugar.</p>
+
+  <!-- Radio -->
+  <section id="radio" class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Radio en Vivo</h2>
+          <p>Escucha nuestra programación cristiana desde cualquier lugar.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-2" data-reveal>
+        <article class="card emphasis radio-card" data-reveal>
+          <div class="radio-head">
+            <div style="display:flex;align-items:center;gap:10px">
+              <img src="img/logo.jpg" alt="IADSDER Radio" class="radio-logo">
+              <h3 class="radio-title">Radio Adventista de Dios En Reforma</h3>
+            </div>
+
+            <span class="radio-live" aria-label="En vivo">
+              <span class="radio-dot" aria-hidden="true"></span> EN VIVO
+            </span>
+          </div>
+
+          <audio id="radioAudio" preload="none">
+            <source src="https://stream.zeno.fm/rghmon0t9xauv" type="audio/mpeg">
+          </audio>
+
+          <div class="radio-wave">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+
+          <div class="radio-controls">
+            <button class="btn btn-primary radio-btn" id="radioToggle" type="button" aria-pressed="false">
+              ▶ Reproducir
+            </button>
+
+            <div class="radio-volume">
+              <span class="muted">Volumen</span>
+              <input id="radioVol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen">
+            </div>
+          </div>
+
+          <p class="muted" id="radioStatus" style="margin-top:.8rem">Listo para reproducir.</p>
+        </article>
       </div>
     </div>
-
-    <div class="grid grid-2" data-reveal>
-
-      <article class="card emphasis radio-card" data-reveal>
-  <div class="radio-head">
-    <div style="display:flex;align-items:center;gap:10px">
-
-  <img
-    src="img/logo.jpg"
-    alt="IADSDER Radio"
-    class="radio-logo"
-  >
-
-  <h3 class="radio-title">Radio Adventista de Dios En Reforma</h3>
-
-</div>
-
-    <span class="radio-live" aria-label="En vivo">
-      <span class="radio-dot" aria-hidden="true"></span> EN VIVO
-    </span>
-  </div>
-
-  <!-- audio real (oculto) -->
-  <audio id="radioAudio" preload="none">
-    <source src="https://stream.zeno.fm/rghmon0t9xauv" type="audio/mpeg">
-  </audio>
-  <div class="radio-wave">
-  <span></span><span></span><span></span><span></span><span></span>
-</div>
-
-  <!-- Controles bonitos -->
-  <div class="radio-controls">
-    <button class="btn btn-primary radio-btn" id="radioToggle" type="button" aria-pressed="false">
-      ▶ Reproducir
-    </button>
-
-    <div class="radio-volume">
-      <span class="muted">Volumen</span>
-      <input id="radioVol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen">
-    </div>
-  </div>
-
-  <p class="muted" id="radioStatus" style="margin-top:.8rem">Listo para reproducir.</p>
-</article>
-
-
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- VIDEOS -->
-<section id="videos" class="section">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <h2>Videos</h2>
-        <p>Predicaciones, himnos y mensajes para fortalecer la fe.</p>
-      </div>
-    </div>
-
-    <div class="grid grid-3" id="videoGrid" data-reveal>
-      <!-- Card 1 -->
-      <article class="card video-card"
-  data-youtube-id="qtuBBkSX2Ks"
-  data-title="Mensaje Cristiano">
-
-  <div class="video-thumb">
-    <img src="https://img.youtube.com/vi/qtuBBkSX2Ks/hqdefault.jpg" alt="Culto y Alabanza">
-    <button class="video-play" type="button">▶</button>
-  </div>
-
-  <h3>Mensaje Cristiano</h3>
-  <p class="muted"></p>
-
-  <div class="video-actions">
-    <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
-    <a class="btn btn-ghost video-youtube" target="_blank" rel="noopener">Abrir en YouTube</a>
-  </div>
-</article>
-
-
-      <!-- Card 2 -->
-      <article class="card video-card"
-  data-youtube-id="4EyIRWhExoc"
-  data-title="Alabanza">
-
-  <div class="video-thumb">
-    <img src="https://img.youtube.com/vi/4EyIRWhExoc/hqdefault.jpg" alt="Mensaje Cristiano">
-    <button class="video-play" type="button">▶</button>
-  </div>
-
-  <h3>Alabanza</h3>
-  <p class="muted"></p>
-
-  <div class="video-actions">
-    <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
-    <a class="btn btn-ghost video-youtube" target="_blank" rel="noopener">Abrir en YouTube</a>
-  </div>
-</article>
-
-
-      <!-- Card 3 -->
-      <article class="card video-card"
-         data-youtube-id="zME-k5m7JMk"
-         data-title="Alabanza">
-  <div class="video-thumb">
-    <img src="https://img.youtube.com/vi/zME-k5m7JMk/hqdefault.jpg" alt="Video Predicación">
-    <button class="video-play" type="button" aria-label="Reproducir video">▶</button>
-  </div>
-  <h3>Alabanza</h3>
-  <p class="muted"></p>
-
-  <div class="video-actions">
-    <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
-    <a class="btn btn-ghost video-youtube" target="_blank" rel="noopener">Abrir en YouTube</a>
-  </div>
-</article>
-
-    </div>
-  </div>
-</section>
-
-<!-- MODAL DE VIDEO -->
-<div class="video-modal" id="videoModal" hidden aria-hidden="true">
-  <div class="video-modal__backdrop" data-close></div>
-
-  <div class="video-modal__dialog" role="dialog" aria-modal="true" aria-label="Video">
-    <button class="video-modal__close btn btn-ghost" type="button" data-close aria-label="Cerrar">✕</button>
-
-    <div class="video-modal__frame">
-      <iframe id="videoFrame"
-              src=""
-              title="Video"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-    </div>
-
-    <div class="video-modal__footer">
-      <p class="muted" id="videoTitle" style="margin:0"></p>
-      <a class="btn btn-primary" id="videoOpenYoutube" target="_blank" rel="noopener">Abrir en YouTube</a>
-    </div>
-  </div>
-</div>
-
-<!-- GALERÍA -->
-<!-- GALERÍA -->
-<section id="galeria" class="section">
-  <div class="container">
-
-    <div class="section-head">
-      <div>
-        <h2>Eventos Juveniles</h2>
-        <p>Momentos especiales vividos en nuestra comunidad.</p>
-      </div>
-    </div>
-
-    <div class="gallery-carousel" data-reveal>
-      <button class="gallery-nav prev" type="button" aria-label="Anterior">‹</button>
-
-      <div class="gallery-track" id="galleryTrack" aria-label="Carrusel de fotos">
-        <div class="gallery-loading muted" id="galleryLoading">Cargando fotos...</div>
+  <section id="videos" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Videos</h2>
+          <p>Predicaciones, himnos y mensajes para fortalecer la fe.</p>
+        </div>
       </div>
 
-      <button class="gallery-nav next" type="button" aria-label="Siguiente">›</button>
+      <div class="grid grid-3" id="videoGrid" data-reveal>
+        <article class="card video-card" data-youtube-id="qtuBBkSX2Ks" data-title="Mensaje Cristiano">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/qtuBBkSX2Ks/hqdefault.jpg" alt="Culto y Alabanza">
+            <button class="video-play" type="button">▶</button>
+          </div>
+
+          <h3>Mensaje Cristiano</h3>
+          <p class="muted"></p>
+
+          <div class="video-actions">
+            <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
+            <a class="btn btn-ghost video-youtube" target="_blank" rel="noopener">Abrir en YouTube</a>
+          </div>
+        </article>
+
+        <article class="card video-card" data-youtube-id="4EyIRWhExoc" data-title="Alabanza">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/4EyIRWhExoc/hqdefault.jpg" alt="Mensaje Cristiano">
+            <button class="video-play" type="button">▶</button>
+          </div>
+
+          <h3>Alabanza</h3>
+          <p class="muted"></p>
+
+          <div class="video-actions">
+            <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
+            <a class="btn btn-ghost video-youtube" target="_blank" rel="noopener">Abrir en YouTube</a>
+          </div>
+        </article>
+
+        <article class="card video-card" data-youtube-id="zME-k5m7JMk" data-title="Alabanza">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/zME-k5m7JMk/hqdefault.jpg" alt="Video Predicación">
+            <button class="video-play" type="button" aria-label="Reproducir video">▶</button>
+          </div>
+          <h3>Alabanza</h3>
+          <p class="muted"></p>
+
+          <div class="video-actions">
+            <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
+            <a class="btn btn-ghost video-youtube" target="_blank" rel="noopener">Abrir en YouTube</a>
+          </div>
+        </article>
+      </div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- MODAL DE VIDEO -->
+  <div class="video-modal" id="videoModal" hidden aria-hidden="true">
+    <div class="video-modal__backdrop" data-close></div>
 
-<!-- MODAL / LIGHTBOX -->
-<div class="img-modal" id="imgModal" hidden aria-hidden="true">
-  <div class="img-modal__backdrop" data-close></div>
-  <div class="img-modal__dialog" role="dialog" aria-modal="true" aria-label="Imagen">
-    <button class="img-modal__close btn btn-ghost" type="button" data-close aria-label="Cerrar">✕</button>
-    <img id="imgModalView" src="" alt="">
+    <div class="video-modal__dialog" role="dialog" aria-modal="true" aria-label="Video">
+      <button class="video-modal__close btn btn-ghost" type="button" data-close aria-label="Cerrar">✕</button>
+
+      <div class="video-modal__frame">
+        <iframe id="videoFrame"
+                src=""
+                title="Video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </div>
+
+      <div class="video-modal__footer">
+        <p class="muted" id="videoTitle" style="margin:0"></p>
+        <a class="btn btn-primary" id="videoOpenYoutube" target="_blank" rel="noopener">Abrir en YouTube</a>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- GALERÍA -->
+  <section id="galeria" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Eventos Juveniles</h2>
+          <p>Momentos especiales vividos en nuestra comunidad.</p>
+        </div>
+      </div>
+
+      <div class="gallery-carousel" data-reveal>
+        <button class="gallery-nav prev" type="button" aria-label="Anterior">‹</button>
+
+        <div class="gallery-track" id="galleryTrack" aria-label="Carrusel de fotos">
+          <div class="gallery-loading muted" id="galleryLoading">Cargando fotos...</div>
+        </div>
+
+        <button class="gallery-nav next" type="button" aria-label="Siguiente">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL / LIGHTBOX -->
+  <div class="img-modal" id="imgModal" hidden aria-hidden="true">
+    <div class="img-modal__backdrop" data-close></div>
+    <div class="img-modal__dialog" role="dialog" aria-modal="true" aria-label="Imagen">
+      <button class="img-modal__close btn btn-ghost" type="button" data-close aria-label="Cerrar">✕</button>
+      <img id="imgModalView" src="" alt="">
+    </div>
+  </div>
 
   <!-- HISTORIA -->
   <section id="historia" class="section alt">
@@ -369,7 +343,6 @@
     </div>
   </section>
 
-
   <!-- CONTACTO -->
   <section id="contacto" class="section alt">
     <div class="container">
@@ -382,7 +355,6 @@
 
       <div class="grid grid-3" data-reveal>
         <div class="card" style="grid-column: span 2">
-
           <form id="contactForm"
                 name="contact"
                 method="POST"
@@ -413,20 +385,18 @@
             <button class="btn btn-primary" type="submit">Enviar mensaje</button>
             <p id="formMsg" class="muted" role="status" aria-live="polite" style="margin-top:.6rem"></p>
           </form>
-      <div class="whatsapp-contact">
-         <p class="muted">O escríbenos directamente por WhatsApp</p>
 
-        <a href="https://wa.me/50377205697?text=Hola%20quisiera%20información%20sobre%20la%20Iglesia"
-     class="btn-whatsapp-small"
-     target="_blank"
-     rel="noopener">
+          <div class="whatsapp-contact">
+            <p class="muted">O escríbenos directamente por WhatsApp</p>
 
-    <img src="img/whatsapp-icon.svg" alt="WhatsApp" class="wa-icon" />
-    <span>Escribir por WhatsApp</span>
-     </a>
-      </div>
-
-
+            <a href="https://wa.me/50377205697?text=Hola%20quisiera%20información%20sobre%20la%20Iglesia"
+               class="btn-whatsapp-small"
+               target="_blank"
+               rel="noopener">
+              <img src="img/whatsapp-icon.svg" alt="WhatsApp" class="wa-icon" />
+              <span>Escribir por WhatsApp</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -451,7 +421,7 @@
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </div>
-
+    </div>
 
     <div class="container" style="margin-top:1rem">
       <small class="muted">© <span id="year"></span> Iglesia Adventista de Dios del Séptimo día En Reforma.</small>
