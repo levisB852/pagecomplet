@@ -600,47 +600,91 @@ document.addEventListener('DOMContentLoaded', () => {
   prev?.addEventListener('click', ()=> go(-1));
   next?.addEventListener('click', ()=> go(1));
 })();
+
 // ============================================================
-// ✅ LIGHTBOX para GALERÍA (incluye carrusel dinámico)
+// ✅ LIGHTBOX para GALERÍA con anterior / siguiente
 // ============================================================
 (function galleryLightbox(){
   const modal = document.getElementById("imgModal");
   const view  = document.getElementById("imgModalView");
-  if(!modal || !view) return;
+  const prevBtn = document.getElementById("imgPrev");
+  const nextBtn = document.getElementById("imgNext");
 
-  function open(src, alt){
-    view.src = src;
-    view.alt = alt || "Imagen";
+  if (!modal || !view || !prevBtn || !nextBtn) return;
+
+  let images = [];
+  let currentIndex = 0;
+
+  function refreshImages() {
+    images = Array.from(document.querySelectorAll(".gallery-item img"));
+  }
+
+  function open(index) {
+    refreshImages();
+    if (!images.length) return;
+
+    currentIndex = index;
+    const img = images[currentIndex];
+
+    view.src = img.src;
+    view.alt = img.alt || "Imagen";
     modal.hidden = false;
-    modal.setAttribute("aria-hidden","false");
+    modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
   }
 
-  function close(){
+  function close() {
     modal.hidden = true;
-    modal.setAttribute("aria-hidden","true");
+    modal.setAttribute("aria-hidden", "true");
     view.src = "";
+    view.alt = "";
     document.body.style.overflow = "";
   }
 
-  // ✅ Delegación: sirve para items creados por JS (Cloudinary) y los estáticos
-  document.addEventListener("click", (e)=>{
+  function showNext() {
+    refreshImages();
+    if (!images.length) return;
+
+    currentIndex = (currentIndex + 1) % images.length;
+    const img = images[currentIndex];
+    view.src = img.src;
+    view.alt = img.alt || "Imagen";
+  }
+
+  function showPrev() {
+    refreshImages();
+    if (!images.length) return;
+
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    const img = images[currentIndex];
+    view.src = img.src;
+    view.alt = img.alt || "Imagen";
+  }
+
+  document.addEventListener("click", (e) => {
     const btn = e.target.closest(".gallery-item");
-    if(!btn) return;
+    if (!btn) return;
 
+    refreshImages();
     const img = btn.querySelector("img");
-    if(!img) return;
+    if (!img) return;
 
-    open(img.src, img.alt);
+    const index = images.indexOf(img);
+    if (index !== -1) open(index);
   });
 
-  // Cerrar al tocar fondo o botón
-  modal.addEventListener("click", (e)=>{
-    if(e.target.matches("[data-close]")) close();
+  prevBtn.addEventListener("click", showPrev);
+  nextBtn.addEventListener("click", showNext);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target.matches("[data-close]")) close();
   });
 
-  // Cerrar con ESC
-  document.addEventListener("keydown", (e)=>{
-    if(!modal.hidden && e.key === "Escape") close();
+  document.addEventListener("keydown", (e) => {
+    if (modal.hidden) return;
+
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowRight") showNext();
+    if (e.key === "ArrowLeft") showPrev();
   });
 })();
