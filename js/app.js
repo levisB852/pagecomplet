@@ -488,7 +488,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 // ============================================================
-// 18. LIGHTBOX GALERÍA CON ANTERIOR / SIGUIENTE
+// 18. LIGHTBOX GALERÍA CON ANTERIOR / SIGUIENTE + SWIPE
 // ============================================================
 (function galleryLightbox() {
   const modal = document.getElementById("imgModal");
@@ -501,6 +501,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let images = [];
   let currentIndex = 0;
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const minSwipeDistance = 50;
 
   function refreshImages() {
     images = Array.from(document.querySelectorAll(".gallery-item img"));
@@ -583,4 +587,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "ArrowRight") showNext();
     if (e.key === "ArrowLeft") showPrev();
   });
+
+  // SWIPE en móvil
+  view.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  view.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const distance = touchEndX - touchStartX;
+
+    if (Math.abs(distance) < minSwipeDistance) return;
+
+    if (distance < 0) {
+      showNext(); // deslizó hacia la izquierda
+    } else {
+      showPrev(); // deslizó hacia la derecha
+    }
+  }
 })();
