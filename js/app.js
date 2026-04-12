@@ -271,6 +271,9 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
 // ============================================================
 // 13. VIDEOS YOUTUBE
+// - Reproducir en modal
+// - Abrir en YouTube
+// - Intentar abrir la app primero
 // ============================================================
 (function youtubeCards() {
   const modal = document.getElementById("videoModal");
@@ -280,45 +283,100 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
   if (!modal || !frame || !titleEl || !openYtBtn) return;
 
-  const openModal = (id, title = "") => {
+  function getWebUrl(id) {
+    return `https://www.youtube.com/watch?v=${id}`;
+  }
+
+  function getAppUrl(id) {
+    return `youtube://watch?v=${id}`;
+  }
+
+  function openModal(id, title = "") {
     frame.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
     titleEl.textContent = title || "Video";
-    openYtBtn.href = `https://www.youtube.com/watch?v=${id}`;
+    openYtBtn.href = getWebUrl(id);
+
     modal.hidden = false;
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
-  };
+  }
 
-  const closeModal = () => {
+  function closeModal() {
     modal.hidden = true;
     modal.setAttribute("aria-hidden", "true");
     frame.src = "";
     document.body.style.overflow = "";
-  };
+  }
 
+  function tryOpenYoutubeApp(id) {
+    const appUrl = getAppUrl(id);
+    const webUrl = getWebUrl(id);
+
+    // Intenta abrir la app
+    window.location.href = appUrl;
+
+    // Si no puede, abre la web
+    setTimeout(() => {
+      window.open(webUrl, "_blank", "noopener");
+    }, 700);
+  }
+
+  // Deja listos los href de todos los botones
+  document.querySelectorAll(".video-card").forEach(card => {
+    const id = card.getAttribute("data-youtube-id");
+    const ytLink = card.querySelector(".video-youtube");
+
+    if (ytLink && id) {
+      ytLink.href = getWebUrl(id);
+    }
+  });
+
+  // Clicks generales
   document.addEventListener("click", (e) => {
     const card = e.target.closest(".video-card");
     if (!card) return;
 
     const id = card.getAttribute("data-youtube-id");
-    const title = card.getAttribute("data-title") || "";
+    const title = card.getAttribute("data-title") || "Video";
 
+    // Reproducir en modal
     if (e.target.closest(".video-open") || e.target.closest(".video-play")) {
       openModal(id, title);
+      return;
     }
 
-    const ytLink = card.querySelector(".video-youtube");
+    // Abrir en YouTube
+    const ytLink = e.target.closest(".video-youtube");
     if (ytLink) {
-      ytLink.href = `https://www.youtube.com/watch?v=${id}`;
+      e.preventDefault();
+      tryOpenYoutubeApp(id);
     }
   });
 
-  modal.addEventListener("click", (e) => {
-    if (e.target.matches("[data-close]")) closeModal();
+  // Botón del modal "Abrir en YouTube"
+  openYtBtn.addEventListener("click", (e) => {
+    const currentSrc = frame.src;
+    const match = currentSrc.match(/embed\/([^?]+)/);
+
+    if (!match) return;
+
+    e.preventDefault();
+    const id = match[1];
+    tryOpenYoutubeApp(id);
   });
 
+  // Cerrar modal al tocar fondo o botón X
+  modal.addEventListener("click", (e) => {
+    if (e.target.matches("[data-close]")) {
+      closeModal();
+    }
+  });
+
+  // Cerrar con ESC
   window.addEventListener("keydown", (e) => {
-    if (!modal.hidden && e.key === "Escape") closeModal();
+    if (!modal.hidden && e.key === "Escape") {
+      closeModal();
+    }
   });
 })();
 

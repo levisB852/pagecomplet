@@ -208,86 +208,101 @@
     </div>
   </section>
 
-  <!-- VIDEOS -->
-  <section id="videos" class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>Videos</h2>
-          <p>Predicaciones, himnos y mensajes para fortalecer la fe.</p>
-        </div>
-      </div>
 
-      <div class="grid grid-3" id="videoGrid" data-reveal>
-        <article class="card video-card" data-youtube-id="qtuBBkSX2Ks" data-title="Mensaje Cristiano">
-          <div class="video-thumb">
-            <img src="https://img.youtube.com/vi/qtuBBkSX2Ks/hqdefault.jpg" alt="Culto y Alabanza">
-            <button class="video-play" type="button">▶</button>
-          </div>
-
-          <h3>Mensaje Cristiano</h3>
-          <p class="muted"></p>
-
-          <div class="video-actions">
-            <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
-            <a class="btn btn-ghost video-youtube" target="_blank" rel="noopener">Abrir en YouTube</a>
-          </div>
-        </article>
-
-        <article class="card video-card" data-youtube-id="4EyIRWhExoc" data-title="Alabanza">
-          <div class="video-thumb">
-            <img src="https://img.youtube.com/vi/4EyIRWhExoc/hqdefault.jpg" alt="Mensaje Cristiano">
-            <button class="video-play" type="button">▶</button>
-          </div>
-
-          <h3>Alabanza</h3>
-          <p class="muted"></p>
-
-          <div class="video-actions">
-            <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
-            <a class="btn btn-ghost video-youtube" target="_blank" rel="noopener">Abrir en YouTube</a>
-          </div>
-        </article>
-
-        <article class="card video-card" data-youtube-id="zME-k5m7JMk" data-title="Alabanza">
-          <div class="video-thumb">
-            <img src="https://img.youtube.com/vi/zME-k5m7JMk/hqdefault.jpg" alt="Video Predicación">
-            <button class="video-play" type="button" aria-label="Reproducir video">▶</button>
-          </div>
-          <h3>Alabanza</h3>
-          <p class="muted"></p>
-
-          <div class="video-actions">
-            <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
-            <a class="btn btn-ghost video-youtube" target="_blank" rel="noopener">Abrir en YouTube</a>
-          </div>
-        </article>
+<!-- VIDEOS -->
+<section id="videos" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Videos</h2>
+        <p>Predicaciones, himnos y mensajes para fortalecer la fe.</p>
       </div>
     </div>
-  </section>
 
-  <!-- MODAL VIDEO -->
-  <div class="video-modal" id="videoModal" hidden aria-hidden="true">
-    <div class="video-modal__backdrop" data-close></div>
+    <div class="grid grid-3" id="videoGrid" data-reveal>
 
-    <div class="video-modal__dialog" role="dialog" aria-modal="true" aria-label="Video">
-      <button class="video-modal__close btn btn-ghost" type="button" data-close aria-label="Cerrar">✕</button>
+      <!-- VIDEO 1 -->
+      <article class="card video-card"
+               data-youtube-id="qtuBBkSX2Ks"
+               data-title="Mensaje Cristiano">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/qtuBBkSX2Ks/hqdefault.jpg" alt="Mensaje Cristiano">
+          <button class="video-play" type="button" aria-label="Reproducir video">▶</button>
+        </div>
 
-      <div class="video-modal__frame">
-        <iframe id="videoFrame"
-                src=""
-                title="Video"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen></iframe>
-      </div>
+        <h3>Mensaje Cristiano</h3>
+        <p class="muted">Mensaje para fortalecer la fe.</p>
 
-      <div class="video-modal__footer">
-        <p class="muted" id="videoTitle" style="margin:0"></p>
-        <a class="btn btn-primary" id="videoOpenYoutube" target="_blank" rel="noopener">Abrir en YouTube</a>
-      </div>
+        <div class="video-actions">
+          <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
+          <a class="btn btn-ghost video-youtube" href="#" target="_blank" rel="noopener">Abrir en YouTube</a>
+        </div>
+      </article>
+
+      <!-- VIDEO 2 -->
+      <article class="card video-card"
+               data-youtube-id="4EyIRWhExoc"
+               data-title="Alabanza">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/4EyIRWhExoc/hqdefault.jpg" alt="Alabanza">
+          <button class="video-play" type="button" aria-label="Reproducir video">▶</button>
+        </div>
+
+        <h3>Alabanza</h3>
+        <p class="muted">Momento de alabanza y adoración.</p>
+
+        <div class="video-actions">
+          <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
+          <a class="btn btn-ghost video-youtube" href="#" target="_blank" rel="noopener">Abrir en YouTube</a>
+        </div>
+      </article>
+
+      <!-- VIDEO 3 -->
+      <article class="card video-card"
+               data-youtube-id="zME-k5m7JMk"
+               data-title="Alabanza Especial">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/zME-k5m7JMk/hqdefault.jpg" alt="Alabanza Especial">
+          <button class="video-play" type="button" aria-label="Reproducir video">▶</button>
+        </div>
+
+        <h3>Alabanza Especial</h3>
+        <p class="muted">Video especial para la congregación.</p>
+
+        <div class="video-actions">
+          <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
+          <a class="btn btn-ghost video-youtube" href="#" target="_blank" rel="noopener">Abrir en YouTube</a>
+        </div>
+      </article>
+
     </div>
   </div>
+</section>
+
+  <!-- MODAL VIDEO -->
+<div class="video-modal" id="videoModal" hidden aria-hidden="true">
+  <div class="video-modal__backdrop" data-close></div>
+
+  <div class="video-modal__dialog" role="dialog" aria-modal="true" aria-label="Video">
+    <button class="video-modal__close btn btn-ghost" type="button" data-close aria-label="Cerrar">✕</button>
+
+    <div class="video-modal__frame">
+      <iframe
+        id="videoFrame"
+        src=""
+        title="Video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="video-modal__footer">
+      <p class="muted" id="videoTitle" style="margin:0"></p>
+      <a class="btn btn-primary" id="videoOpenYoutube" href="#" target="_blank" rel="noopener">Abrir en YouTube</a>
+    </div>
+  </div>
+</div>
 
   <!-- GALERÍA -->
   <section id="galeria" class="section">
