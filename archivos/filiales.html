@@ -274,6 +274,7 @@
 
       <!-- FILIAL LO GUZMAN -->
 <article class="card filial-card">
+
   <!-- IMAGEN -->
   <button class="filial-item" type="button">
     <img src="../img/filiales/los-guzman.jpeg" alt="Iglesia Filial Cojutepeque" loading="lazy">
@@ -543,12 +544,17 @@
     </div>
   </div>
 </section>
-<!-- MODAL / LIGHTBOX -->
+
+<!-- MODAL / LIGHTBOX SIMPLE PARA FILIALES -->
 <div class="img-modal" id="imgModal" hidden aria-hidden="true">
   <div class="img-modal__backdrop" data-close></div>
-  <div class="img-modal__dialog" role="dialog" aria-modal="true" aria-label="Imagen">
+
+  <div class="img-modal__dialog img-modal__dialog--simple" role="dialog" aria-modal="true" aria-label="Imagen">
     <button class="img-modal__close btn btn-ghost" type="button" data-close aria-label="Cerrar">✕</button>
-    <img id="imgModalView" src="" alt="">
+
+    <div class="img-modal__content">
+      <img id="imgModalView" src="" alt="">
+    </div>
   </div>
 </div>
 
@@ -582,5 +588,55 @@
   <button id="toTop" class="btn btn-primary to-top" aria-label="Volver arriba">↑</button>
 
   <script src="../js/app.js"></script>
+  <script>
+(function filialLightboxSimple() {
+  const modal = document.getElementById("imgModal");
+  const view = document.getElementById("imgModalView");
+  const backdrop = modal?.querySelector(".img-modal__backdrop");
+
+  if (!modal || !view || !backdrop) return;
+
+  function open(src, alt = "Imagen") {
+    view.src = src;
+    view.alt = alt;
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function close() {
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    view.src = "";
+    view.alt = "";
+    document.body.style.overflow = "";
+  }
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".filial-item");
+    if (!btn) return;
+
+    const img = btn.querySelector("img");
+    if (!img) return;
+
+    const src = img.getAttribute("src");
+    if (!src || src.trim() === "" || src.trim() === "../img/") return;
+
+    open(img.src, img.alt || "Imagen");
+  });
+
+  backdrop.addEventListener("click", close);
+
+  modal.querySelectorAll("[data-close]").forEach(el => {
+    el.addEventListener("click", close);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!modal.hidden && e.key === "Escape") {
+      close();
+    }
+  });
+})();
+</script>
 </body>
 </html>
