@@ -161,52 +161,51 @@
   </section>
 
   <!-- RADIO -->
-  <section id="radio" class="section alt">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>Radio en Vivo</h2>
-          <p>Escucha nuestra programación cristiana desde cualquier lugar.</p>
-        </div>
-      </div>
-
-      <div class="grid grid-2" data-reveal>
-        <article class="card emphasis radio-card" data-reveal>
-          <div class="radio-head">
-            <div style="display:flex;align-items:center;gap:10px">
-              <img src="img/logo.jpg" alt="IADSDER Radio" class="radio-logo">
-              <h3 class="radio-title">Radio Adventista de Dios En Reforma</h3>
-            </div>
-
-            <span class="radio-live" aria-label="En vivo">
-              <span class="radio-dot" aria-hidden="true"></span> EN VIVO
-            </span>
-          </div>
-
-          <audio id="radioAudio" preload="none">
-            <source src="https://stream.zeno.fm/rghmon0t9xauv" type="audio/mpeg">
-          </audio>
-
-          <div class="radio-wave">
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-
-          <div class="radio-controls">
-            <button class="btn btn-primary radio-btn" id="radioToggle" type="button" aria-pressed="false">
-              ▶ Reproducir
-            </button>
-
-            <div class="radio-volume">
-              <span class="muted">Volumen</span>
-              <input id="radioVol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen">
-            </div>
-          </div>
-
-          <p class="muted" id="radioStatus" style="margin-top:.8rem">Listo para reproducir.</p>
-        </article>
+<section id="radio" class="section alt">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Radio en Vivo</h2>
+        <p>Escucha nuestra programación cristiana desde cualquier lugar.</p>
       </div>
     </div>
-  </section>
+
+    <div class="grid grid-2" data-reveal>
+      <article class="card emphasis radio-card" data-reveal>
+        <div class="radio-head">
+          <div style="display:flex;align-items:center;gap:10px">
+            <img src="img/logo.jpg" alt="IADSDER Radio" class="radio-logo">
+            <h3 class="radio-title">Radio Adventista de Dios En Reforma</h3>
+          </div>
+
+          <span class="radio-live" aria-label="En vivo">
+            <span class="radio-dot" aria-hidden="true"></span> EN VIVO
+          </span>
+        </div>
+
+        <!-- AUDIO -->
+        <audio id="radioAudio" preload="none" crossorigin="anonymous"></audio>
+
+        <div class="radio-wave">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="radio-controls">
+          <button class="btn btn-primary radio-btn" id="radioToggle" type="button" aria-pressed="false">
+            ▶ Reproducir
+          </button>
+
+          <div class="radio-volume">
+            <span class="muted">Volumen</span>
+            <input id="radioVol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen">
+          </div>
+        </div>
+
+        <p class="muted" id="radioStatus" style="margin-top:.8rem">Listo para reproducir.</p>
+      </article>
+    </div>
+  </div>
+</section>
 
 
 <!-- VIDEOS -->

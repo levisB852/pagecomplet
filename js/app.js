@@ -218,9 +218,11 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     if (isHidden) {
       map.removeAttribute("hidden");
       btn.textContent = "Ocultar ubicación";
+      btn.setAttribute("aria-expanded", "true");
     } else {
       map.setAttribute("hidden", "");
       btn.textContent = "Ver ubicación";
+      btn.setAttribute("aria-expanded", "false");
     }
   });
 });
@@ -271,9 +273,6 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
 // ============================================================
 // 13. VIDEOS YOUTUBE
-// - Reproducir en modal
-// - Abrir en YouTube
-// - Intentar abrir la app primero
 // ============================================================
 (function youtubeCards() {
   const modal = document.getElementById("videoModal");
@@ -312,16 +311,13 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     const appUrl = getAppUrl(id);
     const webUrl = getWebUrl(id);
 
-    // Intenta abrir la app
     window.location.href = appUrl;
 
-    // Si no puede, abre la web
     setTimeout(() => {
       window.open(webUrl, "_blank", "noopener");
     }, 700);
   }
 
-  // Deja listos los href de todos los botones
   document.querySelectorAll(".video-card").forEach(card => {
     const id = card.getAttribute("data-youtube-id");
     const ytLink = card.querySelector(".video-youtube");
@@ -331,7 +327,6 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     }
   });
 
-  // Clicks generales
   document.addEventListener("click", (e) => {
     const card = e.target.closest(".video-card");
     if (!card) return;
@@ -339,13 +334,11 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     const id = card.getAttribute("data-youtube-id");
     const title = card.getAttribute("data-title") || "Video";
 
-    // Reproducir en modal
     if (e.target.closest(".video-open") || e.target.closest(".video-play")) {
       openModal(id, title);
       return;
     }
 
-    // Abrir en YouTube
     const ytLink = e.target.closest(".video-youtube");
     if (ytLink) {
       e.preventDefault();
@@ -353,7 +346,6 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     }
   });
 
-  // Botón del modal "Abrir en YouTube"
   openYtBtn.addEventListener("click", (e) => {
     const currentSrc = frame.src;
     const match = currentSrc.match(/embed\/([^?]+)/);
@@ -365,14 +357,12 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     tryOpenYoutubeApp(id);
   });
 
-  // Cerrar modal al tocar fondo o botón X
   modal.addEventListener("click", (e) => {
     if (e.target.matches("[data-close]")) {
       closeModal();
     }
   });
 
-  // Cerrar con ESC
   window.addEventListener("keydown", (e) => {
     if (!modal.hidden && e.key === "Escape") {
       closeModal();
@@ -381,7 +371,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 })();
 
 // ============================================================
-// 14. RADIO
+// 14. RADIO MEJORADA PARA ZENO AUTO DJ
 // ============================================================
 (function radioPlayer() {
   const audio = document.getElementById("radioAudio");
@@ -392,28 +382,92 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   if (!audio || !btn || !vol || !status) return;
 
   const card = btn.closest(".radio-card");
+  const STREAM_URL = "https://stream.zeno.fm/rghmon0t9xauv";
 
-  const setUI = (playing) => {
+  let isPlaying = false;
+  let userPaused = false;
+  let reconnectTimer = null;
+  let reconnectAttempts = 0;
+  const maxReconnectAttempts = 10;
+
+  function setUI(playing) {
     btn.textContent = playing ? "⏸ Pausar" : "▶ Reproducir";
     btn.setAttribute("aria-pressed", playing ? "true" : "false");
-    if (card) card.classList.toggle("is-playing", playing);
-  };
 
-  btn.addEventListener("click", async () => {
+    if (card) {
+      card.classList.toggle("is-playing", playing);
+    }
+  }
+
+  function buildStreamUrl() {
+    return `${STREAM_URL}?nocache=${Date.now()}`;
+  }
+
+  function clearReconnectTimer() {
+    if (reconnectTimer) {
+      clearTimeout(reconnectTimer);
+      reconnectTimer = null;
+    }
+  }
+
+  function loadFreshStream() {
+    audio.src = buildStreamUrl();
+    audio.load();
+  }
+
+  async function startPlayback() {
     try {
-      if (audio.paused) {
-        status.textContent = "Conectando...";
-        await audio.play();
-        setUI(true);
-        status.textContent = "🔊 Reproduciendo en vivo.";
-      } else {
-        audio.pause();
-        setUI(false);
-        status.textContent = "Pausado.";
-      }
-    } catch (e) {
+      clearReconnectTimer();
+      status.textContent = reconnectAttempts > 0 ? "Reconectando señal..." : "Conectando...";
+      loadFreshStream();
+      await audio.play();
+
+      isPlaying = true;
+      reconnectAttempts = 0;
+      setUI(true);
+      status.textContent = "🔊 Reproduciendo en vivo.";
+    } catch (error) {
+      isPlaying = false;
       setUI(false);
       status.textContent = "❌ No se pudo reproducir. Intenta otra vez.";
+    }
+  }
+
+  function stopPlayback(manual = true) {
+    clearReconnectTimer();
+    if (manual) userPaused = true;
+
+    audio.pause();
+    isPlaying = false;
+    setUI(false);
+    status.textContent = "Pausado.";
+  }
+
+  function scheduleReconnect() {
+    if (userPaused) return;
+    if (reconnectAttempts >= maxReconnectAttempts) {
+      status.textContent = "❌ No se pudo reconectar la señal.";
+      setUI(false);
+      isPlaying = false;
+      return;
+    }
+
+    clearReconnectTimer();
+    reconnectAttempts += 1;
+    status.textContent = `Reconectando señal... (${reconnectAttempts})`;
+
+    reconnectTimer = setTimeout(() => {
+      startPlayback();
+    }, 2500);
+  }
+
+  btn.addEventListener("click", async () => {
+    if (!isPlaying) {
+      userPaused = false;
+      reconnectAttempts = 0;
+      await startPlayback();
+    } else {
+      stopPlayback(true);
     }
   });
 
@@ -421,10 +475,40 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     audio.volume = Number(vol.value);
   });
 
-  audio.addEventListener("waiting", () => status.textContent = "Cargando señal...");
-  audio.addEventListener("playing", () => status.textContent = "🔊 Reproduciendo en vivo.");
-  audio.addEventListener("pause", () => status.textContent = "Pausado.");
-  audio.addEventListener("error", () => status.textContent = "❌ Error al cargar la transmisión.");
+  audio.addEventListener("playing", () => {
+    clearReconnectTimer();
+    isPlaying = true;
+    reconnectAttempts = 0;
+    setUI(true);
+    status.textContent = "🔊 Reproduciendo en vivo.";
+  });
+
+  audio.addEventListener("waiting", () => {
+    if (!userPaused) {
+      status.textContent = "Cargando señal...";
+    }
+  });
+
+  audio.addEventListener("stalled", () => {
+    if (!userPaused) scheduleReconnect();
+  });
+
+  audio.addEventListener("suspend", () => {
+    if (!userPaused && isPlaying) scheduleReconnect();
+  });
+
+  audio.addEventListener("error", () => {
+    if (!userPaused) scheduleReconnect();
+  });
+
+  audio.addEventListener("pause", () => {
+    if (!userPaused && isPlaying) {
+      scheduleReconnect();
+    }
+  });
+
+  // Volumen inicial
+  audio.volume = Number(vol.value);
 })();
 
 // ============================================================
@@ -646,26 +730,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "ArrowLeft") showPrev();
   });
 
-  // SWIPE en móvil
   view.addEventListener("touchstart", (e) => {
     touchStartX = e.changedTouches[0].screenX;
   }, { passive: true });
 
   view.addEventListener("touchend", (e) => {
     touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }, { passive: true });
-
-  function handleSwipe() {
     const distance = touchEndX - touchStartX;
 
     if (Math.abs(distance) < minSwipeDistance) return;
 
     if (distance < 0) {
-      showNext(); // deslizó hacia la izquierda
+      showNext();
     } else {
-      showPrev(); // deslizó hacia la derecha
+      showPrev();
     }
-  }
+  }, { passive: true });
 })();
-
