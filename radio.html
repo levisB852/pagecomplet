@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prueba Radio - IADSDER</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1:#f7f8ff;
+      --bg-2:#eef3ff;
+      --card:#ffffff;
+      --ink:#101828;
+      --muted:#667085;
+      --line:rgba(16,24,40,.08);
+      --brand:#355cff;
+      --brand-2:#7a4dff;
+      --live:#ff4d6d;
+      --shadow:0 24px 60px rgba(31, 41, 55, .12);
+      --radius:28px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      font-family:Inter, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 500px at 100% 0%, rgba(122,77,255,.10), transparent 60%),
+        radial-gradient(900px 500px at 0% 100%, rgba(53,92,255,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+    }
+
+    .shell{
+      width:min(100%, 860px);
+    }
+
+    .card{
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.92));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:30px;
+      backdrop-filter:blur(12px);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(53,92,255,.14), transparent 68%);
+      top:-120px;
+      left:-80px;
+      pointer-events:none;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      width:280px;
+      height:280px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(122,77,255,.12), transparent 68%);
+      bottom:-150px;
+      right:-110px;
+      pointer-events:none;
+    }
+
+    .top{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      min-width:0;
+    }
+
+    .logo-wrap{
+      position:relative;
+      flex-shrink:0;
+    }
+
+    .logo-wrap::after{
+      content:"";
+      position:absolute;
+      inset:-8px;
+      border-radius:26px;
+      background:linear-gradient(135deg, rgba(53,92,255,.14), rgba(122,77,255,.14));
+      z-index:-1;
+      filter:blur(4px);
+    }
+
+    .logo{
+      width:94px;
+      height:94px;
+      border-radius:22px;
+      object-fit:cover;
+      display:block;
+      box-shadow:0 14px 28px rgba(53,92,255,.16);
+      border:1px solid rgba(255,255,255,.65);
+      background:#fff;
+    }
+
+    .eyebrow{
+      margin:0 0 6px;
+      font-size:.8rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--brand);
+    }
+
+    .title{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      font-size:clamp(1.35rem, 1vw + 1rem, 2rem);
+      line-height:1.05;
+    }
+
+    .subtitle{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:.98rem;
+    }
+
+    .live{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(16,24,40,.08);
+      box-shadow:0 8px 20px rgba(16,24,40,.06);
+      font-size:.83rem;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#c0c4cc;
+      transition:.25s ease;
+    }
+
+    .card.is-playing .dot{
+      background:var(--live);
+      box-shadow:0 0 0 0 rgba(255,77,109,.45);
+      animation:pulse 1.2s infinite;
+    }
+
+    @keyframes pulse{
+      0%{ box-shadow:0 0 0 0 rgba(255,77,109,.45); }
+      70%{ box-shadow:0 0 0 12px rgba(255,77,109,0); }
+      100%{ box-shadow:0 0 0 0 rgba(255,77,109,0); }
+    }
+
+    .middle{
+      position:relative;
+      z-index:1;
+      margin-top:28px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:26px;
+      align-items:center;
+    }
+
+    .panel{
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(16,24,40,.06);
+      border-radius:22px;
+      padding:20px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.65);
+    }
+
+    .panel-title{
+      margin:0 0 8px;
+      font-size:.92rem;
+      font-weight:700;
+      color:#344054;
+    }
+
+    .status{
+      margin:0;
+      color:var(--muted);
+      font-size:.98rem;
+      min-height:1.5em;
+    }
+
+    .controls{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-items:stretch;
+    }
+
+    .play{
+      border:none;
+      cursor:pointer;
+      border-radius:18px;
+      padding:16px 18px;
+      font-size:1rem;
+      font-weight:800;
+      color:#fff;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow:0 14px 28px rgba(53,92,255,.22);
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    .play:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.03);
+    }
+
+    .vol{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(16,24,40,.06);
+      border-radius:18px;
+      padding:12px 14px;
+    }
+
+    .vol span{
+      min-width:62px;
+      color:#475467;
+      font-weight:600;
+      font-size:.95rem;
+    }
+
+    .vol input[type="range"]{
+      width:100%;
+      accent-color:#6b5cff;
+    }
+
+    .waves{
+      position:relative;
+      z-index:1;
+      margin-top:22px;
+      height:54px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .waves span{
+      width:10px;
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(180deg, #8b5cf6, #355cff);
+      transform:scaleY(.22);
+      transform-origin:bottom;
+      opacity:.42;
+    }
+
+    .card.is-playing .waves span{
+      opacity:1;
+      animation:wave 1.05s infinite ease-in-out;
+    }
+
+    .card.is-playing .waves span:nth-child(2){ animation-delay:.12s; }
+    .card.is-playing .waves span:nth-child(3){ animation-delay:.24s; }
+    .card.is-playing .waves span:nth-child(4){ animation-delay:.36s; }
+    .card.is-playing .waves span:nth-child(5){ animation-delay:.48s; }
+
+    @keyframes wave{
+      0%,100%{ transform:scaleY(.22); }
+      50%{ transform:scaleY(1); }
+    }
+
+    .footer-note{
+      position:relative;
+      z-index:1;
+      margin-top:18px;
+      text-align:center;
+      color:#667085;
+      font-size:.92rem;
+    }
+
+    @media (max-width: 740px){
+      .card{
+        padding:22px;
+      }
+
+      .middle{
+        grid-template-columns:1fr;
+      }
+
+      .logo{
+        width:82px;
+        height:82px;
+      }
+
+      .play{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="card" id="radioCard">
+      <div class="top">
+        <div class="brand">
+          <div class="logo-wrap">
+            <img src="img/logo.jpg" alt="Radio Adventista" class="logo">
+          </div>
+
+          <div>
+            <p class="eyebrow">Radio en vivo</p>
+            <h1 class="title">Radio Adventista de Dios En Reforma</h1>
+            <p class="subtitle">Alabanza, mensajes y programación cristiana durante el día.</p>
+          </div>
+        </div>
+
+        <div class="live">
+          <span class="dot"></span>
+          EN VIVO
+        </div>
+      </div>
+
+      <audio id="radioAudio" preload="none" crossorigin="anonymous"></audio>
+
+      <div class="middle">
+        <div class="panel">
+          <p class="panel-title">Estado de la señal</p>
+          <p class="status" id="radioStatus">Listo para reproducir.</p>
+        </div>
+
+        <div class="controls">
+          <button id="radioToggle" class="play" type="button">▶ Reproducir</button>
+
+          <div class="vol">
+            <span>Volumen</span>
+            <input id="radioVol" type="range" min="0" max="1" step="0.01" value="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="waves" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="footer-note">
+        Escucha la transmisión desde cualquier dispositivo.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function radioPlayerTest() {
+      const audio = document.getElementById("radioAudio");
+      const btn = document.getElementById("radioToggle");
+      const vol = document.getElementById("radioVol");
+      const status = document.getElementById("radioStatus");
+      const card = document.getElementById("radioCard");
+
+      const STREAM_URL = "https://stream.zeno.fm/rghmon0t9xauv";
+
+      let isPlaying = false;
+      let userPaused = false;
+      let reconnectTimer = null;
+      let reconnectAttempts = 0;
+      const maxReconnectAttempts = 8;
+
+      function setUI(playing) {
+        btn.textContent = playing ? "⏸ Pausar" : "▶ Reproducir";
+        card.classList.toggle("is-playing", playing);
+      }
+
+      function buildStreamUrl() {
+        return STREAM_URL + "?nocache=" + Date.now();
+      }
+
+      function clearReconnectTimer() {
+        if (reconnectTimer) {
+          clearTimeout(reconnectTimer);
+          reconnectTimer = null;
+        }
+      }
+
+      function loadFreshStream() {
+        audio.src = buildStreamUrl();
+        audio.load();
+      }
+
+      async function startPlayback() {
+        try {
+          clearReconnectTimer();
+          status.textContent = reconnectAttempts > 0 ? "Reconectando señal..." : "Conectando...";
+          loadFreshStream();
+          await audio.play();
+
+          isPlaying = true;
+          reconnectAttempts = 0;
+          setUI(true);
+          status.textContent = "🔊 Reproduciendo en vivo.";
+        } catch (error) {
+          isPlaying = false;
+          setUI(false);
+          status.textContent = "❌ No se pudo reproducir.";
+        }
+      }
+
+      function stopPlayback(manual = true) {
+        clearReconnectTimer();
+        if (manual) userPaused = true;
+
+        audio.pause();
+        isPlaying = false;
+        setUI(false);
+        status.textContent = "Pausado.";
+      }
+
+      function scheduleReconnect() {
+        if (userPaused) return;
+        if (reconnectAttempts >= maxReconnectAttempts) {
+          status.textContent = "❌ No se pudo reconectar la señal.";
+          isPlaying = false;
+          setUI(false);
+          return;
+        }
+
+        clearReconnectTimer();
+        reconnectAttempts += 1;
+        status.textContent = "Reconectando señal...";
+
+        reconnectTimer = setTimeout(() => {
+          startPlayback();
+        }, 2500);
+      }
+
+      btn.addEventListener("click", async () => {
+        if (!isPlaying) {
+          userPaused = false;
+          reconnectAttempts = 0;
+          await startPlayback();
+        } else {
+          stopPlayback(true);
+        }
+      });
+
+      vol.addEventListener("input", () => {
+        audio.volume = Number(vol.value);
+      });
+
+      audio.addEventListener("playing", () => {
+        clearReconnectTimer();
+        isPlaying = true;
+        reconnectAttempts = 0;
+        setUI(true);
+        status.textContent = "🔊 Reproduciendo en vivo.";
+      });
+
+      audio.addEventListener("waiting", () => {
+        if (!userPaused) status.textContent = "Cargando señal...";
+      });
+
+      audio.addEventListener("stalled", () => {
+        if (!userPaused) scheduleReconnect();
+      });
+
+      audio.addEventListener("suspend", () => {
+        if (!userPaused && isPlaying) scheduleReconnect();
+      });
+
+      audio.addEventListener("error", () => {
+        if (!userPaused) scheduleReconnect();
+      });
+
+      audio.addEventListener("pause", () => {
+        if (!userPaused && isPlaying) scheduleReconnect();
+      });
+
+      audio.volume = Number(vol.value);
+    })();
+  </script>
+</body>
+</html>

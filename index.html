@@ -160,8 +160,7 @@
     </div>
   </section>
 
-  <!-- RADIO -->
-<section id="radio" class="section alt">
+  <section id="radio" class="section alt">
   <div class="container">
     <div class="section-head">
       <div>
@@ -170,38 +169,41 @@
       </div>
     </div>
 
-    <div class="grid grid-2" data-reveal>
-      <article class="card emphasis radio-card" data-reveal>
+    <div class="grid grid-2">
+      <article class="card emphasis radio-card">
+
         <div class="radio-head">
           <div style="display:flex;align-items:center;gap:10px">
-            <img src="img/logo.jpg" alt="IADSDER Radio" class="radio-logo">
+            <img src="img/logo.jpg" alt="Radio" class="radio-logo">
             <h3 class="radio-title">Radio Adventista de Dios En Reforma</h3>
           </div>
 
-          <span class="radio-live" aria-label="En vivo">
-            <span class="radio-dot" aria-hidden="true"></span> EN VIVO
+          <span class="radio-live">
+            <span class="radio-dot"></span> EN VIVO
           </span>
         </div>
 
-        <!-- AUDIO -->
-        <audio id="radioAudio" preload="none" crossorigin="anonymous"></audio>
+        <audio id="radioAudio" preload="none">
+          <source src="https://stream.zeno.fm/rghmon0t9xauv" type="audio/mpeg">
+        </audio>
 
         <div class="radio-wave">
           <span></span><span></span><span></span><span></span><span></span>
         </div>
 
         <div class="radio-controls">
-          <button class="btn btn-primary radio-btn" id="radioToggle" type="button" aria-pressed="false">
+          <button class="btn btn-primary radio-btn" id="radioToggle">
             ▶ Reproducir
           </button>
 
           <div class="radio-volume">
-            <span class="muted">Volumen</span>
-            <input id="radioVol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volumen">
+            <span>Volumen</span>
+            <input id="radioVol" type="range" min="0" max="1" step="0.01" value="1">
           </div>
         </div>
 
-        <p class="muted" id="radioStatus" style="margin-top:.8rem">Listo para reproducir.</p>
+        <p class="muted" id="radioStatus">Listo para reproducir.</p>
+
       </article>
     </div>
   </div>

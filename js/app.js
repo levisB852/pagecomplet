@@ -371,9 +371,10 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 })();
 
 // ============================================================
-// 14. RADIO MEJORADA PARA ZENO AUTO DJ
+// 14. RADIO (VERSIÓN SIMPLE Y ESTABLE)
 // ============================================================
 (function radioPlayer() {
+
   const audio = document.getElementById("radioAudio");
   const btn = document.getElementById("radioToggle");
   const vol = document.getElementById("radioVol");
@@ -384,12 +385,6 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   const card = btn.closest(".radio-card");
   const STREAM_URL = "https://stream.zeno.fm/rghmon0t9xauv";
 
-  let isPlaying = false;
-  let userPaused = false;
-  let reconnectTimer = null;
-  let reconnectAttempts = 0;
-  const maxReconnectAttempts = 10;
-
   function setUI(playing) {
     btn.textContent = playing ? "⏸ Pausar" : "▶ Reproducir";
     btn.setAttribute("aria-pressed", playing ? "true" : "false");
@@ -399,116 +394,60 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     }
   }
 
-  function buildStreamUrl() {
-    return `${STREAM_URL}?nocache=${Date.now()}`;
-  }
-
-  function clearReconnectTimer() {
-    if (reconnectTimer) {
-      clearTimeout(reconnectTimer);
-      reconnectTimer = null;
-    }
-  }
-
-  function loadFreshStream() {
-    audio.src = buildStreamUrl();
-    audio.load();
-  }
-
-  async function startPlayback() {
-    try {
-      clearReconnectTimer();
-      status.textContent = reconnectAttempts > 0 ? "Reconectando señal..." : "Conectando...";
-      loadFreshStream();
-      await audio.play();
-
-      isPlaying = true;
-      reconnectAttempts = 0;
-      setUI(true);
-      status.textContent = "🔊 Reproduciendo en vivo.";
-    } catch (error) {
-      isPlaying = false;
-      setUI(false);
-      status.textContent = "❌ No se pudo reproducir. Intenta otra vez.";
-    }
-  }
-
-  function stopPlayback(manual = true) {
-    clearReconnectTimer();
-    if (manual) userPaused = true;
-
-    audio.pause();
-    isPlaying = false;
-    setUI(false);
-    status.textContent = "Pausado.";
-  }
-
-  function scheduleReconnect() {
-    if (userPaused) return;
-    if (reconnectAttempts >= maxReconnectAttempts) {
-      status.textContent = "❌ No se pudo reconectar la señal.";
-      setUI(false);
-      isPlaying = false;
-      return;
-    }
-
-    clearReconnectTimer();
-    reconnectAttempts += 1;
-    status.textContent = `Reconectando señal... (${reconnectAttempts})`;
-
-    reconnectTimer = setTimeout(() => {
-      startPlayback();
-    }, 2500);
-  }
-
+  // ▶ BOTÓN PLAY / PAUSE
   btn.addEventListener("click", async () => {
-    if (!isPlaying) {
-      userPaused = false;
-      reconnectAttempts = 0;
-      await startPlayback();
-    } else {
-      stopPlayback(true);
+    try {
+      if (audio.paused) {
+
+        status.textContent = "Conectando...";
+
+        // 🔥 evita caché (IMPORTANTE)
+        audio.src = STREAM_URL + "?nocache=" + Date.now();
+
+        await audio.play();
+
+        setUI(true);
+        status.textContent = "🔊 Reproduciendo en vivo.";
+
+      } else {
+
+        audio.pause();
+
+        setUI(false);
+        status.textContent = "Pausado.";
+
+      }
+
+    } catch (error) {
+      setUI(false);
+      status.textContent = "❌ Error al reproducir.";
     }
   });
 
+  // 🔊 VOLUMEN
   vol.addEventListener("input", () => {
     audio.volume = Number(vol.value);
   });
 
+  // 📡 ESTADOS
+  audio.addEventListener("waiting", () => {
+    status.textContent = "Cargando señal...";
+  });
+
   audio.addEventListener("playing", () => {
-    clearReconnectTimer();
-    isPlaying = true;
-    reconnectAttempts = 0;
-    setUI(true);
     status.textContent = "🔊 Reproduciendo en vivo.";
   });
 
-  audio.addEventListener("waiting", () => {
-    if (!userPaused) {
-      status.textContent = "Cargando señal...";
+  audio.addEventListener("pause", () => {
+    if (!audio.ended) {
+      status.textContent = "Pausado.";
     }
-  });
-
-  audio.addEventListener("stalled", () => {
-    if (!userPaused) scheduleReconnect();
-  });
-
-  audio.addEventListener("suspend", () => {
-    if (!userPaused && isPlaying) scheduleReconnect();
   });
 
   audio.addEventListener("error", () => {
-    if (!userPaused) scheduleReconnect();
+    status.textContent = "❌ Error en la transmisión.";
   });
 
-  audio.addEventListener("pause", () => {
-    if (!userPaused && isPlaying) {
-      scheduleReconnect();
-    }
-  });
-
-  // Volumen inicial
-  audio.volume = Number(vol.value);
 })();
 
 // ============================================================
