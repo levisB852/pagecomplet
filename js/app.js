@@ -569,7 +569,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 // ============================================================
-// 18. LIGHTBOX GALERÍA CON ANTERIOR / SIGUIENTE + SWIPE
+// 18. LIGHTBOX GALERÍA GENERAL + FILIALES
 // ============================================================
 (function galleryLightbox() {
   const modal = document.getElementById("imgModal");
@@ -587,64 +587,85 @@ document.addEventListener("DOMContentLoaded", () => {
   let touchEndX = 0;
   const minSwipeDistance = 50;
 
-  function refreshImages() {
-    images = Array.from(document.querySelectorAll(".gallery-item img"));
-  }
+  // ABRIR GALERÍA
+  function openGallery(galleryImages, startIndex = 0, alt = "Imagen") {
+    images = galleryImages;
+    currentIndex = startIndex;
 
-  function open(index) {
-    refreshImages();
     if (!images.length) return;
 
-    currentIndex = index;
-    const img = images[currentIndex];
+    view.src = images[currentIndex];
+    view.alt = alt;
 
-    view.src = img.src;
-    view.alt = img.alt || "Imagen";
     modal.hidden = false;
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+
+    // Mostrar flechas solo si hay varias imágenes
+    prevBtn.style.display = images.length > 1 ? "grid" : "none";
+    nextBtn.style.display = images.length > 1 ? "grid" : "none";
   }
 
-  function close() {
+  // CERRAR
+  function closeGallery() {
     modal.hidden = true;
     modal.setAttribute("aria-hidden", "true");
     view.src = "";
     view.alt = "";
+    images = [];
     document.body.style.overflow = "";
   }
 
+  // SIGUIENTE
   function showNext() {
-    refreshImages();
     if (!images.length) return;
-
     currentIndex = (currentIndex + 1) % images.length;
-    const img = images[currentIndex];
-    view.src = img.src;
-    view.alt = img.alt || "Imagen";
+    view.src = images[currentIndex];
   }
 
+  // ANTERIOR
   function showPrev() {
-    refreshImages();
     if (!images.length) return;
-
     currentIndex = (currentIndex - 1 + images.length) % images.length;
-    const img = images[currentIndex];
-    view.src = img.src;
-    view.alt = img.alt || "Imagen";
+    view.src = images[currentIndex];
   }
 
+  // CLICK GLOBAL
   document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".gallery-item");
-    if (!btn) return;
 
-    const img = btn.querySelector("img");
-    if (!img) return;
+    // ===== FILIALES =====
+    const filialBtn = e.target.closest(".filial-item");
+    if (filialBtn) {
+      const img = filialBtn.querySelector("img");
+      const gallery = filialBtn.dataset.gallery;
 
-    refreshImages();
-    const index = images.indexOf(img);
-    if (index !== -1) open(index);
+      if (!gallery) return;
+
+      const filialImages = gallery
+        .split(",")
+        .map(src => src.trim())
+        .filter(Boolean);
+
+      openGallery(filialImages, 0, img?.alt || "Imagen de filial");
+      return;
+    }
+
+    // ===== GALERÍA PRINCIPAL =====
+    const galleryBtn = e.target.closest(".gallery-item");
+    if (galleryBtn) {
+      const galleryImgs = Array.from(document.querySelectorAll(".gallery-item img"));
+      const clickedImg = galleryBtn.querySelector("img");
+
+      if (!clickedImg || !galleryImgs.length) return;
+
+      const urls = galleryImgs.map(img => img.src);
+      const index = galleryImgs.indexOf(clickedImg);
+
+      openGallery(urls, index, clickedImg.alt || "Imagen");
+    }
   });
 
+  // BOTONES
   prevBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     showPrev();
@@ -655,20 +676,23 @@ document.addEventListener("DOMContentLoaded", () => {
     showNext();
   });
 
-  backdrop.addEventListener("click", close);
+  // CERRAR
+  backdrop.addEventListener("click", closeGallery);
 
   modal.querySelectorAll("[data-close]").forEach(el => {
-    el.addEventListener("click", close);
+    el.addEventListener("click", closeGallery);
   });
 
+  // TECLADO
   document.addEventListener("keydown", (e) => {
     if (modal.hidden) return;
 
-    if (e.key === "Escape") close();
+    if (e.key === "Escape") closeGallery();
     if (e.key === "ArrowRight") showNext();
     if (e.key === "ArrowLeft") showPrev();
   });
 
+  // SWIPE (CELULAR)
   view.addEventListener("touchstart", (e) => {
     touchStartX = e.changedTouches[0].screenX;
   }, { passive: true });
@@ -685,4 +709,5 @@ document.addEventListener("DOMContentLoaded", () => {
       showPrev();
     }
   }, { passive: true });
+
 })();
