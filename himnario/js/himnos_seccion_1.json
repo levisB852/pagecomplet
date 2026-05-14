@@ -816,7 +816,7 @@
           "label": "Estrofa 1",
           "lines":[
           "//Jesús está en el cielo,",
-          "en la tierra y en todo lugar,",
+          "en la tierra y en todo lugar,//",
           "en las estrellas y en la luna;",
           "allí también estas.",
           "Si en lo profundo de la mar el hombre",
