@@ -11,7 +11,7 @@ exports.handler = async function () {
     const result = await cloudinary.search
       .expression("resource_type:image")
       .sort_by("created_at", "desc")
-      .max_results(85)
+      .max_results(150)
       .execute();
 
     const images = result.resources.map(img => ({
