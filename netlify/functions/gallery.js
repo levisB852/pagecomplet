@@ -3,32 +3,35 @@ const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-exports.handler = async () => {
+exports.handler = async function () {
   try {
-    const folder = process.env.CLOUDINARY_FOLDER || "Galeria";
-
     const result = await cloudinary.search
-      .expression(`folder:${folder}`)
-      .sort_by("public_id", "asc")
-      .max_results(100)
+      .expression("resource_type:image")
+      .sort_by("created_at", "desc")
+      .max_results(50)
       .execute();
 
-    const images = result.resources.map((img) => ({
+    const images = result.resources.map(img => ({
       url: img.secure_url,
       alt: img.public_id,
+      created_at: img.created_at
     }));
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ images }),
+      body: JSON.stringify({ images })
     };
+
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({
+        error: "No se pudo cargar la galería",
+        detail: error.message
+      })
     };
   }
 };

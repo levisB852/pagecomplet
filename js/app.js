@@ -503,6 +503,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ============================================================
 // 16. CARGAR GALERÍA DESDE CLOUDINARY
+//    Orden: más recientes primero
 // ============================================================
 (async function galleryFromCloudinary() {
   const track = document.getElementById("galleryTrack");
@@ -514,12 +515,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!res.ok) throw new Error("No se pudo cargar la galería");
 
     const data = await res.json();
-    const images = Array.isArray(data.images) ? data.images : [];
+    let images = Array.isArray(data.images) ? data.images : [];
 
     if (!images.length) {
       if (loading) loading.textContent = "No hay fotos todavía.";
       return;
     }
+
+    // Respaldo: ordena en el navegador también
+    images.sort((a, b) => {
+      const dateA = new Date(a.created_at || 0).getTime();
+      const dateB = new Date(b.created_at || 0).getTime();
+      return dateB - dateA;
+    });
 
     track.innerHTML = "";
 
@@ -536,6 +544,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.appendChild(im);
       track.appendChild(btn);
     });
+
   } catch (e) {
     if (loading) loading.textContent = "Error cargando fotos. Revisa Netlify.";
     console.error(e);
