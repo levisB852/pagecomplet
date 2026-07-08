@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Vigilia de Oraci?n",
+    "type": "culto",
+    "date": "2026-11-15",
+    "time": "7:00 PM",
+    "place": "Templo principal"
+  },
+  {
+    "title": "Encuentro de J?venes",
+    "type": "jovenes",
+    "date": "2026-11-22",
+    "time": "4:00 PM",
+    "place": "Sal?n multiusos"
+  },
+  {
+    "title": "Brigada de Salud",
+    "type": "comunidad",
+    "date": "2026-12-01",
+    "time": "8:30 AM",
+    "place": "Parque Central"
+  }
+]

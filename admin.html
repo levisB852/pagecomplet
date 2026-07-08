@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel de contenido | IADSDER</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" href="img/Logo_IADSDER.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .admin-shell{max-width:1100px;margin:0 auto;padding:2rem 1rem 4rem}
+    .admin-tabs{display:flex;gap:.65rem;flex-wrap:wrap;margin:1rem 0}
+    .admin-panel{display:grid;gap:1rem}
+    .admin-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .admin-list{display:grid;gap:.75rem}
+    .admin-item{border:1px solid var(--line);border-radius:8px;padding:1rem;background:var(--paper)}
+    .admin-actions{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1rem}
+    .admin-output{min-height:280px;font-family:ui-monospace,Consolas,monospace}
+    @media(max-width:760px){.admin-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="admin-shell">
+    <a class="btn btn-ghost" href="index.html">Volver al sitio</a>
+    <section class="section" style="padding-top:1.5rem">
+      <span class="badge">Panel simple</span>
+      <h1>Editor de contenido</h1>
+      <p class="muted">Edita videos o eventos, copia el JSON y reemplaza el archivo correspondiente en la carpeta <strong>data</strong>.</p>
+
+      <div class="admin-tabs">
+        <button class="btn btn-primary" type="button" data-admin-tab="videos">Videos</button>
+        <button class="btn btn-ghost" type="button" data-admin-tab="eventos">Eventos</button>
+      </div>
+
+      <div class="grid grid-2">
+        <article class="card admin-panel">
+          <div class="admin-list" id="adminList"></div>
+          <button class="btn btn-ghost" type="button" id="addItem">Agregar item</button>
+        </article>
+
+        <article class="card admin-panel">
+          <h2>JSON para subir</h2>
+          <textarea class="input admin-output" id="adminOutput" spellcheck="false"></textarea>
+          <div class="admin-actions">
+            <button class="btn btn-primary" type="button" id="copyJson">Copiar JSON</button>
+            <button class="btn btn-ghost" type="button" id="downloadJson">Descargar archivo</button>
+          </div>
+          <p class="muted" id="adminStatus" role="status"></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

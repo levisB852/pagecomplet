@@ -318,6 +318,35 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     }, 700);
   }
 
+  function renderVideoCards(videos) {
+    const grid = document.getElementById("videoGrid");
+    if (!grid || !Array.isArray(videos) || videos.length === 0) return;
+
+    grid.innerHTML = videos.map(video => `
+      <article class="card video-card"
+               data-youtube-id="${video.id}"
+               data-title="${video.title || "Video"}">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" alt="${video.title || "Video"}" loading="lazy">
+          <button class="video-play" type="button" aria-label="Reproducir video">▶</button>
+        </div>
+
+        <h3>${video.title || "Video"}</h3>
+        <p class="muted">${video.description || "Mensaje para fortalecer la fe."}</p>
+
+        <div class="video-actions">
+          <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
+          <a class="btn btn-ghost video-youtube" href="${getWebUrl(video.id)}" target="_blank" rel="noopener">Abrir en YouTube</a>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  fetch("data/videos.json")
+    .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin videos.json")))
+    .then(renderVideoCards)
+    .catch(() => {});
+
   document.querySelectorAll(".video-card").forEach(card => {
     const id = card.getAttribute("data-youtube-id");
     const ytLink = card.querySelector(".video-youtube");

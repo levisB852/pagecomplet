@@ -1,7 +1,7 @@
 {
   "name": "pagecomplet",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sitio oficial IADSDER con himnario, recursos, radio, videos y documentos.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
