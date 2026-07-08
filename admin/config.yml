@@ -1,0 +1,59 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "img/galeria/uploads"
+public_folder: "img/galeria/uploads"
+
+site_url: "https://iadsder.org"
+display_url: "https://iadsder.org"
+logo_url: "/img/Logo_IADSDER.png"
+
+collections:
+  - name: "contenido"
+    label: "Contenido del sitio"
+    files:
+      - name: "videos"
+        label: "Videos"
+        file: "data/videos.json"
+        format: "json"
+        fields:
+          - label: "Videos"
+            name: "videos"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID de YouTube", name: "id", widget: "string", hint: "Ejemplo: OgonAQOnNSo" }
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Descripción", name: "description", widget: "text", required: false }
+
+      - name: "eventos"
+        label: "Eventos"
+        file: "data/eventos.json"
+        format: "json"
+        fields:
+          - label: "Eventos"
+            name: "eventos"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Tipo", name: "type", widget: "select", options: ["culto", "jovenes", "comunidad", "especial"] }
+              - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "Hora", name: "time", widget: "string", required: false }
+              - { label: "Lugar", name: "place", widget: "string", required: false }
+
+      - name: "galeria"
+        label: "Galería de imágenes"
+        file: "data/galeria.json"
+        format: "json"
+        fields:
+          - label: "Imágenes"
+            name: "imagenes"
+            widget: "list"
+            summary: "{{fields.alt}}"
+            fields:
+              - { label: "Imagen", name: "image", widget: "image" }
+              - { label: "Texto alternativo", name: "alt", widget: "string", required: false }

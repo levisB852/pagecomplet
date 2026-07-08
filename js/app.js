@@ -344,7 +344,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
   fetch("data/videos.json")
     .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin videos.json")))
-    .then(renderVideoCards)
+    .then(data => renderVideoCards(Array.isArray(data) ? data : data.videos))
     .catch(() => {});
 
   document.querySelectorAll(".video-card").forEach(card => {
@@ -531,32 +531,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ============================================================
-// 16. CARGAR GALERÍA DESDE CLOUDINARY
-//    Orden: más recientes primero
+// 16. CARGAR GALERIA
 // ============================================================
-(async function galleryFromCloudinary() {
+(async function galleryLoader() {
   const track = document.getElementById("galleryTrack");
   const loading = document.getElementById("galleryLoading");
   if (!track) return;
 
-  try {
-    const res = await fetch("/.netlify/functions/gallery");
-    if (!res.ok) throw new Error("No se pudo cargar la galería");
-
-    const data = await res.json();
-    let images = Array.isArray(data.images) ? data.images : [];
-
+  function renderImages(images) {
     if (!images.length) {
-      if (loading) loading.textContent = "No hay fotos todavía.";
+      if (loading) loading.textContent = "No hay fotos todav?a.";
       return;
     }
-
-    // Respaldo: ordena en el navegador también
-    images.sort((a, b) => {
-      const dateA = new Date(a.created_at || 0).getTime();
-      const dateB = new Date(b.created_at || 0).getTime();
-      return dateB - dateA;
-    });
 
     track.innerHTML = "";
 
@@ -566,14 +552,43 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.type = "button";
 
       const im = document.createElement("img");
-      im.src = img.url;
+      im.src = img.url || img.image;
       im.alt = img.alt || "Foto";
       im.loading = "lazy";
 
       btn.appendChild(im);
       track.appendChild(btn);
     });
+  }
 
+  try {
+    const local = await fetch("data/galeria.json");
+    if (local.ok) {
+      const data = await local.json();
+      const images = Array.isArray(data) ? data : data.imagenes;
+      if (Array.isArray(images) && images.length) {
+        renderImages(images);
+        return;
+      }
+    }
+  } catch (e) {
+    console.warn("Galer?a local no disponible", e);
+  }
+
+  try {
+    const res = await fetch("/.netlify/functions/gallery");
+    if (!res.ok) throw new Error("No se pudo cargar la galer?a");
+
+    const data = await res.json();
+    let images = Array.isArray(data.images) ? data.images : [];
+
+    images.sort((a, b) => {
+      const dateA = new Date(a.created_at || 0).getTime();
+      const dateB = new Date(b.created_at || 0).getTime();
+      return dateB - dateA;
+    });
+
+    renderImages(images);
   } catch (e) {
     if (loading) loading.textContent = "Error cargando fotos. Revisa Netlify.";
     console.error(e);
