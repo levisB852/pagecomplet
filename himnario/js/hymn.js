@@ -17,8 +17,18 @@ if (backBtn) {
 }
 
 // 🎵 Cargar himno desde JSON
-fetch('js/himnos_seccion_1.json')
-  .then(res => res.json())
+function getHymnsData() {
+  if (Array.isArray(window.HIMNOS_DATA)) {
+    return Promise.resolve(window.HIMNOS_DATA);
+  }
+
+  return fetch('js/himnos_seccion_1.json').then(res => {
+    if (!res.ok) throw new Error(`No se pudo cargar el JSON (${res.status})`);
+    return res.json();
+  });
+}
+
+getHymnsData()
   .then(list => {
     localStorage.setItem('himnosOriginales', JSON.stringify(list));
 
@@ -26,18 +36,17 @@ fetch('js/himnos_seccion_1.json')
 
     if (!hymn) {
       titleEl.textContent = 'Himno no encontrado';
-      lyricsEl.innerHTML = '<p>No se encontró el himno solicitado.</p>';
+      lyricsEl.innerHTML = '<p>No se encontr? el himno solicitado.</p>';
       return;
     }
 
-    // 📝 Mostrar título y contenido
     titleEl.textContent = `${hymn.number} - ${hymn.title}`;
     if (hymn.author) {
-  const autorElemento = document.createElement("p");
-  autorElemento.className = "author";
-  autorElemento.textContent = `✍️ : ${hymn.author}`;
-  titleEl.insertAdjacentElement("afterend", autorElemento);
-}
+      const autorElemento = document.createElement('p');
+      autorElemento.className = 'author';
+      autorElemento.textContent = `\u270D\uFE0F : ${hymn.author}`;
+      titleEl.insertAdjacentElement('afterend', autorElemento);
+    }
 
     lyricsEl.innerHTML = hymn.content.map(block => {
       const tipo = block.type === 'chorus' ? 'coro' : 'estrofa';
@@ -45,18 +54,16 @@ fetch('js/himnos_seccion_1.json')
       return `<div class="${tipo}"><h3>${block.label}</h3>${lineas}</div>`;
     }).join('');
 
-    // 🔊 Cargar audio
     audioPlayer.src = `audio/himno${hymn.number}.mp3`;
 
-    // 🔄 Navegación entre himnos
     const prevId = currentHymnId - 1;
     const nextId = currentHymnId + 1;
 
     if (list.some(h => h.number === prevId)) {
-      navButtons.innerHTML += `<a href="hymn.html?number=${prevId}" class="nav-btn">← Himno anterior</a>`;
+      navButtons.innerHTML += `<a href="hymn.html?number=${prevId}" class="nav-btn">\u2190 Himno anterior</a>`;
     }
     if (list.some(h => h.number === nextId)) {
-      navButtons.innerHTML += `<a href="hymn.html?number=${nextId}" class="nav-btn">Siguiente himno →</a>`;
+      navButtons.innerHTML += `<a href="hymn.html?number=${nextId}" class="nav-btn">Siguiente himno \u2192</a>`;
     }
 
     verificarFavorito();
@@ -64,7 +71,7 @@ fetch('js/himnos_seccion_1.json')
   .catch(err => {
     console.error('Error al cargar el JSON:', err);
     titleEl.textContent = 'Error';
-    lyricsEl.innerHTML = '<p>No se pudo cargar el himno.</p>';
+    lyricsEl.innerHTML = '<p>No se pudo cargar el himno. Verifica que exista js/himnos-data.js.</p>';
   });
 
 
@@ -97,11 +104,11 @@ function actualizarBotonFavorito(guardado) {
   if (!btn) return;
 
   if (guardado) {
-    btn.textContent = '❌ Quitar de Mi Himnario';
+    btn.textContent = '\u274C Quitar de Mi Himnario';
     btn.style.backgroundColor = '#ff7043';
     btn.onclick = eliminarDeHimnario;
   } else {
-    btn.textContent = '➕ Agregar a Mi Himnario';
+    btn.textContent = '\u2795 Agregar a Mi Himnario';
     btn.style.backgroundColor = '#b39ddb';
     btn.onclick = agregarAHimnario;
   }
@@ -167,7 +174,7 @@ function generarTextoCompartido(himno) {
     return `⚠️ Himno #${himno?.number || 'sin número'} no tiene contenido disponible.`;
   }
 
-  let texto = `🎵 Himno #${himno.number}: ${himno.title}\n\n`;
+  let texto = `?? Himno #${himno.number}: ${himno.title}\n\n`;
 
   const estrofas = himno.content.filter(p => p.type === "verse");
   const coro = himno.content.find(p => p.type === "chorus");
@@ -193,7 +200,7 @@ function obtenerTextoCompartible() {
   const originales = JSON.parse(localStorage.getItem('himnosOriginales')) || [];
   const todos = [...originales, ...personalizados];
   const himno = todos.find(h => h.number == numero);
-  if (!himno) return '⚠️ Himno no encontrado';
+  if (!himno) return '?? Himno no encontrado';
 
   return generarTextoCompartido(himno);
 }
@@ -219,9 +226,9 @@ function compartirPorEmail() {
 function copiarAlPortapapeles() {
   const texto = obtenerTextoCompartible();
   navigator.clipboard.writeText(texto).then(() => {
-    alert('✅ Himno copiado al portapapeles');
+    alert('\u2705 Himno copiado al portapapeles');
   }).catch(() => {
-    alert('❌ No se pudo copiar el himno');
+    alert('\u274C No se pudo copiar el himno');
   });
 }
 

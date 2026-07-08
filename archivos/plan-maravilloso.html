@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -56,15 +56,17 @@
   <!-- NAV -->
   <header class="nav">
     <div class="container nav-wrap">
-      <a class="brand" href="/#inicio" aria-label="Inicio">
+      <a class="brand" href="../index.html#inicio" aria-label="Inicio">
         <img src="../img/Logo_IADSDER.png" alt="Logo" class="brand-logo" />
         <h3>Iglesia Adventista de Dios del Séptimo Día en Reforma</h3>
       </a>
 
       <nav class="nav-links" aria-label="Principal">
-        <a href="/#recursos">Recursos</a>
-        <a href="/#historia">Historia</a>
-        <a href="/#contacto">Contacto</a>
+        <a href="../index.html#recursos">Recursos</a>
+        <a href="../index.html#radio">Radio</a>
+        <a href="../index.html#videos">Videos</a>
+        <a href="../index.html#galeria">Eventos</a>
+        <a href="../index.html#contacto">Contacto</a>
       </nav>
 
       <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú">
@@ -75,12 +77,12 @@
     </div>
 
     <div id="mobileMenu" hidden class="container" style="padding-bottom:.8rem">
-      <div class="card" role="menu">
-        <a role="menuitem" href="/#recursos">Recursos</a>
-        <div class="divider"></div>
-        <a role="menuitem" href="/#historia">Historia</a>
-        <div class="divider"></div>
-        <a role="menuitem" href="/#contacto">Contacto</a>
+      <div class="card mobile-menu-card" role="menu">
+        <a role="menuitem" href="../index.html#recursos">Recursos</a>
+        <a role="menuitem" href="../index.html#radio">Radio en vivo</a>
+        <a role="menuitem" href="../index.html#videos">Videos</a>
+        <a role="menuitem" href="../index.html#galeria">Eventos Juveniles</a>
+        <a role="menuitem" href="../index.html#contacto">Contacto</a>
       </div>
     </div>
   </header>
@@ -101,6 +103,11 @@
           <p class="muted" style="margin:0">
             “Escudriñad las Escrituras…” — Juan 5:39
           </p>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#pdf">Ver PDF</a>
+          <a class="btn btn-ghost" href="../docs/plan-maravilloso.pdf" download>Descargar</a>
         </div>
       </div>
 
@@ -147,7 +154,7 @@
         ></iframe>
 
         <p style="margin-top:.8rem">
-          <a class="btn btn-primary" href="../docs/el-plan-maravilloso.pdf" download>
+          <a class="btn btn-primary" href="../docs/plan-maravilloso.pdf" download>
             Descargar PDF
           </a>
         </p>
@@ -156,10 +163,9 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
+  <!-- FOOTER -->  <footer>
     <div class="container footer-grid">
-      <div>
+      <div class="footer-about">
         <div class="brand" style="margin-bottom:.6rem">
           <img src="../img/Logo_IADSDER.png" alt="Logo" class="brand-logo" />
           <h3>Iglesia Adventista de Dios del Séptimo día en Reforma</h3>
@@ -167,21 +173,32 @@
         <p class="muted">Una familia para crecer en fe, servir con amor y compartir esperanza.</p>
       </div>
 
-      <div>
+      <div class="footer-links">
         <h3>Enlaces</h3>
         <ul class="list">
-          <li><a href="/#recursos">Recursos</a></li>
-          <li><a href="/#historia">Historia</a></li>
-          <li><a href="/#contacto">Contacto</a></li>
+          <li><a href="../index.html#recursos">Recursos</a></li>
+          <li><a href="../index.html#radio">Radio en vivo</a></li>
+          <li><a href="../index.html#videos">Videos</a></li>
+          <li><a href="../index.html#galeria">Eventos Juveniles</a></li>
+          <li><a href="../index.html#contacto">Contacto</a></li>
         </ul>
       </div>
 
-      <div class="container" style="margin-top:1rem">
-        <small class="muted">© <span id="year"></span> Iglesia Adventista de Dios del Séptimo día En Reforma.</small>
+      <div class="developer-signature" aria-label="Desarrollador del sitio">
+        <span class="developer-eyebrow">Desarrollado por</span>
+        <img src="../img/levis-flores-logo-web.jpg" alt="Levis Flores - Desarrollador Web" class="developer-logo">
+        <p class="muted">Diseño y desarrollo web para una experiencia clara, moderna y accesible.</p>
       </div>
     </div>
+
+    <div class="container footer-bottom">
+      <small class="muted">© <span id="year"></span> Iglesia Adventista de Dios del Séptimo día En Reforma.</small>
+    </div>
   </footer>
+  <button id="toTop" class="btn btn-primary to-top" aria-label="Volver arriba">↑</button>
 
   <script src="../js/app.js"></script>
 </body>
 </html>
+
+

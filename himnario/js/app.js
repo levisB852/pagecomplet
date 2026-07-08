@@ -12,18 +12,32 @@ if (localStorage.getItem('modoOscuro') === 'true') {
 }
 
 // ------------------------------
-// 2. Cargar himnos desde JSON
+// 2. Cargar himnos
 // ------------------------------
-fetch('js/himnos_seccion_1.json')
-  .then(res => res.json())
+function getHymnsData() {
+  if (Array.isArray(window.HIMNOS_DATA)) {
+    return Promise.resolve(window.HIMNOS_DATA);
+  }
+
+  return fetch('js/himnos_seccion_1.json').then(res => {
+    if (!res.ok) throw new Error(`No se pudo cargar el JSON (${res.status})`);
+    return res.json();
+  });
+}
+
+getHymnsData()
   .then(data => {
     hymns = data;
 
+    const pageName = location.pathname.split('/').pop().toLowerCase();
     const mostrarHimnario = localStorage.getItem('mostrarHimnario') === 'true';
-    if (mostrarHimnario) {
+    if (pageName === 'mihimnario.html' || mostrarHimnario) {
       localStorage.setItem('mostrarHimnario', 'false');
       const himnario = JSON.parse(localStorage.getItem('miHimnario')) || [];
       renderHimnario(himnario);
+    } else if (pageName === 'favoritos.html') {
+      const favoritos = (JSON.parse(localStorage.getItem('favoritos')) || []).map(Number);
+      renderList(hymns.filter(h => favoritos.includes(h.number)));
     } else {
       renderList(hymns);
     }
@@ -31,7 +45,7 @@ fetch('js/himnos_seccion_1.json')
   .catch(err => {
     console.error('Error al cargar el JSON:', err);
     if (hymnList) {
-      hymnList.innerHTML = '<p>Error al cargar los himnos.</p>';
+      hymnList.innerHTML = '<p class="no-results">Error al cargar los himnos. Verifica que exista js/himnos-data.js.</p>';
     }
   });
 
@@ -77,7 +91,7 @@ function renderList(list) {
     }
 
     const esFavorito = favoritos.includes(item.number);
-    const icono = esFavorito ? '⭐' : '☆';
+    const icono = esFavorito ? '\u2B50' : '\u2606';
 
     card.innerHTML = `
       <strong>${item.number} - ${item.title}</strong>
@@ -118,7 +132,7 @@ function renderHimnario(himnos) {
 
   if (!document.querySelector('.btn-volver-esquina')) {
     const volverBtn = document.createElement('button');
-    volverBtn.textContent = '🏠 Inicio';
+    volverBtn.textContent = '\uD83C\uDFE0 Inicio';
     volverBtn.className = 'btn-volver-esquina';
     volverBtn.onclick = () => {
       window.location.href = 'inicio.html';
@@ -189,7 +203,12 @@ function toggleFavorito(numero) {
   }
 
   localStorage.setItem('favoritos', JSON.stringify(favoritos));
-  renderList(hymns);
+  const pageName = location.pathname.split('/').pop().toLowerCase();
+  if (pageName === 'favoritos.html') {
+    renderList(hymns.filter(h => favoritos.includes(h.number)));
+  } else {
+    renderList(hymns);
+  }
 }
 
 
@@ -287,7 +306,7 @@ function renderPagination(totalItems) {
   if (totalPages <= 1) return;
 
   const prevBtn = document.createElement('button');
-  prevBtn.textContent = '⟨ Ant';
+  prevBtn.textContent = '\u2039 Ant';
   prevBtn.disabled = currentPage === 1;
   prevBtn.className = 'nav-btn';
   prevBtn.onclick = () => {
@@ -296,7 +315,7 @@ function renderPagination(totalItems) {
   };
 
   const nextBtn = document.createElement('button');
-  nextBtn.textContent = 'Sig ⟩';
+  nextBtn.textContent = 'Sig \u203A';
   nextBtn.disabled = currentPage === totalPages;
   nextBtn.className = 'nav-btn';
   nextBtn.onclick = () => {

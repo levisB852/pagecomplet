@@ -110,6 +110,19 @@ body.fade-out {
   transform: scale(1.05);
 }
 
+.site-back-link {
+  margin-top: .9rem;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.55);
+  opacity: .92;
+}
+
+.site-back-link:hover {
+  opacity: 1;
+}
+
 /* ======================
    FOOTER
 ====================== */
@@ -117,12 +130,21 @@ body.fade-out {
   position: fixed;
   bottom: 10px;
   left: 10px;
-  font-size: .85rem;
-  color: #555;
-  background: rgba(255,255,255,.85);
-  padding: 6px 12px;
-  border-radius: 6px;
+  display: grid;
+  gap: 2px;
+  font-size: .78rem;
+  color: #fff;
+  background: rgba(15, 23, 42, .78);
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
   z-index: 100;
+}
+
+.creditos-footer strong {
+  color: #ffeb3b;
+  font-size: .8rem;
 }
 
 /* ======================
@@ -156,4 +178,9 @@ body.fade-out {
   .titulo-principal { font-size: 1.7rem; }
   .hero-title { font-size: 1rem; }
   .hero-button { font-size: 1.1rem; }
+  .creditos-footer {
+    right: 10px;
+    left: 10px;
+    text-align: center;
+  }
 }

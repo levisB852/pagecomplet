@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -18,16 +18,8 @@
   <div id="hymnList" class="hymn-grid"></div>
 
 
+  <script src="js/himnos-data.js"></script>
   <script src="js/app.js"></script>
-  <script>
-    fetch('js/himnos_seccion_1.json')
-      .then(res => res.json())
-      .then(data => {
-        const favoritos = (JSON.parse(localStorage.getItem('favoritos')) || []).map(Number);
-        const favoritosFiltrados = data.filter(h => favoritos.includes(h.number));
-        renderList(favoritosFiltrados);
-      });
-  </script>
   <div id="panelConfiguracion" class="panel-config">
   <h3>🎨 Personaliza tu lectura</h3>
 
@@ -91,8 +83,6 @@
   <script src="js/estilosUsuario.js"></script>
 
 
-  <div class="creditos-footer">
-  © 2025 Iglesia Adventista de Dios en Reforma – Himnario Digital
-</div>
+  <div class="creditos-footer"><span>© 2026 Himnario Digital IADSDER</span><strong>Desarrollado por Levis Flores</strong></div>
 </body>
 </html>

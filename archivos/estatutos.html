@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -42,7 +42,9 @@
 
       <nav class="nav-links" aria-label="Principal">
         <a href="../index.html#recursos">Recursos</a>
-        <a href="../index.html#historia">Historia</a>
+        <a href="../index.html#radio">Radio</a>
+        <a href="../index.html#videos">Videos</a>
+        <a href="../index.html#galeria">Eventos</a>
         <a href="../index.html#contacto">Contacto</a>
       </nav>
 
@@ -54,13 +56,11 @@
     </div>
 
     <div id="mobileMenu" hidden class="container" style="padding-bottom:.8rem">
-      <div class="card" role="menu">
+      <div class="card mobile-menu-card" role="menu">
         <a role="menuitem" href="../index.html#recursos">Recursos</a>
-        <div class="divider"></div>
-        <a role="menuitem" href="../index.html#historia">Historia</a>
-        <div class="divider"></div>
-        <a role="menuitem" href="../index.html#mision-vision">Misión y Visión</a>
-        <div class="divider"></div>
+        <a role="menuitem" href="../index.html#radio">Radio en vivo</a>
+        <a role="menuitem" href="../index.html#videos">Videos</a>
+        <a role="menuitem" href="../index.html#galeria">Eventos Juveniles</a>
         <a role="menuitem" href="../index.html#contacto">Contacto</a>
       </div>
     </div>
@@ -83,6 +83,11 @@
           <p class="muted" style="margin:0">
             “Tomad este libro de la ley, y ponedlo al lado del arca del pacto de Jehová vuestro Dios...” — Deuteronomio 31:26
           </p>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#pdf">Ver PDF</a>
+          <a class="btn btn-ghost" href="../docs/estatutos-internos.pdf" download>Descargar</a>
         </div>
       </div>
 
@@ -152,11 +157,9 @@
       </article>
 
     </div>
-  </section>
-
-  <footer>
+  </section>  <footer>
     <div class="container footer-grid">
-      <div>
+      <div class="footer-about">
         <div class="brand" style="margin-bottom:.6rem">
           <img src="../img/Logo_IADSDER.png" alt="Logo" class="brand-logo" />
           <h3>Iglesia Adventista de Dios del Séptimo día en Reforma</h3>
@@ -164,18 +167,25 @@
         <p class="muted">Una familia para crecer en fe, servir con amor y compartir esperanza.</p>
       </div>
 
-      <div>
+      <div class="footer-links">
         <h3>Enlaces</h3>
         <ul class="list">
-          <li><a href="#recursos">Recursos</a></li>
-          <li><a href="#historia">Historia</a></li>
-          <li><a href="#mision-vision">Misión y Visión</a></li>
-          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="../index.html#recursos">Recursos</a></li>
+          <li><a href="../index.html#radio">Radio en vivo</a></li>
+          <li><a href="../index.html#videos">Videos</a></li>
+          <li><a href="../index.html#galeria">Eventos Juveniles</a></li>
+          <li><a href="../index.html#contacto">Contacto</a></li>
         </ul>
       </div>
 
+      <div class="developer-signature" aria-label="Desarrollador del sitio">
+        <span class="developer-eyebrow">Desarrollado por</span>
+        <img src="../img/levis-flores-logo-web.jpg" alt="Levis Flores - Desarrollador Web" class="developer-logo">
+        <p class="muted">Diseño y desarrollo web para una experiencia clara, moderna y accesible.</p>
+      </div>
+    </div>
 
-    <div class="container" style="margin-top:1rem">
+    <div class="container footer-bottom">
       <small class="muted">© <span id="year"></span> Iglesia Adventista de Dios del Séptimo día En Reforma.</small>
     </div>
   </footer>
@@ -185,3 +195,5 @@
   <script src="../js/app.js"></script>
 </body>
 </html>
+
+

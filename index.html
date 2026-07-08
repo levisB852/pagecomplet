@@ -60,7 +60,9 @@
 
       <nav class="nav-links" aria-label="Principal">
         <a href="#recursos">Recursos</a>
-        <a href="#historia">Historia</a>
+        <a href="#radio">Radio</a>
+        <a href="#videos">Videos</a>
+        <a href="#galeria">Eventos</a>
         <a href="#contacto">Contacto</a>
       </nav>
 
@@ -73,11 +75,11 @@
 
     <!-- Menú móvil -->
     <div id="mobileMenu" hidden class="container" style="padding-bottom:.8rem">
-      <div class="card" role="menu">
+      <div class="card mobile-menu-card" role="menu">
         <a role="menuitem" href="#recursos">Recursos</a>
-        <div class="divider"></div>
-        <a role="menuitem" href="#historia">Historia</a>
-        <div class="divider"></div>
+        <a role="menuitem" href="#radio">Radio en vivo</a>
+        <a role="menuitem" href="#videos">Videos</a>
+        <a role="menuitem" href="#galeria">Eventos Juveniles</a>
         <a role="menuitem" href="#contacto">Contacto</a>
       </div>
     </div>
@@ -98,7 +100,23 @@
 
         <div class="hero-actions">
           <a class="btn btn-primary" href="#recursos">Ver recursos</a>
+          <a class="btn btn-ghost" href="#radio">Escuchar radio</a>
           <a class="btn btn-ghost" href="#contacto">Planificar visita</a>
+        </div>
+
+        <div class="hero-highlights" aria-label="Accesos principales">
+          <a href="himnario/index.html">
+            <strong>Himnario</strong>
+            <span>Letras y pistas</span>
+          </a>
+          <a href="#videos">
+            <strong>Videos</strong>
+            <span>Mensajes y alabanzas</span>
+          </a>
+          <a href="#galeria">
+            <strong>Eventos</strong>
+            <span>Momentos juveniles</span>
+          </a>
         </div>
       </div>
 
@@ -378,7 +396,7 @@
       </div>
 
       <div class="grid grid-3" data-reveal>
-        <div class="card" style="grid-column: span 2">
+        <div class="card contact-form-card">
           <form id="contactForm"
                 name="contact"
                 method="POST"
@@ -422,13 +440,34 @@
             </a>
           </div>
         </div>
+
+        <aside class="card contact-info">
+          <span class="badge">Visítanos</span>
+          <h3>Estamos para servirte</h3>
+          <p class="muted">Puedes escribirnos, visitar una filial o escuchar la radio en vivo desde esta página.</p>
+
+          <div class="contact-info-list">
+            <a href="https://wa.me/50378740984?text=Hola%20quisiera%20informaci%C3%B3n%20sobre%20la%20Iglesia" target="_blank" rel="noopener">
+              <strong>WhatsApp</strong>
+              <span>+503 7874 0984</span>
+            </a>
+            <a href="./archivos/filiales.html">
+              <strong>Filiales</strong>
+              <span>Direcciones y ubicaciones</span>
+            </a>
+            <a href="#radio">
+              <strong>Radio</strong>
+              <span>Programación cristiana en vivo</span>
+            </a>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container footer-grid">
-      <div>
+      <div class="footer-about">
         <div class="brand" style="margin-bottom:.6rem">
           <img src="img/Logo_IADSDER.png" alt="Logo" class="brand-logo" />
           <h3>Iglesia Adventista de Dios del Séptimo día en Reforma</h3>
@@ -436,17 +475,26 @@
         <p class="muted">Una familia para crecer en fe, servir con amor y compartir esperanza.</p>
       </div>
 
-      <div>
+      <div class="footer-links">
         <h3>Enlaces</h3>
         <ul class="list">
           <li><a href="#recursos">Recursos</a></li>
+          <li><a href="#radio">Radio en vivo</a></li>
+          <li><a href="#videos">Videos</a></li>
+          <li><a href="#galeria">Eventos Juveniles</a></li>
           <li><a href="#historia">Historia</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </div>
+
+      <div class="developer-signature" aria-label="Desarrollador del sitio">
+        <span class="developer-eyebrow">Desarrollado por</span>
+        <img src="img/levis-flores-logo-web.jpg" alt="Levis Flores - Desarrollador Web" class="developer-logo">
+        <p class="muted">Diseño y desarrollo web para una experiencia clara, moderna y accesible.</p>
+      </div>
     </div>
 
-    <div class="container" style="margin-top:1rem">
+    <div class="container footer-bottom">
       <small class="muted">© <span id="year"></span> Iglesia Adventista de Dios del Séptimo día En Reforma.</small>
     </div>
   </footer>

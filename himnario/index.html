@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -36,6 +36,7 @@
       <div id="versiculoDia" class="versiculo-destacado">Cargando versículo...</div>
 
       <a href="inicio.html" class="hero-button">Entrar al Himnario</a>
+      <a href="../index.html#recursos" class="site-back-link">Volver al sitio principal</a>
 
       <!-- Texto visible para SEO (importante para Google) -->
       <p class="seo-text" style="max-width: 900px; margin: 14px auto 0; line-height: 1.5;">
@@ -49,9 +50,7 @@
     </div>
   </div>
 
-  <div class="creditos-footer">
-    © 2025 Iglesia Adventista de Dios en Reforma – Himnario Digital
-  </div>
+  <div class="creditos-footer"><span>© <span id="year"></span> Himnario Digital IADSDER</span><strong>Desarrollado por Levis Flores</strong></div>
 
   <script src="js/versiculo.js"></script>
 
@@ -76,7 +75,11 @@
       }, 450);
     });
   }
+
+  const year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
 </script>
 
 </body>
 </html>
+
