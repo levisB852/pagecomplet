@@ -3,10 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=admin/">
+  <meta http-equiv="refresh" content="0; url=/admin/">
+  <link rel="canonical" href="/admin/">
   <title>Administrador | IADSDER</title>
+  <style>
+    body {
+      align-items: center;
+      background: #f7f8fb;
+      color: #162033;
+      display: flex;
+      font-family: Arial, sans-serif;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    main {
+      max-width: 420px;
+      padding: 24px;
+    }
+
+    a {
+      color: #2f65d9;
+      font-weight: 700;
+    }
+  </style>
 </head>
 <body>
-  <p>Abriendo panel administrador... <a href="admin/">Entrar</a></p>
+  <main>
+    <p>Abriendo panel administrador...</p>
+    <p><a href="/admin/">Entrar al panel</a></p>
+  </main>
+  <script>
+    window.location.replace("/admin/");
+  </script>
 </body>
 </html>
