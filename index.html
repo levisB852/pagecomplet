@@ -501,6 +501,29 @@
 
   <button id="toTop" class="btn btn-primary to-top" aria-label="Volver arriba">↑</button>
 
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function (user) {
+        var hash = window.location.hash || "";
+        var hasAccessToken = /invite_token|confirmation_token|recovery_token|email_change_token/.test(hash);
+
+        if (hasAccessToken) {
+          window.netlifyIdentity.open();
+        }
+
+        if (user) {
+          window.netlifyIdentity.on("logout", function () {
+            document.location.href = "/";
+          });
+        } else {
+          window.netlifyIdentity.on("login", function () {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
   <script src="js/app.js"></script>
 </body>
 </html>

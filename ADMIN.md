@@ -25,6 +25,20 @@ Esto se hace una sola vez:
 
 Despues de eso puedes entrar desde el telefono a `/admin/`.
 
+## Si el correo no te deja crear o cambiar contrasena
+
+Esto suele pasar cuando Netlify manda el enlace de invitacion o recuperacion a la pagina principal. Ya deje la pagina preparada para detectar ese enlace y abrir la ventana correcta de Netlify.
+
+Prueba asi:
+
+1. Borra el usuario anterior en `Identity`, si quedo creado a medias.
+2. Envia otra invitacion desde Netlify.
+3. Abre el correo desde el mismo navegador del telefono o computadora.
+4. Crea la contrasena cuando aparezca la ventana de Netlify.
+5. Despues entra a `/admin/`.
+
+Si al recuperar contrasena te vuelve a llevar a la pagina principal, espera a que cargue por completo. La ventana para cambiar la contrasena deberia abrirse sola.
+
 ## Agregar videos
 
 1. Entra a `/admin/`.
