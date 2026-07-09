@@ -376,7 +376,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
                data-title="${video.title || "Video"}">
         <div class="video-thumb">
           <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" alt="${video.title || "Video"}" loading="lazy">
-          <button class="video-play" type="button" aria-label="Reproducir video">Play</button>
+          <button class="video-play" type="button" aria-label="Reproducir video">&#9658;</button>
         </div>
 
         <h3>${video.title || "Video"}</h3>
