@@ -12,6 +12,63 @@ Desde ahi puedes editar:
 - Eventos
 - Galeria de imagenes
 
+## Como funciona el panel
+
+El panel `/admin/` no cambia la pagina directamente como si fuera Word. Lo que hace es editar archivos del sitio:
+
+- `data/videos.json` guarda los videos.
+- `data/eventos.json` guarda los eventos.
+- `data/galeria.json` guarda las imagenes.
+
+Cuando presionas guardar en el panel, Netlify crea un cambio en GitHub. Luego Netlify publica el sitio otra vez. Por eso a veces el cambio tarda un poco en verse en la pagina.
+
+## Campo Publicado
+
+En videos, eventos e imagenes agregue el campo `Publicado`.
+
+- Encendido: aparece en la pagina.
+- Apagado: queda guardado en el admin, pero no se muestra al publico.
+
+Esto sirve para preparar contenido antes de publicarlo.
+
+## Videos de YouTube
+
+Para agregar un video, pega solo el ID de YouTube.
+
+Ejemplo:
+
+`https://www.youtube.com/watch?v=OgonAQOnNSo`
+
+El ID es:
+
+`OgonAQOnNSo`
+
+Tambien puedes poner titulo y descripcion corta.
+
+## Eventos
+
+Los eventos ahora se cargan desde el panel administrador. Puedes editar:
+
+- Titulo
+- Tipo
+- Fecha
+- Hora
+- Lugar
+- Imagen del evento
+- Publicado
+
+Si no subes imagen, la pagina usa una imagen predeterminada.
+
+## Galeria
+
+Puedes subir fotos desde el telefono. Cada foto tiene:
+
+- Publicado
+- Imagen
+- Texto alternativo
+
+El texto alternativo es una descripcion breve de la foto. Ayuda a que la pagina sea mas clara y accesible.
+
 ## Activarlo en Netlify
 
 Esto se hace una sola vez:

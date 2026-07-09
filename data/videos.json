@@ -1,19 +1,22 @@
 {
   "videos": [
     {
+      "published": true,
       "id": "OgonAQOnNSo",
       "title": "Mensaje Cristiano",
       "description": "Mensaje para fortalecer la fe."
     },
     {
+      "published": true,
       "id": "4EyIRWhExoc",
       "title": "Alabanza",
-      "description": "Momento de alabanza y adoración."
+      "description": "Momento de alabanza y adoracion."
     },
     {
+      "published": true,
       "id": "zME-k5m7JMk",
       "title": "Alabanza Especial",
-      "description": "Video especial para la congregación."
+      "description": "Video especial para la congregacion."
     }
   ]
 }

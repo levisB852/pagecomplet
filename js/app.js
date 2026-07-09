@@ -1,5 +1,5 @@
-// ============================================================
-// 1. ALTURA DINÁMICA DEL NAV
+﻿// ============================================================
+// 1. ALTURA DINÃMICA DEL NAV
 // ============================================================
 (function setNavHeight() {
   const nav = document.querySelector(".nav");
@@ -15,13 +15,13 @@
 })();
 
 // ============================================================
-// 2. AÑO DINÁMICO
+// 2. AÃ‘O DINÃMICO
 // ============================================================
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ============================================================
-// 3. MENÚ MÓVIL
+// 3. MENÃš MÃ“VIL
 // ============================================================
 const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
@@ -43,29 +43,52 @@ if (menuBtn && mobileMenu) {
 // ============================================================
 // 4. EVENTOS
 // ============================================================
-const EVENTS = [
-  { id: 1, title: "Vigilia de Oración", type: "culto", date: "2025-11-15", time: "7:00 PM", cover: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop", place: "Templo principal" },
-  { id: 2, title: "Encuentro de Jóvenes", type: "jovenes", date: "2025-11-22", time: "4:00 PM", cover: "https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?q=80&w=1200&auto=format&fit=crop", place: "Salón multiusos" },
-  { id: 3, title: "Brigada de Salud", type: "comunidad", date: "2025-12-01", time: "8:30 AM", cover: "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop", place: "Parque Central" },
-  { id: 4, title: "Escuela Sabática Infantil", type: "niños", date: "2025-11-29", time: "9:00 AM", cover: "https://images.unsplash.com/photo-1596464716121-8b7062b3cf4a?q=80&w=1200&auto=format&fit=crop", place: "Aulas infantiles" }
+let EVENTS = [
+  { id: 1, published: true, title: "Vigilia de Oracion", type: "culto", date: "2026-11-15", time: "7:00 PM", cover: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop", place: "Templo principal" },
+  { id: 2, published: true, title: "Encuentro de Jovenes", type: "jovenes", date: "2026-11-22", time: "4:00 PM", cover: "https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?q=80&w=1200&auto=format&fit=crop", place: "Salon multiusos" },
+  { id: 3, published: true, title: "Brigada de Salud", type: "comunidad", date: "2026-12-01", time: "8:30 AM", cover: "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop", place: "Parque Central" },
+  { id: 4, published: true, title: "Escuela Sabatica Infantil", type: "ninos", date: "2026-11-29", time: "9:00 AM", cover: "https://images.unsplash.com/photo-1596464716121-8b7062b3cf4a?q=80&w=1200&auto=format&fit=crop", place: "Aulas infantiles" }
 ];
 
 const eventList = document.getElementById("eventList");
 const filterBtns = document.querySelectorAll("[data-filter]");
+let activeEventType = "all";
+
+function isPublished(item) {
+  return item && item.published !== false;
+}
+
+function defaultEventCover(type) {
+  const covers = {
+    culto: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop",
+    jovenes: "https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?q=80&w=1200&auto=format&fit=crop",
+    comunidad: "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop",
+    especial: "https://images.unsplash.com/photo-1507692049790-de58290a4334?q=80&w=1200&auto=format&fit=crop",
+    ninos: "https://images.unsplash.com/photo-1596464716121-8b7062b3cf4a?q=80&w=1200&auto=format&fit=crop"
+  };
+
+  return covers[type] || covers.especial;
+}
 
 function renderEvents(type = "all") {
   if (!eventList) return;
 
-  const filtered = type === "all" ? EVENTS : EVENTS.filter(e => e.type === type);
+  const publishedEvents = EVENTS.filter(isPublished);
+  const filtered = type === "all" ? publishedEvents : publishedEvents.filter(e => e.type === type);
+
+  if (!filtered.length) {
+    eventList.innerHTML = `<p class="muted">No hay eventos disponibles por ahora.</p>`;
+    return;
+  }
 
   eventList.innerHTML = filtered.map(e => `
     <article class="card event-card">
-      <div class="event-cover"><img src="${e.cover}" alt="${e.title}"></div>
-      <h3>${e.title}</h3>
+      <div class="event-cover"><img src="${e.cover || defaultEventCover(e.type)}" alt="${e.title || "Evento"}"></div>
+      <h3>${e.title || "Evento"}</h3>
       <div class="event-meta">
-        <span>📅 ${new Date(e.date).toLocaleDateString("es-SV")}</span>
-        <span>🕓 ${e.time}</span>
-        <span>📍 ${e.place}</span>
+        <span>Fecha: ${new Date(e.date).toLocaleDateString("es-SV")}</span>
+        <span>Hora: ${e.time || "Por confirmar"}</span>
+        <span>Lugar: ${e.place || "Por confirmar"}</span>
       </div>
       <div style="margin-top:.6rem"><a class="btn btn-ghost" href="#">Ver detalle</a></div>
     </article>
@@ -73,10 +96,32 @@ function renderEvents(type = "all") {
 }
 renderEvents();
 
+fetch("data/eventos.json")
+  .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin eventos.json")))
+  .then(data => {
+    const eventos = Array.isArray(data) ? data : data.eventos;
+    if (!Array.isArray(eventos) || !eventos.length) return;
+
+    EVENTS = eventos.map((event, index) => ({
+      id: event.id || index + 1,
+      published: event.published !== false,
+      title: event.title || "Evento",
+      type: event.type || "especial",
+      date: event.date || new Date().toISOString().slice(0, 10),
+      time: event.time || "",
+      place: event.place || "",
+      cover: event.cover || defaultEventCover(event.type || "especial")
+    }));
+
+    renderEvents(activeEventType);
+  })
+  .catch(() => {});
+
 filterBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     const type = btn.getAttribute("data-filter");
-    renderEvents(type);
+    activeEventType = type;
+    renderEvents(activeEventType);
   });
 });
 
@@ -95,7 +140,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll("[data-reveal]").forEach(el => revealObserver.observe(el));
 
 // ============================================================
-// 6. BOTÓN VOLVER ARRIBA
+// 6. BOTÃ“N VOLVER ARRIBA
 // ============================================================
 const toTop = document.getElementById("toTop");
 
@@ -111,7 +156,7 @@ if (toTop) {
 }
 
 // ============================================================
-// 7. ENLACE ACTIVO SEGÚN SECCIÓN
+// 7. ENLACE ACTIVO SEGÃšN SECCIÃ“N
 // ============================================================
 const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll(".nav-links a, #mobileMenu a");
@@ -140,7 +185,7 @@ const spy = new IntersectionObserver((entries) => {
 sections.forEach(section => spy.observe(section));
 
 // ============================================================
-// 8. CERRAR MENÚ MÓVIL AL HACER CLICK
+// 8. CERRAR MENÃš MÃ“VIL AL HACER CLICK
 // ============================================================
 document.querySelectorAll("#mobileMenu a").forEach(a => {
   a.addEventListener("click", () => {
@@ -217,11 +262,11 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
     if (isHidden) {
       map.removeAttribute("hidden");
-      btn.textContent = "Ocultar ubicación";
+      btn.textContent = "Ocultar ubicaciÃ³n";
       btn.setAttribute("aria-expanded", "true");
     } else {
       map.setAttribute("hidden", "");
-      btn.textContent = "Ver ubicación";
+      btn.textContent = "Ver ubicaciÃ³n";
       btn.setAttribute("aria-expanded", "false");
     }
   });
@@ -258,13 +303,13 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
       const ok = res.ok || (res.status >= 300 && res.status < 400);
 
       if (ok) {
-        msg.textContent = "✅ Mensaje enviado correctamente. Gracias por escribirnos.";
+        msg.textContent = "âœ… Mensaje enviado correctamente. Gracias por escribirnos.";
         form.reset();
       } else {
-        msg.textContent = `❌ No se pudo enviar (código ${res.status}). Intenta más tarde.`;
+        msg.textContent = `âŒ No se pudo enviar (cÃ³digo ${res.status}). Intenta mÃ¡s tarde.`;
       }
     } catch (err) {
-      msg.textContent = "❌ Error de conexión. Intenta nuevamente.";
+      msg.textContent = "âŒ Error de conexiÃ³n. Intenta nuevamente.";
     } finally {
       setDisabled(false);
     }
@@ -322,20 +367,23 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     const grid = document.getElementById("videoGrid");
     if (!grid || !Array.isArray(videos) || videos.length === 0) return;
 
-    grid.innerHTML = videos.map(video => `
+    const publishedVideos = videos.filter(isPublished);
+    if (!publishedVideos.length) return;
+
+    grid.innerHTML = publishedVideos.map(video => `
       <article class="card video-card"
                data-youtube-id="${video.id}"
                data-title="${video.title || "Video"}">
         <div class="video-thumb">
           <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" alt="${video.title || "Video"}" loading="lazy">
-          <button class="video-play" type="button" aria-label="Reproducir video">▶</button>
+          <button class="video-play" type="button" aria-label="Reproducir video">â–¶</button>
         </div>
 
         <h3>${video.title || "Video"}</h3>
         <p class="muted">${video.description || "Mensaje para fortalecer la fe."}</p>
 
         <div class="video-actions">
-          <button class="btn btn-primary video-open" type="button">Reproducir aquí</button>
+          <button class="btn btn-primary video-open" type="button">Reproducir aquÃ­</button>
           <a class="btn btn-ghost video-youtube" href="${getWebUrl(video.id)}" target="_blank" rel="noopener">Abrir en YouTube</a>
         </div>
       </article>
@@ -400,7 +448,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 })();
 
 // ============================================================
-// 14. RADIO (VERSIÓN SIMPLE Y ESTABLE)
+// 14. RADIO (VERSIÃ“N SIMPLE Y ESTABLE)
 // ============================================================
 (function radioPlayer() {
 
@@ -415,7 +463,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   const STREAM_URL = "https://stream.zeno.fm/rghmon0t9xauv";
 
   function setUI(playing) {
-    btn.textContent = playing ? "⏸ Pausar" : "▶ Reproducir";
+    btn.textContent = playing ? "â¸ Pausar" : "â–¶ Reproducir";
     btn.setAttribute("aria-pressed", playing ? "true" : "false");
 
     if (card) {
@@ -423,20 +471,20 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     }
   }
 
-  // ▶ BOTÓN PLAY / PAUSE
+  // â–¶ BOTÃ“N PLAY / PAUSE
   btn.addEventListener("click", async () => {
     try {
       if (audio.paused) {
 
         status.textContent = "Conectando...";
 
-        // 🔥 evita caché (IMPORTANTE)
+        // ðŸ”¥ evita cachÃ© (IMPORTANTE)
         audio.src = STREAM_URL + "?nocache=" + Date.now();
 
         await audio.play();
 
         setUI(true);
-        status.textContent = "🔊 Reproduciendo en vivo.";
+        status.textContent = "ðŸ”Š Reproduciendo en vivo.";
 
       } else {
 
@@ -449,22 +497,22 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
     } catch (error) {
       setUI(false);
-      status.textContent = "❌ Error al reproducir.";
+      status.textContent = "âŒ Error al reproducir.";
     }
   });
 
-  // 🔊 VOLUMEN
+  // ðŸ”Š VOLUMEN
   vol.addEventListener("input", () => {
     audio.volume = Number(vol.value);
   });
 
-  // 📡 ESTADOS
+  // ðŸ“¡ ESTADOS
   audio.addEventListener("waiting", () => {
-    status.textContent = "Cargando señal...";
+    status.textContent = "Cargando seÃ±al...";
   });
 
   audio.addEventListener("playing", () => {
-    status.textContent = "🔊 Reproduciendo en vivo.";
+    status.textContent = "ðŸ”Š Reproduciendo en vivo.";
   });
 
   audio.addEventListener("pause", () => {
@@ -474,7 +522,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   });
 
   audio.addEventListener("error", () => {
-    status.textContent = "❌ Error en la transmisión.";
+    status.textContent = "âŒ Error en la transmisiÃ³n.";
   });
 
 })();
@@ -492,7 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const cards = Array.from(document.querySelectorAll("article.filial-card"));
   if (!cards.length) {
-    countEl.textContent = "No se encontraron tarjetas .filial-card en esta página.";
+    countEl.textContent = "No se encontraron tarjetas .filial-card en esta pÃ¡gina.";
     return;
   }
 
@@ -565,7 +613,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const local = await fetch("data/galeria.json");
     if (local.ok) {
       const data = await local.json();
-      const images = Array.isArray(data) ? data : data.imagenes;
+      const galleryItems = Array.isArray(data) ? data : data.imagenes;
+      const images = Array.isArray(galleryItems) ? galleryItems.filter(isPublished) : [];
       if (Array.isArray(images) && images.length) {
         renderImages(images);
         return;
@@ -622,7 +671,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 // ============================================================
-// 18. LIGHTBOX GALERÍA GENERAL + FILIALES
+// 18. LIGHTBOX GALERÃA GENERAL + FILIALES
 // ============================================================
 (function galleryLightbox() {
   const modal = document.getElementById("imgModal");
@@ -640,7 +689,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let touchEndX = 0;
   const minSwipeDistance = 50;
 
-  // ABRIR GALERÍA
+  // ABRIR GALERÃA
   function openGallery(galleryImages, startIndex = 0, alt = "Imagen") {
     images = galleryImages;
     currentIndex = startIndex;
@@ -654,7 +703,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
 
-    // Mostrar flechas solo si hay varias imágenes
+    // Mostrar flechas solo si hay varias imÃ¡genes
     prevBtn.style.display = images.length > 1 ? "grid" : "none";
     nextBtn.style.display = images.length > 1 ? "grid" : "none";
   }
@@ -703,7 +752,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // ===== GALERÍA PRINCIPAL =====
+    // ===== GALERÃA PRINCIPAL =====
     const galleryBtn = e.target.closest(".gallery-item");
     if (galleryBtn) {
       const galleryImgs = Array.from(document.querySelectorAll(".gallery-item img"));

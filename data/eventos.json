@@ -1,25 +1,31 @@
 {
   "eventos": [
     {
-      "title": "Vigilia de Oración",
+      "published": true,
+      "title": "Vigilia de Oracion",
       "type": "culto",
       "date": "2026-11-15",
       "time": "7:00 PM",
-      "place": "Templo principal"
+      "place": "Templo principal",
+      "cover": ""
     },
     {
-      "title": "Encuentro de Jóvenes",
+      "published": true,
+      "title": "Encuentro de Jovenes",
       "type": "jovenes",
       "date": "2026-11-22",
       "time": "4:00 PM",
-      "place": "Salón multiusos"
+      "place": "Salon multiusos",
+      "cover": ""
     },
     {
+      "published": true,
       "title": "Brigada de Salud",
       "type": "comunidad",
       "date": "2026-12-01",
       "time": "8:30 AM",
-      "place": "Parque Central"
+      "place": "Parque Central",
+      "cover": ""
     }
   ]
 }
