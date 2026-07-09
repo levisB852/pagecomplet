@@ -6,6 +6,9 @@ local_backend: true
 locale: "es"
 show_preview_links: false
 
+editor:
+  preview: false
+
 media_folder: "img/galeria/uploads"
 public_folder: "img/galeria/uploads"
 

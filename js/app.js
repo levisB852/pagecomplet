@@ -1,5 +1,5 @@
 ﻿// ============================================================
-// 1. ALTURA DINÃMICA DEL NAV
+// 1. ALTURA DINAMICA DEL NAV
 // ============================================================
 (function setNavHeight() {
   const nav = document.querySelector(".nav");
@@ -15,13 +15,13 @@
 })();
 
 // ============================================================
-// 2. AÃ‘O DINÃMICO
+// 2. ANO DINAMICO
 // ============================================================
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ============================================================
-// 3. MENÃš MÃ“VIL
+// 3. MENU MOVIL
 // ============================================================
 const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
@@ -140,7 +140,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll("[data-reveal]").forEach(el => revealObserver.observe(el));
 
 // ============================================================
-// 6. BOTÃ“N VOLVER ARRIBA
+// 6. BOTON VOLVER ARRIBA
 // ============================================================
 const toTop = document.getElementById("toTop");
 
@@ -156,7 +156,7 @@ if (toTop) {
 }
 
 // ============================================================
-// 7. ENLACE ACTIVO SEGÃšN SECCIÃ“N
+// 7. ENLACE ACTIVO SEGUN SECCION
 // ============================================================
 const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll(".nav-links a, #mobileMenu a");
@@ -185,7 +185,7 @@ const spy = new IntersectionObserver((entries) => {
 sections.forEach(section => spy.observe(section));
 
 // ============================================================
-// 8. CERRAR MENÃš MÃ“VIL AL HACER CLICK
+// 8. CERRAR MENU MOVIL AL HACER CLICK
 // ============================================================
 document.querySelectorAll("#mobileMenu a").forEach(a => {
   a.addEventListener("click", () => {
@@ -262,11 +262,11 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
     if (isHidden) {
       map.removeAttribute("hidden");
-      btn.textContent = "Ocultar ubicaciÃ³n";
+      btn.textContent = "Ocultar ubicacion";
       btn.setAttribute("aria-expanded", "true");
     } else {
       map.setAttribute("hidden", "");
-      btn.textContent = "Ver ubicaciÃ³n";
+      btn.textContent = "Ver ubicacion";
       btn.setAttribute("aria-expanded", "false");
     }
   });
@@ -303,13 +303,13 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
       const ok = res.ok || (res.status >= 300 && res.status < 400);
 
       if (ok) {
-        msg.textContent = "âœ… Mensaje enviado correctamente. Gracias por escribirnos.";
+        msg.textContent = "Mensaje enviado correctamente. Gracias por escribirnos.";
         form.reset();
       } else {
-        msg.textContent = `âŒ No se pudo enviar (cÃ³digo ${res.status}). Intenta mÃ¡s tarde.`;
+        msg.textContent = `No se pudo enviar (codigo ${res.status}). Intenta mas tarde.`;
       }
     } catch (err) {
-      msg.textContent = "âŒ Error de conexiÃ³n. Intenta nuevamente.";
+      msg.textContent = "Error de conexion. Intenta nuevamente.";
     } finally {
       setDisabled(false);
     }
@@ -376,14 +376,14 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
                data-title="${video.title || "Video"}">
         <div class="video-thumb">
           <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" alt="${video.title || "Video"}" loading="lazy">
-          <button class="video-play" type="button" aria-label="Reproducir video">â–¶</button>
+          <button class="video-play" type="button" aria-label="Reproducir video">Play</button>
         </div>
 
         <h3>${video.title || "Video"}</h3>
         <p class="muted">${video.description || "Mensaje para fortalecer la fe."}</p>
 
         <div class="video-actions">
-          <button class="btn btn-primary video-open" type="button">Reproducir aquÃ­</button>
+          <button class="btn btn-primary video-open" type="button">Reproducir aqui</button>
           <a class="btn btn-ghost video-youtube" href="${getWebUrl(video.id)}" target="_blank" rel="noopener">Abrir en YouTube</a>
         </div>
       </article>
@@ -448,7 +448,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 })();
 
 // ============================================================
-// 14. RADIO (VERSIÃ“N SIMPLE Y ESTABLE)
+// 14. RADIO (VERSION SIMPLE Y ESTABLE)
 // ============================================================
 (function radioPlayer() {
 
@@ -463,7 +463,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   const STREAM_URL = "https://stream.zeno.fm/rghmon0t9xauv";
 
   function setUI(playing) {
-    btn.textContent = playing ? "â¸ Pausar" : "â–¶ Reproducir";
+    btn.textContent = playing ? "Pausar" : "Reproducir";
     btn.setAttribute("aria-pressed", playing ? "true" : "false");
 
     if (card) {
@@ -471,20 +471,20 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     }
   }
 
-  // â–¶ BOTÃ“N PLAY / PAUSE
+  // BOTON PLAY / PAUSE
   btn.addEventListener("click", async () => {
     try {
       if (audio.paused) {
 
         status.textContent = "Conectando...";
 
-        // ðŸ”¥ evita cachÃ© (IMPORTANTE)
+        // Evita cache.
         audio.src = STREAM_URL + "?nocache=" + Date.now();
 
         await audio.play();
 
         setUI(true);
-        status.textContent = "ðŸ”Š Reproduciendo en vivo.";
+        status.textContent = "Reproduciendo en vivo.";
 
       } else {
 
@@ -497,22 +497,22 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
     } catch (error) {
       setUI(false);
-      status.textContent = "âŒ Error al reproducir.";
+      status.textContent = "Error al reproducir.";
     }
   });
 
-  // ðŸ”Š VOLUMEN
+  // VOLUMEN
   vol.addEventListener("input", () => {
     audio.volume = Number(vol.value);
   });
 
-  // ðŸ“¡ ESTADOS
+  // ESTADOS
   audio.addEventListener("waiting", () => {
-    status.textContent = "Cargando seÃ±al...";
+    status.textContent = "Cargando senal...";
   });
 
   audio.addEventListener("playing", () => {
-    status.textContent = "ðŸ”Š Reproduciendo en vivo.";
+    status.textContent = "Reproduciendo en vivo.";
   });
 
   audio.addEventListener("pause", () => {
@@ -522,7 +522,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   });
 
   audio.addEventListener("error", () => {
-    status.textContent = "âŒ Error en la transmisiÃ³n.";
+    status.textContent = "Error en la transmision.";
   });
 
 })();
@@ -540,7 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const cards = Array.from(document.querySelectorAll("article.filial-card"));
   if (!cards.length) {
-    countEl.textContent = "No se encontraron tarjetas .filial-card en esta pÃ¡gina.";
+    countEl.textContent = "No se encontraron filiales en esta pagina.";
     return;
   }
 
@@ -586,9 +586,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const loading = document.getElementById("galleryLoading");
   if (!track) return;
 
+  function uniqueImages(images) {
+    const seen = new Set();
+
+    return images.filter(img => {
+      const src = img.url || img.image;
+      if (!src || seen.has(src)) return false;
+      seen.add(src);
+      return true;
+    });
+  }
+
   function renderImages(images) {
     if (!images.length) {
-      if (loading) loading.textContent = "No hay fotos todav?a.";
+      if (loading) loading.textContent = "No hay fotos todavia.";
       return;
     }
 
@@ -609,39 +620,43 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  let localImages = [];
+  let onlineImages = [];
+
   try {
     const local = await fetch("data/galeria.json");
     if (local.ok) {
       const data = await local.json();
       const galleryItems = Array.isArray(data) ? data : data.imagenes;
-      const images = Array.isArray(galleryItems) ? galleryItems.filter(isPublished) : [];
-      if (Array.isArray(images) && images.length) {
-        renderImages(images);
-        return;
-      }
+      localImages = Array.isArray(galleryItems) ? galleryItems.filter(isPublished) : [];
     }
   } catch (e) {
-    console.warn("Galer?a local no disponible", e);
+    console.warn("Galeria local no disponible", e);
   }
 
   try {
     const res = await fetch("/.netlify/functions/gallery");
-    if (!res.ok) throw new Error("No se pudo cargar la galer?a");
+    if (!res.ok) throw new Error("No se pudo cargar la galeria");
 
     const data = await res.json();
-    let images = Array.isArray(data.images) ? data.images : [];
+    onlineImages = Array.isArray(data.images) ? data.images : [];
 
-    images.sort((a, b) => {
+    onlineImages.sort((a, b) => {
       const dateA = new Date(a.created_at || 0).getTime();
       const dateB = new Date(b.created_at || 0).getTime();
       return dateB - dateA;
     });
-
-    renderImages(images);
   } catch (e) {
-    if (loading) loading.textContent = "Error cargando fotos. Revisa Netlify.";
     console.error(e);
   }
+
+  const images = uniqueImages([...localImages, ...onlineImages]);
+
+  if (!images.length && loading) {
+    loading.textContent = "Error cargando fotos. Revisa Netlify.";
+  }
+
+  renderImages(images);
 })();
 
 // ============================================================
@@ -671,7 +686,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 // ============================================================
-// 18. LIGHTBOX GALERÃA GENERAL + FILIALES
+// 18. LIGHTBOX GALERIA GENERAL + FILIALES
 // ============================================================
 (function galleryLightbox() {
   const modal = document.getElementById("imgModal");
@@ -689,7 +704,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let touchEndX = 0;
   const minSwipeDistance = 50;
 
-  // ABRIR GALERÃA
+  // ABRIR GALERIA
   function openGallery(galleryImages, startIndex = 0, alt = "Imagen") {
     images = galleryImages;
     currentIndex = startIndex;
@@ -703,7 +718,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
 
-    // Mostrar flechas solo si hay varias imÃ¡genes
+    // Mostrar flechas solo si hay varias imagenes
     prevBtn.style.display = images.length > 1 ? "grid" : "none";
     nextBtn.style.display = images.length > 1 ? "grid" : "none";
   }
@@ -752,7 +767,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // ===== GALERÃA PRINCIPAL =====
+    // ===== GALERIA PRINCIPAL =====
     const galleryBtn = e.target.closest(".gallery-item");
     if (galleryBtn) {
       const galleryImgs = Array.from(document.querySelectorAll(".gallery-item img"));

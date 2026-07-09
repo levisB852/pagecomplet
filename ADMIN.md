@@ -69,6 +69,23 @@ Puedes subir fotos desde el telefono. Cada foto tiene:
 
 El texto alternativo es una descripcion breve de la foto. Ayuda a que la pagina sea mas clara y accesible.
 
+La pagina ahora mezcla dos fuentes:
+
+- Fotos subidas desde el admin.
+- Fotos que vienen de la carpeta online.
+
+Primero aparecen las fotos del admin y despues las fotos online. Si una foto se repite, la pagina intenta mostrarla solo una vez.
+
+Las fotos nuevas que subas desde el admin se guardan en:
+
+`img/galeria/uploads`
+
+Para copiar todas las fotos online dentro del proyecto habria que tener enlaces directos de esas imagenes o acceso a la cuenta donde estan guardadas. Sin esos datos, el sitio puede mostrarlas, pero no copiarlas automaticamente al repositorio.
+
+## Vista previa del panel
+
+La vista previa del panel queda desactivada porque estos contenidos se guardan como archivos JSON. Para ver como queda en publico, guarda el cambio, espera que Netlify publique y revisa la pagina principal.
+
 ## Activarlo en Netlify
 
 Esto se hace una sola vez:

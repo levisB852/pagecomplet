@@ -24,12 +24,11 @@ exports.handler = async function () {
       statusCode: 200,
       body: JSON.stringify({ images })
     };
-
   } catch (error) {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: "No se pudo cargar la galería",
+        error: "No se pudo cargar la galeria",
         detail: error.message
       })
     };
