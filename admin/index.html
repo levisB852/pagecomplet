@@ -18,14 +18,6 @@
         if (hasAccessToken) {
           window.netlifyIdentity.open();
         }
-
-        window.netlifyIdentity.on("login", function () {
-          document.location.href = "/admin/";
-        });
-
-        window.netlifyIdentity.on("logout", function () {
-          document.location.href = "/";
-        });
       });
     }
   </script>

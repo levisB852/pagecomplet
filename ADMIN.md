@@ -4,6 +4,8 @@ El panel esta en:
 
 `https://iadsder.org/admin/`
 
+Usa siempre ese enlace con la diagonal final: `/admin/`.
+
 Desde ahi puedes editar:
 
 - Videos
