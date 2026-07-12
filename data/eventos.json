@@ -1,7 +1,7 @@
 {
   "eventos": [
     {
-      "published": true,
+      "published": false,
       "title": "Vigilia de Oracion",
       "type": "culto",
       "date": "2026-11-15",
@@ -10,7 +10,7 @@
       "cover": ""
     },
     {
-      "published": false,
+      "published": true,
       "title": "Encuentro de Jovenes",
       "type": "jovenes",
       "date": "2026-11-22",
