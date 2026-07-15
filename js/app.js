@@ -81,18 +81,25 @@ function renderEvents(type = "all") {
     return;
   }
 
-  eventList.innerHTML = filtered.map(e => `
-    <article class="card event-card">
-      <div class="event-cover"><img src="${e.cover || defaultEventCover(e.type)}" alt="${e.title || "Evento"}"></div>
-      <h3>${e.title || "Evento"}</h3>
-      <div class="event-meta">
-        <span>Fecha: ${new Date(e.date).toLocaleDateString("es-SV")}</span>
-        <span>Hora: ${e.time || "Por confirmar"}</span>
-        <span>Lugar: ${e.place || "Por confirmar"}</span>
-      </div>
-      <div style="margin-top:.6rem"><a class="btn btn-ghost" href="#">Ver detalle</a></div>
-    </article>
-  `).join("");
+  eventList.innerHTML = filtered.map(e => {
+    const place = e.place || "Por confirmar";
+    const location = e.locationUrl
+      ? `<a class="event-location" href="${e.locationUrl}" target="_blank" rel="noopener">Lugar: ${place}</a>`
+      : `<span>Lugar: ${place}</span>`;
+
+    return `
+      <article class="card event-card">
+        <div class="event-cover"><img src="${e.cover || defaultEventCover(e.type)}" alt="${e.title || "Evento"}"></div>
+        <span class="event-type">${e.type || "especial"}</span>
+        <h3>${e.title || "Evento"}</h3>
+        <div class="event-meta">
+          <span>Fecha: ${new Date(e.date).toLocaleDateString("es-SV")}</span>
+          <span>Hora: ${e.time || "Por confirmar"}</span>
+          ${location}
+        </div>
+      </article>
+    `;
+  }).join("");
 }
 renderEvents();
 
@@ -110,6 +117,7 @@ fetch("data/eventos.json")
       date: event.date || new Date().toISOString().slice(0, 10),
       time: event.time || "",
       place: event.place || "",
+      locationUrl: event.locationUrl || "",
       cover: event.cover || defaultEventCover(event.type || "especial")
     }));
 

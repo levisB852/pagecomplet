@@ -796,6 +796,73 @@ footer{
   height:16px;
 }
 
+/* =========================
+   EVENTOS
+   ========================= */
+.events-grid{
+  align-items:stretch;
+}
+
+.event-card{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.event-cover{
+  border-radius:8px;
+  overflow:hidden;
+  margin-bottom:.9rem;
+  background:rgba(255,255,255,.04);
+}
+
+.event-cover img{
+  display:block;
+  width:100%;
+  height:175px;
+  object-fit:cover;
+}
+
+.event-meta{
+  display:grid;
+  gap:.42rem;
+  margin-top:.75rem;
+  margin-bottom:.2rem;
+  color:var(--muted);
+  font-size:.95rem;
+}
+
+.event-meta span{
+  display:flex;
+  gap:.35rem;
+}
+
+.event-location{
+  color:var(--accent);
+  font-weight:800;
+  text-decoration:none;
+}
+
+.event-location:hover{
+  text-decoration:underline;
+}
+
+.event-card .btn{
+  margin-top:auto;
+  align-self:flex-start;
+}
+
+.event-type{
+  width:max-content;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:.22rem .55rem;
+  color:var(--muted);
+  font-size:.78rem;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
 .contact-info{
   align-self:start;
   background:

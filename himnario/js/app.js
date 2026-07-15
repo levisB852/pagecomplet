@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('modo-oscuro');
       localStorage.setItem('modoOscuro', 'true');
     } else {
-            document.body.classList.remove('modo-oscuro');
+      document.body.classList.remove('modo-oscuro');
       localStorage.setItem('modoOscuro', 'false');
     }
   });

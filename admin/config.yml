@@ -90,6 +90,11 @@ collections:
                 name: "place"
                 widget: "string"
                 required: false
+              - label: "Enlace de ubicacion"
+                name: "locationUrl"
+                widget: "string"
+                required: false
+                hint: "Pega aqui el enlace de Google Maps. Si lo dejas vacio, el lugar se mostrara como texto normal."
               - label: "Imagen del evento"
                 name: "cover"
                 widget: "image"

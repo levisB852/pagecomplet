@@ -71,10 +71,13 @@ Los eventos ahora se cargan desde el panel administrador. Puedes editar:
 - Fecha
 - Hora
 - Lugar
+- Enlace de ubicacion
 - Imagen del evento
 - Publicado
 
 Si no subes imagen, la pagina usa una imagen predeterminada.
+
+Si agregas `Enlace de ubicacion`, el lugar del evento se vuelve clickeable y abre Google Maps u otro enlace que pegues.
 
 ## Galeria
 
@@ -155,7 +158,7 @@ El ID es:
 
 1. Entra a `/admin/`.
 2. Abre `Eventos`.
-3. Agrega titulo, tipo, fecha, hora y lugar.
+3. Agrega titulo, tipo, fecha, hora, lugar y enlace de ubicacion si lo tienes.
 4. Guarda.
 
 ## Agregar imagenes
