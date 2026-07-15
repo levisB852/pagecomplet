@@ -1,7 +1,7 @@
 {
   "eventos": [
     {
-      "published": true,
+      "published": false,
       "title": "Vigilia de Oracion",
       "type": "culto",
       "date": "2026-11-15",
@@ -11,7 +11,7 @@
       "cover": ""
     },
     {
-      "published": true,
+      "published": false,
       "title": "Encuentro de Jovenes",
       "type": "jovenes",
       "date": "2026-11-22",
@@ -21,7 +21,7 @@
       "cover": ""
     },
     {
-      "published": true,
+      "published": false,
       "title": "Brigada de Salud",
       "type": "comunidad",
       "date": "2026-12-01",
