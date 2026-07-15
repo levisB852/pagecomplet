@@ -448,7 +448,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 })();
 
 // ============================================================
-// 14. RADIO (VERSION SIMPLE Y ESTABLE)
+// 14. RADIO CON RECONEXION AUTOMATICA
 // ============================================================
 (function radioPlayer() {
 
@@ -461,6 +461,12 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
   const card = btn.closest(".radio-card");
   const STREAM_URL = "https://stream.zeno.fm/rghmon0t9xauv";
+  const MAX_RECONNECT_ATTEMPTS = 5;
+  const RECONNECT_DELAY = 5000;
+
+  let userWantsRadio = false;
+  let reconnectAttempts = 0;
+  let reconnectTimer = null;
 
   function setUI(playing) {
     btn.textContent = playing ? "Pausar" : "Reproducir";
@@ -471,33 +477,87 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     }
   }
 
+  function getStreamUrl() {
+    return STREAM_URL + "?nocache=" + Date.now();
+  }
+
+  function clearReconnectTimer() {
+    if (reconnectTimer) {
+      clearTimeout(reconnectTimer);
+      reconnectTimer = null;
+    }
+  }
+
+  async function startRadio() {
+    clearReconnectTimer();
+    status.textContent = reconnectAttempts > 0
+      ? `Reconectando... intento ${reconnectAttempts} de ${MAX_RECONNECT_ATTEMPTS}.`
+      : "Conectando...";
+
+    audio.src = getStreamUrl();
+    audio.load();
+    await audio.play();
+
+    reconnectAttempts = 0;
+    setUI(true);
+    status.textContent = "Reproduciendo en vivo.";
+  }
+
+  function stopRadio() {
+    userWantsRadio = false;
+    clearReconnectTimer();
+    audio.pause();
+    audio.removeAttribute("src");
+    audio.load();
+    reconnectAttempts = 0;
+    setUI(false);
+    status.textContent = "Pausado.";
+  }
+
+  function scheduleReconnect(reason = "Se corto la transmision.") {
+    if (!userWantsRadio || reconnectTimer) return;
+
+    if (!navigator.onLine) {
+      status.textContent = "Sin internet. Se intentara reconectar cuando vuelva la conexion.";
+      return;
+    }
+
+    if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
+      setUI(false);
+      status.textContent = "No se pudo reconectar. Presiona reproducir otra vez.";
+      return;
+    }
+
+    reconnectAttempts += 1;
+    setUI(false);
+    status.textContent = `${reason} Reconectando en 5 segundos...`;
+
+    reconnectTimer = setTimeout(async () => {
+      reconnectTimer = null;
+
+      try {
+        await startRadio();
+      } catch (error) {
+        scheduleReconnect("Aun no hay senal.");
+      }
+    }, RECONNECT_DELAY);
+  }
+
   // BOTON PLAY / PAUSE
   btn.addEventListener("click", async () => {
+    if (userWantsRadio && !audio.paused) {
+      stopRadio();
+      return;
+    }
+
+    userWantsRadio = true;
+    reconnectAttempts = 0;
+
     try {
-      if (audio.paused) {
-
-        status.textContent = "Conectando...";
-
-        // Evita cache.
-        audio.src = STREAM_URL + "?nocache=" + Date.now();
-
-        await audio.play();
-
-        setUI(true);
-        status.textContent = "Reproduciendo en vivo.";
-
-      } else {
-
-        audio.pause();
-
-        setUI(false);
-        status.textContent = "Pausado.";
-
-      }
-
+      await startRadio();
     } catch (error) {
       setUI(false);
-      status.textContent = "Error al reproducir.";
+      scheduleReconnect("No se pudo iniciar la radio.");
     }
   });
 
@@ -508,21 +568,51 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
   // ESTADOS
   audio.addEventListener("waiting", () => {
-    status.textContent = "Cargando senal...";
+    if (userWantsRadio) status.textContent = "Cargando senal...";
   });
 
   audio.addEventListener("playing", () => {
+    clearReconnectTimer();
+    reconnectAttempts = 0;
+    setUI(true);
     status.textContent = "Reproduciendo en vivo.";
   });
 
   audio.addEventListener("pause", () => {
-    if (!audio.ended) {
+    if (!userWantsRadio && !audio.ended) {
       status.textContent = "Pausado.";
     }
   });
 
+  audio.addEventListener("stalled", () => {
+    scheduleReconnect("La senal se detuvo.");
+  });
+
+  audio.addEventListener("ended", () => {
+    scheduleReconnect("La transmision finalizo.");
+  });
+
   audio.addEventListener("error", () => {
-    status.textContent = "Error en la transmision.";
+    scheduleReconnect("Error en la transmision.");
+  });
+
+  window.addEventListener("online", async () => {
+    if (!userWantsRadio || !audio.paused) return;
+
+    reconnectAttempts = 0;
+    try {
+      await startRadio();
+    } catch (error) {
+      scheduleReconnect("Volvio internet, pero aun no conecta la radio.");
+    }
+  });
+
+  window.addEventListener("offline", () => {
+    if (userWantsRadio) {
+      clearReconnectTimer();
+      setUI(false);
+      status.textContent = "Sin internet. La radio se reconectara al volver la conexion.";
+    }
   });
 
 })();

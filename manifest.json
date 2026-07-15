@@ -1,0 +1,39 @@
+{
+  "name": "IADSDER",
+  "short_name": "IADSDER",
+  "description": "Iglesia Adventista de Dios del Septimo Dia en Reforma con himnario digital.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#1f6f43",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/img/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Himnario",
+      "short_name": "Himnario",
+      "url": "/himnario/inicio.html",
+      "icons": [
+        {
+          "src": "/img/pwa-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

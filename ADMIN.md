@@ -12,6 +12,23 @@ Desde ahi puedes editar:
 - Eventos
 - Galeria de imagenes
 
+## App instalable y himnario offline
+
+Se agrego una primera prueba PWA. Esto permite instalar el sitio como app desde el celular y guardar el himnario para usarlo sin internet.
+
+Mas detalles de prueba estan en:
+
+`PWA-PRUEBA.md`
+
+## Radio
+
+El reproductor de la radio ahora intenta reconectarse automaticamente si la senal se corta.
+
+- Intenta reconectar cada 5 segundos.
+- Hace hasta 5 intentos.
+- Si el celular se queda sin internet, espera a que vuelva la conexion.
+- Si no logra reconectar, pide presionar reproducir otra vez.
+
 ## Como funciona el panel
 
 El panel `/admin/` no cambia la pagina directamente como si fuera Word. Lo que hace es editar archivos del sitio:
