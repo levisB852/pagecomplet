@@ -642,6 +642,8 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  cards.forEach(card => card.classList.remove("is-hidden"));
+
   const index = cards.map(card => {
     const text = (card.innerText || card.textContent || "").toLowerCase();
     return { card, text };
