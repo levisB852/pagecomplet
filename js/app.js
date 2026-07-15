@@ -134,6 +134,106 @@ filterBtns.forEach(btn => {
 });
 
 // ============================================================
+// 4.5 VERSICULO, DESCARGAS Y AJUSTES EDITABLES
+// ============================================================
+(function siteEditableContent() {
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el && value) el.textContent = value;
+  }
+
+  function setMeta(selector, attr, value) {
+    const el = document.querySelector(selector);
+    if (el && value) el.setAttribute(attr, value);
+  }
+
+  fetch("/data/versiculo.json")
+    .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin versiculo.json")))
+    .then(data => {
+      if (data.published === false) {
+        document.getElementById("versiculo")?.setAttribute("hidden", "");
+        return;
+      }
+
+      setText("verseText", data.text);
+      setText("verseReference", data.reference);
+      setText("verseNote", data.note);
+    })
+    .catch(() => {});
+
+  fetch("/data/descargas.json")
+    .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin descargas.json")))
+    .then(data => {
+      const list = document.getElementById("downloadsList");
+      const items = Array.isArray(data) ? data : data.descargas;
+      if (!list || !Array.isArray(items)) return;
+
+      const published = items.filter(isPublished);
+      if (!published.length) {
+        list.innerHTML = `<p class="muted">No hay descargas disponibles por ahora.</p>`;
+        return;
+      }
+
+      list.innerHTML = published.map(item => `
+        <article class="card download-card">
+          <span class="download-type">${item.type || "PDF"}</span>
+          <h3>${item.title || "Documento"}</h3>
+          <p class="muted">${item.description || "Documento disponible para consulta."}</p>
+          <a class="btn btn-primary" href="${item.file || "#"}" target="_blank" rel="noopener">Abrir documento</a>
+        </article>
+      `).join("");
+    })
+    .catch(() => {});
+
+  fetch("/data/ajustes.json")
+    .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin ajustes.json")))
+    .then(data => {
+      const whatsapp = data.whatsapp || {};
+      const seo = data.seo || {};
+      let float = document.getElementById("whatsappFloat");
+      const phone = String(whatsapp.phone || "").replace(/\D/g, "");
+      const message = whatsapp.message || "Hola, quisiera informacion sobre la Iglesia.";
+
+      if (!float && whatsapp.published !== false && phone) {
+        float = document.createElement("a");
+        float.className = "whatsapp-float";
+        float.id = "whatsappFloat";
+        float.target = "_blank";
+        float.rel = "noopener";
+        float.setAttribute("aria-label", "Escribir por WhatsApp");
+        float.innerHTML = `<img src="/img/whatsapp-icon.svg" alt=""><span>WhatsApp</span>`;
+        document.body.appendChild(float);
+      }
+
+      if (float) {
+        if (whatsapp.published === false || !phone) {
+          float.hidden = true;
+        } else {
+          float.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        }
+      }
+
+      if (seo.title) {
+        document.title = `${seo.title} | iadsder.org`;
+        setMeta('meta[property="og:title"]', "content", seo.title);
+        setMeta('meta[name="twitter:title"]', "content", seo.title);
+      }
+
+      if (seo.description) {
+        setMeta('meta[name="description"]', "content", seo.description);
+        setMeta('meta[property="og:description"]', "content", seo.description);
+        setMeta('meta[name="twitter:description"]', "content", seo.description);
+      }
+
+      if (seo.image) {
+        setMeta('meta[property="og:image"]', "content", seo.image);
+        setMeta('meta[name="twitter:image"]', "content", seo.image);
+      }
+    })
+    .catch(() => {});
+})();
+
+// ============================================================
 // 5. ANIMACIONES REVEAL
 // ============================================================
 const revealObserver = new IntersectionObserver((entries) => {
@@ -633,6 +733,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const clear = document.getElementById("filialClear");
   const countEl = document.getElementById("filialCount");
   const emptyEl = document.getElementById("filialEmpty");
+  const filters = Array.from(document.querySelectorAll("[data-filial-filter]"));
 
   if (!input || !clear || !countEl || !emptyEl) return;
 
@@ -644,9 +745,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cards.forEach(card => card.classList.remove("is-hidden"));
 
+  let activeZone = "all";
+
+  function normalize(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  }
+
+  function zoneFor(text) {
+    if (/chapeltique|san miguel|rio frio/.test(text)) return "san miguel";
+    if (/gualococti|sesori|boquin|san nicolas|los fuentes|el tablon/.test(text)) return "morazan";
+    if (/sensuntepeque|san juan/.test(text)) return "cabanas";
+    if (/cojutepeque/.test(text)) return "cuscatlan";
+    if (/zapotitan|apancino|apulo|los guzman/.test(text)) return "la libertad";
+    return "";
+  }
+
   const index = cards.map(card => {
-    const text = (card.innerText || card.textContent || "").toLowerCase();
-    return { card, text };
+    const text = normalize(card.innerText || card.textContent || "");
+    return { card, text, zone: zoneFor(text) };
   });
 
   function updateUI(visible) {
@@ -655,11 +774,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function applyFilter(value) {
-    const q = (value || "").trim().toLowerCase();
+    const q = normalize(value).trim();
     let visible = 0;
 
-    index.forEach(({ card, text }) => {
-      const match = q === "" || text.includes(q);
+    index.forEach(({ card, text, zone }) => {
+      const matchText = q === "" || text.includes(q);
+      const matchZone = activeZone === "all" || zone === activeZone || text.includes(activeZone);
+      const match = matchText && matchZone;
       card.classList.toggle("is-hidden", !match);
       if (match) visible++;
     });
@@ -673,8 +794,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   clear.addEventListener("click", () => {
     input.value = "";
+    activeZone = "all";
+    filters.forEach(btn => btn.classList.toggle("active", btn.dataset.filialFilter === "all"));
     input.focus();
     applyFilter("");
+  });
+
+  filters.forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeZone = btn.dataset.filialFilter || "all";
+      filters.forEach(item => item.classList.toggle("active", item === btn));
+      applyFilter(input.value);
+    });
   });
 });
 

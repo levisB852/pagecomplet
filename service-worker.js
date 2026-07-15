@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v6";
+const CACHE_NAME = "iadsder-pwa-v7";
 
 const PRECACHE_URLS = [
   "/",
@@ -8,6 +8,12 @@ const PRECACHE_URLS = [
   "/css/styles.css",
   "/js/app.js",
   "/js/pwa.js",
+  "/data/ajustes.json",
+  "/data/descargas.json",
+  "/data/versiculo.json",
+  "/data/eventos.json",
+  "/data/galeria.json",
+  "/data/videos.json",
   "/img/Logo_IADSDER.png",
   "/img/pwa-192.png",
   "/img/pwa-512.png",
@@ -78,6 +84,19 @@ self.addEventListener("fetch", event => {
   if (url.origin !== self.location.origin) {
     event.respondWith(
       caches.match(request).then(cached => cached || fetch(request))
+    );
+    return;
+  }
+
+  if (url.pathname.startsWith("/data/")) {
+    event.respondWith(
+      fetch(request).then(response => {
+        if (response && response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+        }
+        return response;
+      }).catch(() => caches.match(request, { ignoreSearch: true }))
     );
     return;
   }

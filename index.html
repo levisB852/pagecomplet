@@ -23,9 +23,13 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://iadsder.org/">
   <meta property="og:image" content="https://iadsder.org/img/Logo_IADSDER.png">
+  <meta property="og:image:alt" content="Logo de la Iglesia Adventista de Dios del Septimo Dia en Reforma">
+  <meta property="og:locale" content="es_SV">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Iglesia Adventista de Dios del Septimo Dia en Reforma">
+  <meta name="twitter:description" content="Himnario, radio, eventos, filiales, recursos y contacto en El Salvador.">
   <meta name="twitter:image" content="https://iadsder.org/img/Logo_IADSDER.png">
 
   <!-- Datos estructurados -->
@@ -62,6 +66,7 @@
 
       <nav class="nav-links" aria-label="Principal">
         <a href="#recursos">Recursos</a>
+        <a href="#descargas">Descargas</a>
         <a href="#radio">Radio</a>
         <a href="#videos">Videos</a>
         <a href="#eventos">Eventos</a>
@@ -79,6 +84,7 @@
     <div id="mobileMenu" hidden class="container" style="padding-bottom:.8rem">
       <div class="card mobile-menu-card" role="menu">
         <a role="menuitem" href="#recursos">Recursos</a>
+        <a role="menuitem" href="#descargas">Descargas</a>
         <a role="menuitem" href="#radio">Radio en vivo</a>
         <a role="menuitem" href="#videos">Videos</a>
         <a role="menuitem" href="#eventos">Eventos</a>
@@ -128,6 +134,20 @@
           <small class="muted">“Lámpara es a mis pies tu palabra.” — Salmo 119:105</small>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- VERSICULO -->
+  <section id="versiculo" class="section compact-section">
+    <div class="container">
+      <article class="card verse-card" data-reveal>
+        <span class="badge">Versiculo de la semana</span>
+        <blockquote id="verseText">Lampara es a mis pies tu palabra, y lumbrera a mi camino.</blockquote>
+        <div class="verse-meta">
+          <strong id="verseReference">Salmo 119:105</strong>
+          <span class="muted" id="verseNote">Versiculo para recordar durante la semana.</span>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -497,6 +517,7 @@
         <h3>Enlaces</h3>
         <ul class="list">
           <li><a href="#recursos">Recursos</a></li>
+          <li><a href="#descargas">Descargas</a></li>
           <li><a href="#radio">Radio en vivo</a></li>
           <li><a href="#videos">Videos</a></li>
           <li><a href="#eventos">Eventos</a></li>
@@ -519,6 +540,10 @@
   </footer>
 
   <button id="toTop" class="btn btn-primary to-top" aria-label="Volver arriba">↑</button>
+  <a class="whatsapp-float" id="whatsappFloat" href="https://wa.me/50378740984?text=Hola%2C%20quisiera%20informacion%20sobre%20la%20Iglesia." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <img src="img/whatsapp-icon.svg" alt="">
+    <span>WhatsApp</span>
+  </a>
 
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>

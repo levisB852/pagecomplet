@@ -1,0 +1,25 @@
+{
+  "descargas": [
+    {
+      "published": true,
+      "title": "Estatutos internos",
+      "description": "Documento de organizacion y normas internas de la iglesia.",
+      "file": "docs/estatutos-internos.pdf",
+      "type": "PDF"
+    },
+    {
+      "published": true,
+      "title": "Manual doctrinal",
+      "description": "Material doctrinal y de orientacion para la iglesia.",
+      "file": "docs/manual-doctrina.pdf",
+      "type": "PDF"
+    },
+    {
+      "published": true,
+      "title": "Plan maravilloso",
+      "description": "Estudio sobre el plan de Dios para la humanidad.",
+      "file": "docs/plan-maravilloso.pdf",
+      "type": "PDF"
+    }
+  ]
+}
