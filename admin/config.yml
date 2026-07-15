@@ -146,38 +146,6 @@ collections:
             widget: "string"
             required: false
 
-      - name: "descargas"
-        label: "Descargas"
-        file: "data/descargas.json"
-        format: "json"
-        fields:
-          - label: "Lista de descargas"
-            name: "descargas"
-            widget: "list"
-            summary: "{{fields.title}}"
-            fields:
-              - label: "Publicado"
-                name: "published"
-                widget: "boolean"
-                default: true
-              - label: "Titulo"
-                name: "title"
-                widget: "string"
-              - label: "Descripcion"
-                name: "description"
-                widget: "text"
-                required: false
-              - label: "Archivo"
-                name: "file"
-                widget: "file"
-                media_folder: "docs"
-                public_folder: "docs"
-                hint: "Sube un PDF o pega una ruta como docs/manual-doctrina.pdf."
-              - label: "Tipo"
-                name: "type"
-                widget: "string"
-                default: "PDF"
-
       - name: "ajustes"
         label: "Ajustes del sitio"
         file: "data/ajustes.json"
