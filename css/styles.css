@@ -669,9 +669,12 @@ footer{
   z-index:55;
   display:inline-flex;
   align-items:center;
+  justify-content:center;
   gap:.5rem;
-  padding:.78rem 1rem;
-  border-radius:var(--pill);
+  width:58px;
+  height:58px;
+  padding:0;
+  border-radius:50%;
   background:#25d366;
   color:#062b15;
   font-weight:800;
@@ -680,13 +683,8 @@ footer{
 }
 
 .whatsapp-float img{
-  width:22px;
-  height:22px;
-}
-
-.compact-section{
-  padding-top:clamp(1.5rem, 4vw, 2.5rem);
-  padding-bottom:clamp(1.5rem, 4vw, 2.5rem);
+  width:30px;
+  height:30px;
 }
 
 .verse-card{
@@ -712,24 +710,9 @@ footer{
   gap:.5rem 1rem;
 }
 
-.download-card{
-  position:relative;
-  overflow:hidden;
-}
-
-.download-type{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:3rem;
-  padding:.25rem .55rem;
-  margin-bottom:.7rem;
-  border-radius:var(--pill);
-  background:color-mix(in srgb, var(--brand) 14%, var(--paper));
-  color:var(--brand-2);
-  font-size:.78rem;
-  font-weight:900;
-  letter-spacing:.08em;
+.compact-section{
+  padding-top:clamp(1.5rem, 4vw, 2.5rem);
+  padding-bottom:clamp(1.5rem, 4vw, 2.5rem);
 }
 
 [data-reveal]{
@@ -1561,11 +1544,8 @@ footer{
   .whatsapp-float{
     right:.85rem;
     bottom:4.25rem;
-    padding:.72rem;
-  }
-
-  .whatsapp-float span{
-    display:none;
+    width:54px;
+    height:54px;
   }
 
   .filial-filter-bar .btn{

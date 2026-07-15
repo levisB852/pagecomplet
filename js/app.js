@@ -161,30 +161,6 @@ filterBtns.forEach(btn => {
     })
     .catch(() => {});
 
-  fetch("/data/descargas.json")
-    .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin descargas.json")))
-    .then(data => {
-      const list = document.getElementById("downloadsList");
-      const items = Array.isArray(data) ? data : data.descargas;
-      if (!list || !Array.isArray(items)) return;
-
-      const published = items.filter(isPublished);
-      if (!published.length) {
-        list.innerHTML = `<p class="muted">No hay descargas disponibles por ahora.</p>`;
-        return;
-      }
-
-      list.innerHTML = published.map(item => `
-        <article class="card download-card">
-          <span class="download-type">${item.type || "PDF"}</span>
-          <h3>${item.title || "Documento"}</h3>
-          <p class="muted">${item.description || "Documento disponible para consulta."}</p>
-          <a class="btn btn-primary" href="${item.file || "#"}" target="_blank" rel="noopener">Abrir documento</a>
-        </article>
-      `).join("");
-    })
-    .catch(() => {});
-
   fetch("/data/ajustes.json")
     .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin ajustes.json")))
     .then(data => {
@@ -201,7 +177,7 @@ filterBtns.forEach(btn => {
         float.target = "_blank";
         float.rel = "noopener";
         float.setAttribute("aria-label", "Escribir por WhatsApp");
-        float.innerHTML = `<img src="/img/whatsapp-icon.svg" alt=""><span>WhatsApp</span>`;
+        float.innerHTML = `<img src="/img/whatsapp-icon.svg" alt="">`;
         document.body.appendChild(float);
       }
 
