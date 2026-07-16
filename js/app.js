@@ -83,9 +83,19 @@ function renderEvents(type = "all") {
 
   eventList.innerHTML = filtered.map(e => {
     const place = e.place || "Por confirmar";
+    const eventDate = new Date(e.date).toLocaleDateString("es-SV");
     const location = e.locationUrl
       ? `<a class="event-location" href="${e.locationUrl}" target="_blank" rel="noopener">Lugar: ${place}</a>`
       : `<span>Lugar: ${place}</span>`;
+    const shareText = [
+      `Te comparto este evento de IADSDER: ${e.title || "Evento"}`,
+      `Fecha: ${eventDate}`,
+      `Hora: ${e.time || "Por confirmar"}`,
+      `Lugar: ${place}`,
+      e.locationUrl ? `Ubicacion: ${e.locationUrl}` : "",
+      "Mas informacion: https://iadsder.org/#eventos"
+    ].filter(Boolean).join("\n");
+    const shareUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 
     return `
       <article class="card event-card">
@@ -93,9 +103,12 @@ function renderEvents(type = "all") {
         <span class="event-type">${e.type || "especial"}</span>
         <h3>${e.title || "Evento"}</h3>
         <div class="event-meta">
-          <span>Fecha: ${new Date(e.date).toLocaleDateString("es-SV")}</span>
+          <span>Fecha: ${eventDate}</span>
           <span>Hora: ${e.time || "Por confirmar"}</span>
           ${location}
+        </div>
+        <div class="event-actions">
+          <a class="btn btn-ghost event-share" href="${shareUrl}" target="_blank" rel="noopener">Compartir por WhatsApp</a>
         </div>
       </article>
     `;
@@ -103,7 +116,7 @@ function renderEvents(type = "all") {
 }
 renderEvents();
 
-fetch("data/eventos.json")
+fetch("/data/eventos.json")
   .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin eventos.json")))
   .then(data => {
     const eventos = Array.isArray(data) ? data : data.eventos;
@@ -164,30 +177,7 @@ filterBtns.forEach(btn => {
   fetch("/data/ajustes.json")
     .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin ajustes.json")))
     .then(data => {
-      const whatsapp = data.whatsapp || {};
       const seo = data.seo || {};
-      let float = document.getElementById("whatsappFloat");
-      const phone = String(whatsapp.phone || "").replace(/\D/g, "");
-      const message = whatsapp.message || "Hola, quisiera informacion sobre la Iglesia.";
-
-      if (!float && whatsapp.published !== false && phone) {
-        float = document.createElement("a");
-        float.className = "whatsapp-float";
-        float.id = "whatsappFloat";
-        float.target = "_blank";
-        float.rel = "noopener";
-        float.setAttribute("aria-label", "Escribir por WhatsApp");
-        float.innerHTML = `<img src="/img/whatsapp-icon.svg" alt="">`;
-        document.body.appendChild(float);
-      }
-
-      if (float) {
-        if (whatsapp.published === false || !phone) {
-          float.hidden = true;
-        } else {
-          float.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-        }
-      }
 
       if (seo.title) {
         document.title = `${seo.title} | iadsder.org`;
@@ -474,7 +464,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     `).join("");
   }
 
-  fetch("data/videos.json")
+  fetch("/data/videos.json")
     .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin videos.json")))
     .then(data => renderVideoCards(Array.isArray(data) ? data : data.videos))
     .catch(() => {});
@@ -713,15 +703,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!input || !clear || !countEl || !emptyEl) return;
 
-  const cards = Array.from(document.querySelectorAll("article.filial-card"));
-  if (!cards.length) {
-    countEl.textContent = "No se encontraron filiales en esta pagina.";
-    return;
-  }
-
-  cards.forEach(card => card.classList.remove("is-hidden"));
-
   let activeZone = "all";
+  let cards = [];
+  let index = [];
 
   function normalize(value) {
     return String(value || "")
@@ -739,10 +723,18 @@ document.addEventListener("DOMContentLoaded", () => {
     return "";
   }
 
-  const index = cards.map(card => {
-    const text = normalize(card.innerText || card.textContent || "");
-    return { card, text, zone: zoneFor(text) };
-  });
+  function buildIndex() {
+    cards = Array.from(document.querySelectorAll("article.filial-card"));
+    cards.forEach(card => card.classList.remove("is-hidden"));
+    index = cards.map(card => {
+      const text = normalize(card.innerText || card.textContent || "");
+      return {
+        card,
+        text,
+        zone: normalize(card.dataset.zone || "") || zoneFor(text)
+      };
+    });
+  }
 
   function updateUI(visible) {
     countEl.textContent = `Mostrando ${visible} de ${cards.length} filiales.`;
@@ -764,7 +756,19 @@ document.addEventListener("DOMContentLoaded", () => {
     updateUI(visible);
   }
 
+  buildIndex();
+
+  if (!cards.length) {
+    countEl.textContent = "No se encontraron filiales en esta pagina.";
+    return;
+  }
+
   applyFilter("");
+
+  window.__refreshFilialSearch = () => {
+    buildIndex();
+    applyFilter(input.value);
+  };
 
   input.addEventListener("input", () => applyFilter(input.value));
 
@@ -784,6 +788,99 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+// ============================================================
+// 15.5 FILIALES DESDE ADMIN
+// ============================================================
+(function loadAdminFiliales() {
+  const grid = document.querySelector(".filial-grid");
+  if (!grid) return;
+
+  function assetPath(path) {
+    const value = String(path || "").trim();
+    if (!value) return "../img/Logo_IADSDER.png";
+    if (/^(https?:)?\/\//.test(value) || value.startsWith("/")) return value;
+    return `/${value}`;
+  }
+
+  function fallbackMap(item) {
+    const query = [item.name, item.address].filter(Boolean).join(", ");
+    return `https://www.google.com/maps?q=${encodeURIComponent(query || "El Salvador")}&output=embed`;
+  }
+
+  function bindMapButton(card) {
+    const btn = card.querySelector(".toggle-map");
+    const map = card.querySelector(".filial-map");
+    if (!btn || !map) return;
+
+    btn.addEventListener("click", () => {
+      const hidden = map.hasAttribute("hidden");
+      if (hidden) {
+        map.removeAttribute("hidden");
+        btn.textContent = "Ocultar ubicacion";
+        btn.setAttribute("aria-expanded", "true");
+      } else {
+        map.setAttribute("hidden", "");
+        btn.textContent = "Ver ubicacion";
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  function renderFilial(item) {
+    const name = item.name || "Iglesia filial";
+    const address = item.address || "Direccion por confirmar";
+    const mapsUrl = item.mapsUrl || "#";
+    const embedUrl = item.embedUrl || fallbackMap(item);
+    const image = assetPath(item.image);
+    const zone = item.zone || "";
+    const contact = item.contact ? `<p class="muted">Encargado/contacto: ${item.contact}</p>` : "";
+    const schedule = item.schedule ? `<p class="muted">Horario: ${item.schedule}</p>` : "";
+
+    const card = document.createElement("article");
+    card.className = "card filial-card";
+    card.dataset.zone = zone;
+    card.innerHTML = `
+      <button class="filial-item" type="button">
+        <img src="${image}" alt="${name}" loading="lazy">
+      </button>
+      <h3>${name}</h3>
+      <p class="muted">Direccion: ${address}</p>
+      ${contact}
+      ${schedule}
+      <div class="filial-actions">
+        <button class="btn btn-primary toggle-map" type="button" aria-expanded="false">Ver ubicacion</button>
+        <a class="btn btn-ghost" target="_blank" rel="noopener" href="${mapsUrl}">Abrir en Google Maps</a>
+      </div>
+      <div class="filial-map" hidden>
+        <iframe
+          title="Mapa ${name}"
+          src="${embedUrl}"
+          width="100%" height="300" style="border:0;"
+          allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    `;
+
+    bindMapButton(card);
+    return card;
+  }
+
+  fetch("/data/filiales.json")
+    .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin filiales.json")))
+    .then(data => {
+      const items = Array.isArray(data) ? data : data.filiales;
+      if (!Array.isArray(items) || !items.length) return;
+
+      items.filter(isPublished).forEach(item => {
+        grid.appendChild(renderFilial(item));
+      });
+
+      window.__refreshFilialSearch?.();
+    })
+    .catch(() => {});
+})();
 
 // ============================================================
 // 16. CARGAR GALERIA
@@ -831,7 +928,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let onlineImages = [];
 
   try {
-    const local = await fetch("data/galeria.json");
+    const local = await fetch("/data/galeria.json");
     if (local.ok) {
       const data = await local.json();
       const galleryItems = Array.isArray(data) ? data : data.imagenes;

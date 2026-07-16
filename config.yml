@@ -125,6 +125,62 @@ collections:
                 required: false
                 hint: "Describe la foto en pocas palabras."
 
+      - name: "filiales"
+        label: "Filiales"
+        file: "data/filiales.json"
+        format: "json"
+        fields:
+          - label: "Lista de filiales"
+            name: "filiales"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - label: "Publicado"
+                name: "published"
+                widget: "boolean"
+                default: true
+              - label: "Nombre"
+                name: "name"
+                widget: "string"
+                hint: "Ejemplo: Iglesia Filial Gualococti"
+              - label: "Direccion"
+                name: "address"
+                widget: "string"
+                required: false
+              - label: "Zona o departamento"
+                name: "zone"
+                widget: "select"
+                required: false
+                options:
+                  - { label: "San Miguel", value: "san miguel" }
+                  - { label: "Morazan", value: "morazan" }
+                  - { label: "Cabanas", value: "cabanas" }
+                  - { label: "Cuscatlan", value: "cuscatlan" }
+                  - { label: "La Libertad", value: "la libertad" }
+                  - { label: "Otro", value: "otro" }
+              - label: "Imagen"
+                name: "image"
+                widget: "image"
+                required: false
+              - label: "Enlace de Google Maps"
+                name: "mapsUrl"
+                widget: "string"
+                required: false
+                hint: "Pega el enlace corto o completo de Google Maps."
+              - label: "Mapa incrustado"
+                name: "embedUrl"
+                widget: "string"
+                required: false
+                hint: "Opcional. Pega solo el src del iframe de Google Maps. Si lo dejas vacio, se genera uno por nombre y direccion."
+              - label: "Encargado o contacto"
+                name: "contact"
+                widget: "string"
+                required: false
+              - label: "Horario"
+                name: "schedule"
+                widget: "string"
+                required: false
+
       - name: "versiculo"
         label: "Versiculo de la semana"
         file: "data/versiculo.json"
@@ -151,21 +207,6 @@ collections:
         file: "data/ajustes.json"
         format: "json"
         fields:
-          - label: "WhatsApp"
-            name: "whatsapp"
-            widget: "object"
-            fields:
-              - label: "Mostrar boton flotante"
-                name: "published"
-                widget: "boolean"
-                default: true
-              - label: "Numero"
-                name: "phone"
-                widget: "string"
-                hint: "Ejemplo: 50378740984, sin espacios ni guiones."
-              - label: "Mensaje predeterminado"
-                name: "message"
-                widget: "string"
           - label: "SEO y compartir"
             name: "seo"
             widget: "object"

@@ -68,32 +68,6 @@
   }
 }
 
-html[data-theme="dark"]{
-  --bg:#0b1220;
-  --bg-t1:#0f1730;
-  --bg-t2:#0b1a2a;
-
-  --paper:#0f1626;
-  --paper-2:#0d1322;
-  --glass:rgba(16,22,38,.66);
-
-  --ink:#e6ecff;
-  --muted:#a8b3ce;
-
-  --line:#17233a;
-  --line-strong:#1f2e4a;
-
-  --shadow-xs:0 8px 20px rgba(0,0,0,.25);
-  --shadow-sm:0 16px 38px rgba(0,0,0,.35);
-  --shadow-md:0 22px 64px rgba(0,0,0,.45);
-}
-
-html[data-theme="dark"] .developer-signature{
-  background:
-    linear-gradient(135deg, rgba(15,22,38,.92), rgba(13,19,34,.72)) padding-box,
-    linear-gradient(135deg, rgba(255,255,255,.12), color-mix(in srgb, var(--accent-2) 40%, transparent)) border-box;
-}
-
 /* =========================
    3) ACCESIBILIDAD Y RESET
    ========================= */
@@ -662,31 +636,6 @@ footer{
   box-shadow:var(--shadow-sm);
 }
 
-.whatsapp-float{
-  position:fixed;
-  right:1rem;
-  bottom:4.4rem;
-  z-index:55;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:.5rem;
-  width:58px;
-  height:58px;
-  padding:0;
-  border-radius:50%;
-  background:#25d366;
-  color:#062b15;
-  font-weight:800;
-  box-shadow:0 18px 42px rgba(37,211,102,.28);
-  border:1px solid rgba(255,255,255,.3);
-}
-
-.whatsapp-float img{
-  width:30px;
-  height:30px;
-}
-
 .verse-card{
   display:grid;
   gap:.8rem;
@@ -903,6 +852,22 @@ footer{
 .event-card .btn{
   margin-top:auto;
   align-self:flex-start;
+}
+
+.event-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.55rem;
+  margin-top:auto;
+  padding-top:.85rem;
+}
+
+.event-actions .btn{
+  margin-top:0;
+}
+
+.event-share{
+  color:#128c3a;
 }
 
 .event-type{
@@ -1539,13 +1504,6 @@ footer{
 
   .developer-logo{
     width:min(100%, 210px);
-  }
-
-  .whatsapp-float{
-    right:.85rem;
-    bottom:4.25rem;
-    width:54px;
-    height:54px;
   }
 
   .filial-filter-bar .btn{
