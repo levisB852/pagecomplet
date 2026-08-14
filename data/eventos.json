@@ -11,14 +11,14 @@
       "cover": ""
     },
     {
-      "published": false,
-      "title": "Encuentro de Jovenes",
+      "published": true,
+      "title": "CONVIVIO JUVENIL NACIONAL",
       "type": "jovenes",
-      "date": "2026-11-22",
-      "time": "4:00 PM",
-      "place": "Salon multiusos",
-      "locationUrl": "",
-      "cover": ""
+      "date": "2026-08-23",
+      "time": "9:00 AM",
+      "place": "Iglesia Adventista de Dios del Septimo Dia En Reforma",
+      "locationUrl": "https://maps.app.goo.gl/jFKXCEK21vHyiRji6",
+      "cover": "img/galeria/uploads/whatsapp-image-2026-08-14-at-3.45.02-pm.jpeg"
     },
     {
       "published": false,
