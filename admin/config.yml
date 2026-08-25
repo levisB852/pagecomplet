@@ -17,6 +17,40 @@ display_url: "https://iadsder.org"
 logo_url: "/img/Logo_IADSDER.png"
 
 collections:
+  - name: "multimedia"
+    label: "Galeria - Eventos Juveniles"
+    label_singular: "Galeria juvenil"
+    description: "Sube, publica y organiza las fotografias que aparecen en Eventos Juveniles."
+    files:
+      - name: "galeria"
+        label: "Administrar imagenes"
+        file: "data/galeria.json"
+        format: "json"
+        fields:
+          - label: "Imagenes de Eventos Juveniles"
+            name: "imagenes"
+            widget: "list"
+            summary: "{{fields.alt}}"
+            label_singular: "imagen"
+            add_to_top: true
+            fields:
+              - label: "Publicar en la pagina"
+                name: "published"
+                widget: "boolean"
+                default: true
+                hint: "Encendido: la imagen aparece en Eventos Juveniles. Apagado: queda guardada como borrador."
+              - label: "Seleccionar o subir imagen"
+                name: "image"
+                widget: "image"
+                choose_url: false
+                media_library:
+                  config:
+                    multiple: false
+              - label: "Descripcion de la imagen"
+                name: "alt"
+                widget: "string"
+                hint: "Ejemplo: Convivio juvenil nacional 2026."
+
   - name: "contenido"
     label: "Contenido del sitio"
     files:
@@ -100,30 +134,6 @@ collections:
                 widget: "image"
                 required: false
                 hint: "Opcional. Si no subes imagen, se usa una imagen predeterminada."
-
-      - name: "galeria"
-        label: "Galeria de imagenes"
-        file: "data/galeria.json"
-        format: "json"
-        fields:
-          - label: "Lista de imagenes"
-            name: "imagenes"
-            widget: "list"
-            summary: "{{fields.alt}}"
-            fields:
-              - label: "Publicado"
-                name: "published"
-                widget: "boolean"
-                default: true
-                hint: "Apagalo para guardar la foto sin mostrarla todavia."
-              - label: "Imagen"
-                name: "image"
-                widget: "image"
-              - label: "Texto alternativo"
-                name: "alt"
-                widget: "string"
-                required: false
-                hint: "Describe la foto en pocas palabras."
 
       - name: "filiales"
         label: "Filiales"
