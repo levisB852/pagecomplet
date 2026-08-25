@@ -26,6 +26,25 @@
     </section>
   </main>
 
+  <button class="admin-help-button" id="adminHelpButton" type="button" aria-haspopup="dialog">? Guía</button>
+  <dialog class="admin-help" id="adminHelp">
+    <div class="admin-help__head">
+      <div>
+        <span>Ayuda rápida</span>
+        <h2>Administrar el sitio</h2>
+      </div>
+      <button type="button" id="adminHelpClose" aria-label="Cerrar">×</button>
+    </div>
+    <ol>
+      <li>Selecciona una sección en el menú del panel.</li>
+      <li>Abre el contenido que quieres editar o agrega uno nuevo.</li>
+      <li>Usa <strong>Publicar en la página</strong> para mostrarlo; apágalo para conservarlo como borrador.</li>
+      <li>Las fechas de publicación y retiro son opcionales y permiten programar contenido.</li>
+      <li>Presiona <strong>Guardar</strong> y espera unos minutos mientras Netlify actualiza el sitio.</li>
+    </ol>
+    <p>En las listas puedes arrastrar los elementos para cambiar el orden. Antes de eliminar una imagen, comprueba que seleccionaste la correcta.</p>
+  </dialog>
+
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
@@ -39,6 +58,20 @@
         }
       });
       observer.observe(document.body, { childList: true, subtree: true });
+    })();
+
+    (function () {
+      var dialog = document.getElementById("adminHelp");
+      document.getElementById("adminHelpButton").addEventListener("click", function () {
+        if (typeof dialog.showModal === "function") dialog.showModal();
+        else dialog.setAttribute("open", "");
+      });
+      document.getElementById("adminHelpClose").addEventListener("click", function () {
+        dialog.close ? dialog.close() : dialog.removeAttribute("open");
+      });
+      dialog.addEventListener("click", function (event) {
+        if (event.target === dialog) dialog.close();
+      });
     })();
 
     if (window.netlifyIdentity) {

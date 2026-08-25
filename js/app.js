@@ -20,6 +20,20 @@
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+// Estado comun del contenido administrable. Admite borradores y, cuando los
+// campos existen, fechas automaticas de publicacion y retiro.
+function isPublished(item) {
+  if (!item || item.published === false) return false;
+
+  const now = Date.now();
+  const publishAt = item.publishAt ? new Date(item.publishAt).getTime() : NaN;
+  const unpublishAt = item.unpublishAt ? new Date(item.unpublishAt).getTime() : NaN;
+
+  if (Number.isFinite(publishAt) && publishAt > now) return false;
+  if (Number.isFinite(unpublishAt) && unpublishAt <= now) return false;
+  return true;
+}
+
 // ============================================================
 // 3. MENU MOVIL
 // ============================================================
@@ -57,7 +71,7 @@ if (menuBtn && mobileMenu) {
   fetch("/data/versiculo.json")
     .then(res => res.ok ? res.json() : Promise.reject(new Error("Sin versiculo.json")))
     .then(data => {
-      if (data.published === false) {
+      if (!isPublished(data)) {
         document.getElementById("versiculo")?.setAttribute("hidden", "");
         return;
       }

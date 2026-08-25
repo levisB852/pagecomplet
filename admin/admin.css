@@ -133,3 +133,85 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .admin-welcome__loader { animation: none; }
 }
+
+.admin-help-button {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 10000;
+  padding: .7rem 1rem;
+  color: #fff;
+  background: var(--admin-green);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(23, 75, 53, .28);
+  font: 750 .9rem/1 Inter, system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.admin-help {
+  width: min(92vw, 560px);
+  padding: 0;
+  color: var(--admin-ink);
+  background: #fff;
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 28px 90px rgba(15, 23, 42, .28);
+}
+
+.admin-help::backdrop {
+  background: rgba(10, 24, 17, .64);
+  backdrop-filter: blur(4px);
+}
+
+.admin-help__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.3rem 1.4rem;
+  color: #fff;
+  background: var(--admin-green);
+}
+
+.admin-help__head span {
+  color: #dce9e1;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.admin-help__head h2 {
+  margin: .2rem 0 0;
+  font: 700 1.45rem/1.2 Georgia, serif;
+}
+
+.admin-help__head button {
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  background: rgba(255,255,255,.12);
+  border: 0;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.admin-help ol,
+.admin-help > p {
+  margin: 1.25rem 1.5rem;
+}
+
+.admin-help li {
+  margin-bottom: .65rem;
+  line-height: 1.5;
+}
+
+.admin-help > p {
+  padding: .9rem 1rem;
+  color: var(--admin-muted);
+  background: #f1f6f3;
+  border-radius: 12px;
+  line-height: 1.5;
+}

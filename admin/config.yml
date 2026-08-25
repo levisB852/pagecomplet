@@ -39,6 +39,16 @@ collections:
                 widget: "boolean"
                 default: true
                 hint: "Encendido: la imagen aparece en Eventos Juveniles. Apagado: queda guardada como borrador."
+              - label: "Publicar automaticamente desde"
+                name: "publishAt"
+                widget: "datetime"
+                required: false
+                hint: "Opcional. Antes de esta fecha la imagen permanece oculta."
+              - label: "Ocultar automaticamente despues de"
+                name: "unpublishAt"
+                widget: "datetime"
+                required: false
+                hint: "Opcional. En esta fecha la imagen deja de mostrarse, pero no se elimina."
               - label: "Seleccionar o subir imagen"
                 name: "image"
                 widget: "image"
@@ -69,6 +79,14 @@ collections:
                 widget: "boolean"
                 default: true
                 hint: "Apagalo si quieres guardar el video sin mostrarlo en la pagina."
+              - label: "Publicar automaticamente desde"
+                name: "publishAt"
+                widget: "datetime"
+                required: false
+              - label: "Ocultar automaticamente despues de"
+                name: "unpublishAt"
+                widget: "datetime"
+                required: false
               - label: "ID de YouTube"
                 name: "id"
                 widget: "string"
