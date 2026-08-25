@@ -9,8 +9,10 @@ Usa siempre ese enlace con la diagonal final: `/admin/`.
 Desde ahi puedes editar:
 
 - Videos
-- Eventos
 - Galeria de imagenes
+- Filiales
+- Versiculo semanal
+- Ajustes para compartir el sitio
 
 ## App instalable y himnario offline
 
@@ -34,7 +36,6 @@ El reproductor de la radio ahora intenta reconectarse automaticamente si la sena
 El panel `/admin/` no cambia la pagina directamente como si fuera Word. Lo que hace es editar archivos del sitio:
 
 - `data/videos.json` guarda los videos.
-- `data/eventos.json` guarda los eventos.
 - `data/galeria.json` guarda las imagenes.
 
 Cuando presionas guardar en el panel, Netlify crea un cambio en GitHub. Luego Netlify publica el sitio otra vez. Por eso a veces el cambio tarda un poco en verse en la pagina.
@@ -62,23 +63,6 @@ El ID es:
 
 Tambien puedes poner titulo y descripcion corta.
 
-## Eventos
-
-Los eventos ahora se cargan desde el panel administrador. Puedes editar:
-
-- Titulo
-- Tipo
-- Fecha
-- Hora
-- Lugar
-- Enlace de ubicacion
-- Imagen del evento
-- Publicado
-
-Si no subes imagen, la pagina usa una imagen predeterminada.
-
-Si agregas `Enlace de ubicacion`, el lugar del evento se vuelve clickeable y abre Google Maps u otro enlace que pegues.
-
 ## Galeria
 
 Puedes subir fotos desde el telefono. Cada foto tiene:
@@ -89,18 +73,13 @@ Puedes subir fotos desde el telefono. Cada foto tiene:
 
 El texto alternativo es una descripcion breve de la foto. Ayuda a que la pagina sea mas clara y accesible.
 
-La pagina ahora mezcla dos fuentes:
-
-- Fotos subidas desde el admin.
-- Fotos que vienen de la carpeta online.
-
-Primero aparecen las fotos del admin y despues las fotos online. Si una foto se repite, la pagina intenta mostrarla solo una vez.
+La pagina usa solamente las fotos guardadas desde el administrador. Ya no mezcla imagenes de Cloudinary u otra galeria externa.
 
 Las fotos nuevas que subas desde el admin se guardan en:
 
 `img/galeria/uploads`
 
-Para copiar todas las fotos online dentro del proyecto habria que tener enlaces directos de esas imagenes o acceso a la cuenta donde estan guardadas. Sin esos datos, el sitio puede mostrarlas, pero no copiarlas automaticamente al repositorio.
+Puedes cambiar el orden arrastrando las fotografias dentro de la lista. Tambien puedes agregar una fecha y una descripcion, que apareceran en la galeria publica.
 
 ## Vista previa del panel
 
@@ -154,18 +133,11 @@ El ID es:
 
 `OgonAQOnNSo`
 
-## Agregar eventos
-
-1. Entra a `/admin/`.
-2. Abre `Eventos`.
-3. Agrega titulo, tipo, fecha, hora, lugar y enlace de ubicacion si lo tienes.
-4. Guarda.
-
 ## Agregar imagenes
 
 1. Entra a `/admin/`.
-2. Abre `Galeria de imagenes`.
-3. Presiona `Add imagenes`.
+2. Abre `Galeria juvenil` y luego `Administrar fotografias`.
+3. Presiona `Agregar fotografia`.
 4. Sube la imagen desde tu telefono.
 5. Escribe un texto alternativo.
 6. Guarda.

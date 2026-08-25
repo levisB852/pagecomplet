@@ -796,22 +796,16 @@ document.addEventListener("DOMContentLoaded", () => {
 (async function galleryLoader() {
   const track = document.getElementById("galleryTrack");
   const loading = document.getElementById("galleryLoading");
+  const counter = document.getElementById("galleryCounter");
   if (!track) return;
 
-  function uniqueImages(images) {
-    const seen = new Set();
-
-    return images.filter(img => {
-      const src = img.url || img.image;
-      if (!src || seen.has(src)) return false;
-      seen.add(src);
-      return true;
-    });
-  }
-
   function renderImages(images) {
+    if (counter) {
+      counter.textContent = `${images.length} ${images.length === 1 ? "fotografía" : "fotografías"}`;
+    }
+
     if (!images.length) {
-      if (loading) loading.textContent = "No hay fotos todavia.";
+      if (loading) loading.textContent = "Todavía no hay fotografías publicadas.";
       return;
     }
 
@@ -821,54 +815,49 @@ document.addEventListener("DOMContentLoaded", () => {
       const btn = document.createElement("button");
       btn.className = "gallery-item";
       btn.type = "button";
+      btn.dataset.caption = img.alt || "Fotografía de la comunidad";
+      btn.dataset.date = img.date || "";
+      btn.setAttribute("aria-label", `Abrir fotografía: ${btn.dataset.caption}`);
 
       const im = document.createElement("img");
-      im.src = img.url || img.image;
+      im.src = img.image;
       im.alt = img.alt || "Foto";
       im.loading = "lazy";
+      im.decoding = "async";
+
+      const meta = document.createElement("span");
+      meta.className = "gallery-item__meta";
+      const caption = document.createElement("strong");
+      caption.textContent = btn.dataset.caption;
+      meta.appendChild(caption);
+
+      if (img.date) {
+        const time = document.createElement("time");
+        time.dateTime = img.date;
+        const parsed = new Date(`${img.date}T12:00:00`);
+        time.textContent = Number.isNaN(parsed.getTime())
+          ? img.date
+          : parsed.toLocaleDateString("es-SV", { day: "numeric", month: "long", year: "numeric" });
+        meta.appendChild(time);
+      }
 
       btn.appendChild(im);
+      btn.appendChild(meta);
       track.appendChild(btn);
     });
   }
 
-  let localImages = [];
-  let onlineImages = [];
-
   try {
-    const local = await fetch("/data/galeria.json");
-    if (local.ok) {
-      const data = await local.json();
-      const galleryItems = Array.isArray(data) ? data : data.imagenes;
-      localImages = Array.isArray(galleryItems) ? galleryItems.filter(isPublished) : [];
-    }
-  } catch (e) {
-    console.warn("Galeria local no disponible", e);
-  }
-
-  try {
-    const res = await fetch("/.netlify/functions/gallery");
-    if (!res.ok) throw new Error("No se pudo cargar la galeria");
-
-    const data = await res.json();
-    onlineImages = Array.isArray(data.images) ? data.images : [];
-
-    onlineImages.sort((a, b) => {
-      const dateA = new Date(a.created_at || 0).getTime();
-      const dateB = new Date(b.created_at || 0).getTime();
-      return dateB - dateA;
-    });
+    const response = await fetch("/data/galeria.json", { cache: "no-cache" });
+    if (!response.ok) throw new Error(`Galería no disponible (${response.status})`);
+    const data = await response.json();
+    const galleryItems = Array.isArray(data) ? data : data.imagenes;
+    renderImages(Array.isArray(galleryItems) ? galleryItems.filter(isPublished) : []);
   } catch (e) {
     console.error(e);
+    if (loading) loading.textContent = "No se pudieron cargar las fotografías. Intenta nuevamente.";
+    if (counter) counter.textContent = "Galería no disponible";
   }
-
-  const images = uniqueImages([...localImages, ...onlineImages]);
-
-  if (!images.length && loading) {
-    loading.textContent = "Error cargando fotos. Revisa Netlify.";
-  }
-
-  renderImages(images);
 })();
 
 // ============================================================
@@ -905,6 +894,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const view = document.getElementById("imgModalView");
   const prevBtn = document.getElementById("imgPrev");
   const nextBtn = document.getElementById("imgNext");
+  const captionEl = document.getElementById("imgModalCaption");
+  const counterEl = document.getElementById("imgModalCounter");
+  const shareBtn = document.getElementById("imgModalShare");
   const backdrop = modal?.querySelector(".img-modal__backdrop");
 
   if (!modal || !view || !prevBtn || !nextBtn || !backdrop) return;
@@ -917,14 +909,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const minSwipeDistance = 50;
 
   // ABRIR GALERIA
+  function normalizeImage(item, fallbackAlt = "Imagen") {
+    return typeof item === "string"
+      ? { src: item, alt: fallbackAlt, caption: fallbackAlt, date: "" }
+      : item;
+  }
+
+  function updateModalImage() {
+    const item = images[currentIndex];
+    if (!item) return;
+    view.src = item.src;
+    view.alt = item.alt || item.caption || "Imagen";
+    if (captionEl) captionEl.textContent = item.caption || item.alt || "Fotografía de la comunidad";
+    if (counterEl) counterEl.textContent = `${currentIndex + 1} de ${images.length}${item.date ? ` · ${item.date}` : ""}`;
+  }
+
   function openGallery(galleryImages, startIndex = 0, alt = "Imagen") {
-    images = galleryImages;
+    images = galleryImages.map(item => normalizeImage(item, alt));
     currentIndex = startIndex;
 
     if (!images.length) return;
 
-    view.src = images[currentIndex];
-    view.alt = alt;
+    updateModalImage();
 
     modal.hidden = false;
     modal.setAttribute("aria-hidden", "false");
@@ -949,14 +955,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function showNext() {
     if (!images.length) return;
     currentIndex = (currentIndex + 1) % images.length;
-    view.src = images[currentIndex];
+    updateModalImage();
   }
 
   // ANTERIOR
   function showPrev() {
     if (!images.length) return;
     currentIndex = (currentIndex - 1 + images.length) % images.length;
-    view.src = images[currentIndex];
+    updateModalImage();
   }
 
   // CLICK GLOBAL
@@ -987,7 +993,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!clickedImg || !galleryImgs.length) return;
 
-      const urls = galleryImgs.map(img => img.src);
+      const urls = galleryImgs.map(img => {
+        const button = img.closest(".gallery-item");
+        return {
+          src: img.src,
+          alt: img.alt,
+          caption: button?.dataset.caption || img.alt,
+          date: button?.dataset.date || ""
+        };
+      });
       const index = galleryImgs.indexOf(clickedImg);
 
       openGallery(urls, index, clickedImg.alt || "Imagen");
@@ -1003,6 +1017,37 @@ document.addEventListener("DOMContentLoaded", () => {
   nextBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     showNext();
+  });
+
+  shareBtn?.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    const item = images[currentIndex];
+    if (!item) return;
+
+    const shareData = {
+      title: item.caption || "Fotografía IADSDER",
+      text: `${item.caption || "Fotografía de IADSDER"} — iadsder.org`,
+      url: item.src
+    };
+
+    try {
+      const response = await fetch(item.src);
+      const blob = response.ok ? await response.blob() : null;
+      const extension = blob?.type === "image/png" ? "png" : "jpg";
+      const file = blob ? new File([blob], `iadsder-foto-${currentIndex + 1}.${extension}`, { type: blob.type || "image/jpeg" }) : null;
+
+      if (file && navigator.share && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ title: shareData.title, text: shareData.text, files: [file] });
+      } else if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        window.open(`https://wa.me/?text=${encodeURIComponent(`${shareData.text}\n${shareData.url}`)}`, "_blank", "noopener");
+      }
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        window.open(`https://wa.me/?text=${encodeURIComponent(`${shareData.text}\n${shareData.url}`)}`, "_blank", "noopener");
+      }
+    }
   });
 
   // CERRAR

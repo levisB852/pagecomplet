@@ -5,57 +5,49 @@ backend:
 local_backend: true
 locale: "es"
 show_preview_links: false
-
 editor:
-  preview: false
+  preview: true
 
 media_folder: "img/galeria/uploads"
-public_folder: "img/galeria/uploads"
-
+public_folder: "/img/galeria/uploads"
 site_url: "https://iadsder.org"
 display_url: "https://iadsder.org"
 logo_url: "/img/Logo_IADSDER.png"
 
 collections:
-  - name: "multimedia"
-    label: "Galeria - Eventos Juveniles"
-    label_singular: "Galeria juvenil"
-    description: "Sube, publica y organiza las fotografias que aparecen en Eventos Juveniles."
+  - name: "galeria_admin"
+    label: "Galeria juvenil"
+    description: "Sube y organiza las fotografias que aparecen en Eventos Juveniles."
     files:
       - name: "galeria"
-        label: "Administrar imagenes"
+        label: "Administrar fotografias"
         file: "data/galeria.json"
         format: "json"
         fields:
-          - label: "Imagenes de Eventos Juveniles"
+          - label: "Fotografias publicadas"
             name: "imagenes"
             widget: "list"
+            label_singular: "Agregar fotografia"
             summary: "{{fields.alt}}"
-            label_singular: "Agregar nueva imagen"
-            hint: "Presiona Agregar nueva imagen. Luego aparecerá el botón para elegir una foto del teléfono."
+            hint: "Presiona Agregar fotografia; luego usa Seleccionar imagen para elegir una foto del telefono."
             allow_add: true
             collapsed: true
             add_to_top: true
             fields:
-              - label: "Publicar en la pagina"
-                name: "published"
-                widget: "boolean"
-                default: true
-                hint: "Encendido: la imagen aparece en Eventos Juveniles. Apagado: queda guardada como borrador."
-              - label: "Seleccionar o subir imagen"
+              - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
+              - label: "Seleccionar imagen"
                 name: "image"
                 widget: "image"
                 choose_url: false
                 media_library:
                   config:
                     multiple: false
-              - label: "Descripcion de la imagen"
-                name: "alt"
-                widget: "string"
-                hint: "Ejemplo: Convivio juvenil nacional 2026."
+              - { label: "Descripcion", name: "alt", widget: "string", hint: "Describe brevemente lo que aparece en la fotografia." }
+              - { label: "Fecha de la fotografia", name: "date", widget: "datetime", required: false, date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD" }
 
-  - name: "contenido"
-    label: "Contenido del sitio"
+  - name: "videos_admin"
+    label: "Videos"
+    description: "Administra los videos mostrados en la pagina principal."
     files:
       - name: "videos"
         label: "Videos de YouTube"
@@ -65,101 +57,35 @@ collections:
           - label: "Lista de videos"
             name: "videos"
             widget: "list"
+            label_singular: "Agregar video"
             summary: "{{fields.title}}"
+            collapsed: true
+            add_to_top: true
             fields:
-              - label: "Publicado"
-                name: "published"
-                widget: "boolean"
-                default: true
-                hint: "Apagalo si quieres guardar el video sin mostrarlo en la pagina."
-              - label: "ID de YouTube"
-                name: "id"
-                widget: "string"
-                hint: "Ejemplo: si el enlace es https://www.youtube.com/watch?v=OgonAQOnNSo, escribe solo OgonAQOnNSo."
-              - label: "Titulo"
-                name: "title"
-                widget: "string"
-              - label: "Descripcion corta"
-                name: "description"
-                widget: "text"
-                required: false
-                hint: "Texto breve que aparece debajo del video."
+              - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
+              - { label: "ID de YouTube", name: "id", widget: "string", hint: "Ejemplo: en youtube.com/watch?v=OgonAQOnNSo, el ID es OgonAQOnNSo." }
+              - { label: "Titulo", name: "title", widget: "string" }
+              - { label: "Descripcion corta", name: "description", widget: "text", required: false }
 
-      - name: "eventos"
-        label: "Eventos"
-        file: "data/eventos.json"
-        format: "json"
-        fields:
-          - label: "Lista de eventos"
-            name: "eventos"
-            widget: "list"
-            summary: "{{fields.date}} - {{fields.title}}"
-            fields:
-              - label: "Publicado"
-                name: "published"
-                widget: "boolean"
-                default: true
-                hint: "Apagalo si quieres preparar el evento sin mostrarlo todavia."
-              - label: "Titulo"
-                name: "title"
-                widget: "string"
-              - label: "Tipo"
-                name: "type"
-                widget: "select"
-                options:
-                  - { label: "Culto", value: "culto" }
-                  - { label: "Jovenes", value: "jovenes" }
-                  - { label: "Comunidad", value: "comunidad" }
-                  - { label: "Especial", value: "especial" }
-                  - { label: "Ninos", value: "ninos" }
-              - label: "Fecha"
-                name: "date"
-                widget: "datetime"
-                date_format: "YYYY-MM-DD"
-                time_format: false
-                format: "YYYY-MM-DD"
-              - label: "Hora"
-                name: "time"
-                widget: "string"
-                required: false
-                hint: "Ejemplo: 7:00 PM"
-              - label: "Lugar"
-                name: "place"
-                widget: "string"
-                required: false
-              - label: "Enlace de ubicacion"
-                name: "locationUrl"
-                widget: "string"
-                required: false
-                hint: "Pega aqui el enlace de Google Maps. Si lo dejas vacio, el lugar se mostrara como texto normal."
-              - label: "Imagen del evento"
-                name: "cover"
-                widget: "image"
-                required: false
-                hint: "Opcional. Si no subes imagen, se usa una imagen predeterminada."
-
+  - name: "filiales_admin"
+    label: "Filiales"
+    description: "Direcciones, contactos, horarios y ubicaciones de las iglesias."
+    files:
       - name: "filiales"
-        label: "Filiales"
+        label: "Administrar filiales"
         file: "data/filiales.json"
         format: "json"
         fields:
           - label: "Lista de filiales"
             name: "filiales"
             widget: "list"
+            label_singular: "Agregar filial"
             summary: "{{fields.name}}"
+            collapsed: true
             fields:
-              - label: "Publicado"
-                name: "published"
-                widget: "boolean"
-                default: true
-              - label: "Nombre"
-                name: "name"
-                widget: "string"
-                hint: "Ejemplo: Iglesia Filial Gualococti"
-              - label: "Direccion"
-                name: "address"
-                widget: "string"
-                required: false
+              - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
+              - { label: "Nombre", name: "name", widget: "string" }
+              - { label: "Direccion", name: "address", widget: "string", required: false }
               - label: "Zona o departamento"
                 name: "zone"
                 widget: "select"
@@ -171,66 +97,34 @@ collections:
                   - { label: "Cuscatlan", value: "cuscatlan" }
                   - { label: "La Libertad", value: "la libertad" }
                   - { label: "Otro", value: "otro" }
-              - label: "Imagen"
-                name: "image"
-                widget: "image"
-                required: false
-              - label: "Enlace de Google Maps"
-                name: "mapsUrl"
-                widget: "string"
-                required: false
-                hint: "Pega el enlace corto o completo de Google Maps."
-              - label: "Mapa incrustado"
-                name: "embedUrl"
-                widget: "string"
-                required: false
-                hint: "Opcional. Pega solo el src del iframe de Google Maps. Si lo dejas vacio, se genera uno por nombre y direccion."
-              - label: "Encargado o contacto"
-                name: "contact"
-                widget: "string"
-                required: false
-              - label: "Horario"
-                name: "schedule"
-                widget: "string"
-                required: false
+              - { label: "Imagen", name: "image", widget: "image", required: false }
+              - { label: "Enlace de Google Maps", name: "mapsUrl", widget: "string", required: false }
+              - { label: "Mapa incrustado", name: "embedUrl", widget: "string", required: false, hint: "Opcional. Pega solamente el src del iframe de Google Maps." }
+              - { label: "Encargado o contacto", name: "contact", widget: "string", required: false }
+              - { label: "Horario", name: "schedule", widget: "string", required: false }
 
+  - name: "pagina_admin"
+    label: "Pagina principal"
+    description: "Versiculo semanal y datos usados al compartir el sitio."
+    files:
       - name: "versiculo"
         label: "Versiculo de la semana"
         file: "data/versiculo.json"
         format: "json"
         fields:
-          - label: "Publicado"
-            name: "published"
-            widget: "boolean"
-            default: true
-          - label: "Cita biblica"
-            name: "reference"
-            widget: "string"
-            hint: "Ejemplo: Salmo 119:105"
-          - label: "Texto del versiculo"
-            name: "text"
-            widget: "text"
-          - label: "Nota corta"
-            name: "note"
-            widget: "string"
-            required: false
-
+          - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
+          - { label: "Cita biblica", name: "reference", widget: "string" }
+          - { label: "Texto del versiculo", name: "text", widget: "text" }
+          - { label: "Nota corta", name: "note", widget: "string", required: false }
       - name: "ajustes"
-        label: "Ajustes del sitio"
+        label: "SEO y compartir"
         file: "data/ajustes.json"
         format: "json"
         fields:
-          - label: "SEO y compartir"
+          - label: "Datos del sitio"
             name: "seo"
             widget: "object"
             fields:
-              - label: "Titulo para compartir"
-                name: "title"
-                widget: "string"
-              - label: "Descripcion para compartir"
-                name: "description"
-                widget: "text"
-              - label: "Imagen para compartir"
-                name: "image"
-                widget: "image"
-                required: false
+              - { label: "Titulo", name: "title", widget: "string" }
+              - { label: "Descripcion", name: "description", widget: "text" }
+              - { label: "Imagen para compartir", name: "image", widget: "image", required: false }

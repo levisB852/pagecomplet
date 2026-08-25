@@ -962,6 +962,7 @@ footer{
 }
 
 .gallery-item{
+  position:relative;
   border:0;
   padding:0;
   background:transparent;
@@ -984,6 +985,53 @@ footer{
 
 .gallery-item:hover img{
   transform:scale(1.06);
+}
+
+.gallery-item::after{
+  content:"";
+  position:absolute;
+  inset:35% 0 0;
+  background:linear-gradient(180deg, transparent, rgba(4,20,12,.88));
+  pointer-events:none;
+}
+
+.gallery-item__meta{
+  position:absolute;
+  right:0;
+  bottom:0;
+  left:0;
+  z-index:2;
+  display:grid;
+  gap:.15rem;
+  padding:1.4rem 1rem .9rem;
+  color:#fff;
+  text-align:left;
+  pointer-events:none;
+}
+
+.gallery-item__meta strong{
+  overflow:hidden;
+  font-size:.95rem;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.gallery-item__meta time{
+  color:rgba(255,255,255,.78);
+  font-size:.75rem;
+}
+
+.gallery-counter{
+  display:inline-flex;
+  align-items:center;
+  min-height:32px;
+  padding:.35rem .7rem;
+  color:var(--brand-2);
+  background:color-mix(in srgb, var(--brand) 9%, var(--paper));
+  border:1px solid color-mix(in srgb, var(--brand) 18%, var(--line));
+  border-radius:999px;
+  font-size:.82rem;
+  font-weight:700;
 }
 
 .gallery-nav{
@@ -1038,8 +1086,10 @@ footer{
 
 .img-modal__content{
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
+  gap:.65rem;
 }
 
 .img-modal__content img{
@@ -1051,6 +1101,42 @@ footer{
   object-fit:contain;
   border-radius:18px;
   box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+.img-modal__meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  width:min(88vw, 900px);
+  padding:.7rem .85rem;
+  color:#fff;
+  background:rgba(5,18,11,.82);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  backdrop-filter:blur(10px);
+}
+
+.img-modal__meta > div{
+  min-width:0;
+}
+
+#imgModalCounter{
+  color:rgba(255,255,255,.7);
+  font-size:.75rem;
+  font-weight:700;
+}
+
+#imgModalCaption{
+  overflow:hidden;
+  margin:.1rem 0 0;
+  color:#fff;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+#imgModalShare{
+  flex:0 0 auto;
 }
 
 .img-modal__nav{
@@ -1461,6 +1547,16 @@ footer{
 @media (max-width: 680px){
   .gallery-carousel{
     grid-template-columns:40px 1fr 40px;
+  }
+
+  .img-modal__meta{
+    align-items:stretch;
+    flex-direction:column;
+    width:88vw;
+  }
+
+  #imgModalCaption{
+    white-space:normal;
   }
 
   .grid-4{

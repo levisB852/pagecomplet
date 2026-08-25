@@ -19,8 +19,5 @@
   "bugs": {
     "url": "https://github.com/levisB852/pagecomplet/issues"
   },
-  "homepage": "https://github.com/levisB852/pagecomplet#readme",
-  "dependencies": {
-    "cloudinary": "^2.9.0"
-  }
+  "homepage": "https://github.com/levisB852/pagecomplet#readme"
 }

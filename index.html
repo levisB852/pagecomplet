@@ -349,6 +349,7 @@
           <h2>Eventos Juveniles</h2>
           <p>Momentos especiales vividos en nuestra comunidad.</p>
         </div>
+        <span class="gallery-counter" id="galleryCounter" aria-live="polite"></span>
       </div>
 
       <div class="gallery-carousel" data-reveal>
@@ -374,6 +375,13 @@
 
       <div class="img-modal__content">
         <img id="imgModalView" src="" alt="">
+        <div class="img-modal__meta">
+          <div>
+            <span id="imgModalCounter"></span>
+            <p id="imgModalCaption"></p>
+          </div>
+          <button class="btn btn-primary" id="imgModalShare" type="button">Compartir foto</button>
+        </div>
       </div>
 
       <button class="img-modal__nav img-modal__next" id="imgNext" type="button" aria-label="Imagen siguiente">›</button>
