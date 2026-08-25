@@ -1,34 +1,3 @@
 {
-  "eventos": [
-    {
-      "published": false,
-      "title": "Vigilia de Oracion",
-      "type": "culto",
-      "date": "2026-11-15",
-      "time": "7:00 PM",
-      "place": "Templo principal",
-      "locationUrl": "",
-      "cover": ""
-    },
-    {
-      "published": true,
-      "title": "CONVIVIO JUVENIL NACIONAL",
-      "type": "jovenes",
-      "date": "2026-08-23",
-      "time": "9:00 AM",
-      "place": "Iglesia Adventista de Dios del Septimo Dia En Reforma",
-      "locationUrl": "https://maps.app.goo.gl/jFKXCEK21vHyiRji6",
-      "cover": "img/galeria/uploads/whatsapp-image-2026-08-14-at-3.45.02-pm.jpeg"
-    },
-    {
-      "published": false,
-      "title": "Brigada de Salud",
-      "type": "comunidad",
-      "date": "2026-12-01",
-      "time": "8:30 AM",
-      "place": "Parque Central",
-      "locationUrl": "",
-      "cover": ""
-    }
-  ]
+  "eventos": []
 }
