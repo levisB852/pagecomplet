@@ -36,7 +36,7 @@ getHymnsData()
 
     if (!hymn) {
       titleEl.textContent = 'Himno no encontrado';
-      lyricsEl.innerHTML = '<p>No se encontr? el himno solicitado.</p>';
+      lyricsEl.innerHTML = '<p>No se encontró el himno solicitado.</p>';
       return;
     }
 

@@ -13,7 +13,7 @@
 
 <body>
   <!-- Menú hamburguesa -->
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <button class="menu-toggle" type="button" onclick="toggleMenu()" aria-label="Abrir menú" aria-controls="menuOpciones">☰</button>
   <nav id="menuOpciones" class="menu-opciones">
     <button onclick="abrirMiHimnario()">🗂️ Mi Himnario</button>
     <button onclick="verFavoritos()">⭐ Favoritos</button>
@@ -118,32 +118,6 @@
   <script src="js/hymn.js"></script>
   <script src="../js/pwa.js"></script>
 
-  <script>
-    (function(){
-      try {
-        const root = document.documentElement;
-        const body = document.body;
-        const fuente = localStorage.getItem('fuenteHimnos');
-        const tamano = localStorage.getItem('tamanoHimnos');
-        const modo = localStorage.getItem('modoOscuro');
-        if (fuente) root.style.setProperty('--fuente-himnos', `'${fuente}', sans-serif`);
-        if (tamano) root.style.setProperty('--tamano-himnos', tamano);
-        if (modo === 'true') body.classList.add('modo-oscuro');
-        if (fuente) {
-          const family = fuente.replace(/\s+/g, '+');
-          const id = 'gf-inline-' + family;
-          if (!document.getElementById(id)) {
-            const link = document.createElement('link');
-            link.id = id;
-            link.rel = 'stylesheet';
-            link.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(fuente).replace(/%20/g,'+') + '&display=swap';
-            document.head.appendChild(link);
-          }
-        }
-      } catch(e){ console.warn('Init estilos inline:', e); }
-    })();
-  </script>
-</body>
 <script>
   function activarModoProyeccion() {
   // Intenta obtener el himno actual desde la variable global o el DOM
@@ -155,7 +129,7 @@
     const estrofas = [];
     document.querySelectorAll("#hymnLyrics > div").forEach(div => {
       const tipo = div.classList.contains("coro") ? "chorus" : "verse";
-      const label = div.querySelector("h4")?.innerText || "";
+      const label = div.querySelector("h3, h4")?.innerText || "";
       const lineas = Array.from(div.querySelectorAll("p")).map(p => p.innerText);
       estrofas.push({ type: tipo, label: label, lines: lineas });
     });
@@ -175,3 +149,5 @@
   window.open("proyeccion.html", "_blank");
 }
 </script>
+</body>
+</html>

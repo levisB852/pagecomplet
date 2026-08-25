@@ -120,7 +120,6 @@
   function applyFont(name) {
     const fontName = getFontOption(name).value;
     root.style.setProperty('--fuente-himnos', formatFontFamily(fontName));
-    body.style.setProperty('--fuente-himnos', formatFontFamily(fontName));
     setFontProfile(fontName);
     localStorage.setItem('fuenteHimnos', fontName);
     return loadGoogleFont(fontName).catch(e => console.warn('Error cargando fuente:', e));
@@ -133,7 +132,6 @@
 
     applyFont(fuente);
     root.style.setProperty('--tamano-himnos', tamano);
-    body.style.setProperty('--tamano-himnos', tamano);
     if (modo === 'true') body.classList.add('modo-oscuro'); else body.classList.remove('modo-oscuro');
   }
 
@@ -162,7 +160,6 @@
     tamanoSelect?.addEventListener('change', () => {
       const nuevo = tamanoSelect.value;
       root.style.setProperty('--tamano-himnos', nuevo);
-      body.style.setProperty('--tamano-himnos', nuevo);
       localStorage.setItem('tamanoHimnos', nuevo);
     });
 

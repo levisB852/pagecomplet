@@ -220,15 +220,12 @@ function abrirConfiguracion() {
 }
 
 // ------------------------------
-// 7. Aplicar configuraciones de usuario
+// 7. Aplicar modo visual guardado
+// La fuente y el tamano del himno se gestionan exclusivamente en
+// estilosusuario.js para evitar listeners duplicados y estados distintos.
 // ------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-  const fuente = localStorage.getItem('fuenteHimnos') || 'Raleway';
-  const tamano = localStorage.getItem('tamanoHimnos') || '18px';
   const estilo = localStorage.getItem('modoOscuro') === 'true' ? 'oscuro' : 'claro';
-
-  document.body.style.setProperty('--fuente-himnos', `'${fuente}'`);
-  document.body.style.setProperty('--tamano-himnos', tamano);
 
   if (estilo === 'oscuro') {
     document.body.classList.add('modo-oscuro');
@@ -236,36 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('modo-oscuro');
   }
 
-  const fuenteSelect = document.getElementById('fuenteSelect');
-  const tamanoSelect = document.getElementById('tamanoSelect');
   const estiloSelect = document.getElementById('estiloSelect');
-
-  if (fuenteSelect) fuenteSelect.value = fuente;
-  if (tamanoSelect) tamanoSelect.value = tamano;
   if (estiloSelect) estiloSelect.value = estilo;
-
-  fuenteSelect?.addEventListener('change', () => {
-    const nuevaFuente = fuenteSelect.value;
-    document.body.style.setProperty('--fuente-himnos', `'${nuevaFuente}'`);
-    localStorage.setItem('fuenteHimnos', nuevaFuente);
-  });
-
-  tamanoSelect?.addEventListener('change', () => {
-    const nuevoTamano = tamanoSelect.value;
-    document.body.style.setProperty('--tamano-himnos', nuevoTamano);
-    localStorage.setItem('tamanoHimnos', nuevoTamano);
-  });
-
-  estiloSelect?.addEventListener('change', () => {
-    const nuevoEstilo = estiloSelect.value;
-    if (nuevoEstilo === 'oscuro') {
-      document.body.classList.add('modo-oscuro');
-      localStorage.setItem('modoOscuro', 'true');
-    } else {
-      document.body.classList.remove('modo-oscuro');
-      localStorage.setItem('modoOscuro', 'false');
-    }
-  });
 });
 
 // ------------------------------
