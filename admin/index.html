@@ -15,6 +15,9 @@
   </script>
 </head>
 <body>
+  <a class="admin-bulk-link" id="adminBulkLink" href="/admin/galeria-multiple.html" hidden>
+    <span aria-hidden="true">＋</span> Subir varias fotos
+  </a>
   <main class="admin-welcome" id="adminWelcome" aria-live="polite">
     <section class="admin-welcome__card">
       <img src="/img/Logo_IADSDER.png" alt="IADSDER" class="admin-welcome__logo" />
@@ -37,6 +40,7 @@
         var root = document.getElementById("nc-root");
         if (root && root.children.length) {
           welcome.hidden = true;
+          document.getElementById("adminBulkLink").hidden = false;
           observer.disconnect();
         }
       });

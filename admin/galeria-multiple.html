@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#174b35" />
+  <title>Subir fotos | IADSDER</title>
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/admin/galeria-multiple.css" />
+</head>
+<body>
+  <main class="bulk">
+    <a class="bulk__back" href="/admin/">← Volver al administrador</a>
+    <section class="bulk__card">
+      <img class="bulk__logo" src="/img/Logo_IADSDER.png" alt="IADSDER" />
+      <p class="bulk__eyebrow">Galería juvenil</p>
+      <h1>Subir varias fotos</h1>
+      <p class="bulk__intro">Selecciona todas las imágenes juntas. Al terminar quedarán agregadas a Eventos Juveniles.</p>
+
+      <div id="loginPanel" class="bulk__login" hidden>
+        <p>Inicia sesión para administrar la galería.</p>
+        <button id="loginButton" type="button">Iniciar sesión</button>
+      </div>
+
+      <form id="uploadForm" hidden>
+        <label class="bulk__picker" for="photos">
+          <span class="bulk__picker-icon" aria-hidden="true">＋</span>
+          <strong>Seleccionar fotos</strong>
+          <small>Puedes mantener presionada una foto y marcar varias</small>
+        </label>
+        <input id="photos" name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple required />
+        <p id="selection" class="bulk__selection">Ninguna foto seleccionada</p>
+        <div id="preview" class="bulk__preview" aria-live="polite"></div>
+        <button id="uploadButton" class="bulk__submit" type="submit" disabled>Subir fotos seleccionadas</button>
+      </form>
+
+      <div id="progressPanel" class="bulk__progress" hidden aria-live="polite">
+        <div class="bulk__progress-head"><strong id="status">Preparando…</strong><span id="counter"></span></div>
+        <progress id="progress" max="100" value="0"></progress>
+        <p>No cierres esta pantalla hasta que termine.</p>
+      </div>
+      <div id="result" class="bulk__result" hidden aria-live="assertive"></div>
+    </section>
+  </main>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="/admin/galeria-multiple.js"></script>
+</body>
+</html>

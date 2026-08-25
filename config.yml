@@ -28,19 +28,15 @@ collections:
             name: "imagenes"
             widget: "list"
             label_singular: "Agregar fotografias"
-            hint: "Presiona Agregar fotografias y selecciona todas las fotos que quieras desde el telefono."
+            hint: "Para cargar varias de una vez usa el botón verde Subir varias fotos. Aquí también puedes ordenar o borrar fotos."
             allow_add: true
             collapsed: true
             add_to_top: true
             field:
-              label: "Seleccionar imagenes"
+              label: "Seleccionar una imagen"
               name: "image"
               widget: "image"
-              allow_multiple: true
               choose_url: false
-              media_library:
-                config:
-                  multiple: true
 
   - name: "videos_admin"
     label: "Videos"

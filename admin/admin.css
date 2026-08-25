@@ -133,3 +133,25 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .admin-welcome__loader { animation: none; }
 }
+/* Acceso directo al cargador múltiple de la galería */
+.admin-bulk-link {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-radius: 999px;
+  color: #fff;
+  background: #1d6548;
+  box-shadow: 0 10px 30px rgba(17, 66, 45, .28);
+  font: 700 15px/1.2 Inter, system-ui, sans-serif;
+  text-decoration: none;
+}
+.admin-bulk-link[hidden] { display: none; }
+.admin-bulk-link span { font-size: 22px; line-height: 1; }
+@media (max-width: 600px) {
+  .admin-bulk-link { right: 12px; bottom: 12px; left: 12px; justify-content: center; }
+}
