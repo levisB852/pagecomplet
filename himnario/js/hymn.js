@@ -229,72 +229,124 @@ function crearImagenHimno(himno) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   const width = 1080;
-  const padding = 92;
+  const padding = 125;
   const maxTextWidth = width - (padding * 2);
   const rows = [];
 
   ctx.font = '500 38px Georgia, serif';
   himno.content.forEach(block => {
-    rows.push({ kind: 'label', text: block.label || (block.type === 'chorus' ? 'Coro' : 'Estrofa') });
+    const isChorus = block.type === 'chorus';
+    rows.push({ kind: 'label', text: block.label || (isChorus ? 'Coro' : 'Estrofa'), isChorus });
     (block.lines || []).forEach(line => {
-      dividirLineaCanvas(ctx, line, maxTextWidth).forEach(text => rows.push({ kind: 'line', text }));
+      dividirLineaCanvas(ctx, line, maxTextWidth).forEach(text => rows.push({ kind: 'line', text, isChorus }));
     });
     rows.push({ kind: 'space', text: '' });
   });
 
-  const height = Math.max(1080, 330 + rows.reduce((sum, row) => {
-    if (row.kind === 'label') return sum + 62;
-    if (row.kind === 'space') return sum + 28;
-    return sum + 52;
+  const height = Math.max(1080, 610 + rows.reduce((sum, row) => {
+    if (row.kind === 'label') return sum + 58;
+    if (row.kind === 'space') return sum + 24;
+    return sum + 50;
   }, 0));
   canvas.width = width;
   canvas.height = height;
 
+  function roundedRect(x, y, w, h, radius) {
+    const r = Math.min(radius, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
   const gradient = ctx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, '#f7fbf8');
-  gradient.addColorStop(1, '#e6f2eb');
+  gradient.addColorStop(0, '#103d2a');
+  gradient.addColorStop(1, '#286748');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, width, height);
 
+  ctx.fillStyle = 'rgba(255,255,255,.06)';
+  ctx.beginPath();
+  ctx.arc(940, 120, 210, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(80, height - 40, 250, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.shadowColor = 'rgba(0,0,0,.22)';
+  ctx.shadowBlur = 35;
+  ctx.shadowOffsetY = 14;
+  roundedRect(48, 48, width - 96, height - 96, 34);
+  ctx.fillStyle = '#fffdf7';
+  ctx.fill();
+  ctx.shadowColor = 'transparent';
+
+  roundedRect(72, 72, width - 144, 225, 25);
   ctx.fillStyle = '#174b35';
-  ctx.fillRect(0, 0, 22, height);
+  ctx.fill();
+
   ctx.fillStyle = '#d3a832';
-  ctx.fillRect(22, 0, 8, height);
+  ctx.beginPath();
+  ctx.arc(167, 184, 64, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.font = '700 36px Arial, sans-serif';
+  ctx.fillText(String(himno.number || '♪'), 167, 197);
+
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#dbe9e0';
+  ctx.font = '700 23px Arial, sans-serif';
+  ctx.fillText('HIMNARIO DIGITAL · IADSDER', 260, 125);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '700 46px Georgia, serif';
+  const titleLines = dividirLineaCanvas(ctx, himno.title || 'Himno', 680);
+  let titleY = 184;
+  titleLines.forEach(line => {
+    ctx.fillText(line, 260, titleY);
+    titleY += 52;
+  });
 
   ctx.textAlign = 'center';
-  ctx.fillStyle = '#2f7a54';
-  ctx.font = '700 28px Arial, sans-serif';
-  ctx.fillText('HIMNARIO DIGITAL IADSDER', width / 2, 74);
-
-  ctx.fillStyle = '#174b35';
-  ctx.font = '700 54px Georgia, serif';
-  const titleLines = dividirLineaCanvas(ctx, `Himno ${himno.number} · ${himno.title}`, maxTextWidth);
-  let y = 150;
-  titleLines.forEach(line => {
-    ctx.fillText(line, width / 2, y);
-    y += 64;
-  });
-  y += 34;
+  let y = 375;
 
   rows.forEach(row => {
     if (row.kind === 'label') {
-      ctx.fillStyle = '#b07f08';
-      ctx.font = '700 25px Arial, sans-serif';
+      ctx.fillStyle = row.isChorus ? '#2f7a54' : '#b07f08';
+      ctx.font = '700 24px Arial, sans-serif';
       ctx.fillText(row.text.toUpperCase(), width / 2, y);
-      y += 52;
+      y += 50;
     } else if (row.kind === 'space') {
-      y += 28;
+      y += 24;
     } else {
-      ctx.fillStyle = '#243c30';
-      ctx.font = '500 38px Georgia, serif';
+      ctx.fillStyle = row.isChorus ? '#1f6647' : '#293d32';
+      ctx.font = row.isChorus ? '600 37px Georgia, serif' : '500 37px Georgia, serif';
       ctx.fillText(row.text, width / 2, y);
-      y += 52;
+      y += 50;
     }
   });
 
+  ctx.strokeStyle = '#d9c88f';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(150, height - 135);
+  ctx.lineTo(width - 150, height - 135);
+  ctx.stroke();
+
   ctx.fillStyle = '#607068';
-  ctx.font = '500 23px Arial, sans-serif';
-  ctx.fillText('iadsder.org · Compartiendo esperanza por medio de la alabanza', width / 2, height - 48);
+  ctx.font = '600 22px Arial, sans-serif';
+  ctx.fillText('iadsder.org', width / 2, height - 93);
+  ctx.fillStyle = '#87958e';
+  ctx.font = '500 19px Arial, sans-serif';
+  ctx.fillText('Fe · Alabanza · Esperanza', width / 2, height - 64);
   return canvas;
 }
 
