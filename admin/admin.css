@@ -1,0 +1,135 @@
+:root {
+  color-scheme: light;
+  --admin-green: #174b35;
+  --admin-green-light: #2f7a54;
+  --admin-gold: #d3a832;
+  --admin-ink: #17241d;
+  --admin-muted: #607068;
+  --admin-paper: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  color: var(--admin-ink);
+  background:
+    radial-gradient(circle at 12% 15%, rgba(211, 168, 50, .16), transparent 28rem),
+    radial-gradient(circle at 88% 82%, rgba(47, 122, 84, .20), transparent 34rem),
+    #edf3ef;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.admin-welcome {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.admin-welcome[hidden] {
+  display: none;
+}
+
+.admin-welcome__card {
+  width: min(100%, 430px);
+  padding: clamp(1.6rem, 5vw, 2.6rem);
+  text-align: center;
+  background: rgba(255, 255, 255, .94);
+  border: 1px solid rgba(23, 75, 53, .12);
+  border-radius: 24px;
+  box-shadow: 0 24px 70px rgba(23, 75, 53, .16);
+}
+
+.admin-welcome__logo {
+  width: 86px;
+  height: 86px;
+  object-fit: contain;
+  margin: 0 auto 1rem;
+  filter: drop-shadow(0 8px 14px rgba(23, 75, 53, .16));
+}
+
+.admin-welcome__eyebrow {
+  display: inline-block;
+  color: var(--admin-green-light);
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.admin-welcome h1 {
+  margin: .55rem 0 .6rem;
+  color: var(--admin-green);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.75rem, 6vw, 2.35rem);
+  line-height: 1.12;
+}
+
+.admin-welcome p {
+  margin: 0;
+  color: var(--admin-muted);
+}
+
+.admin-welcome__loader {
+  display: block;
+  width: 34px;
+  height: 34px;
+  margin: 1.4rem auto;
+  border: 3px solid rgba(23, 75, 53, .14);
+  border-top-color: var(--admin-gold);
+  border-radius: 50%;
+  animation: admin-spin .8s linear infinite;
+}
+
+.admin-welcome__back {
+  color: var(--admin-green);
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.admin-welcome__back:hover {
+  text-decoration: underline;
+}
+
+/* Ajustes generales del panel generado por Decap CMS. Se evitan nombres de
+   clases internos para conservar compatibilidad con futuras versiones. */
+#nc-root {
+  min-height: 100vh;
+}
+
+#nc-root button,
+#nc-root input,
+#nc-root textarea,
+#nc-root select {
+  font: inherit;
+}
+
+#nc-root button {
+  border-radius: 9px;
+}
+
+#nc-root input,
+#nc-root textarea,
+#nc-root select {
+  border-radius: 9px;
+}
+
+#nc-root img {
+  max-width: 100%;
+}
+
+@keyframes admin-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-welcome__loader { animation: none; }
+}

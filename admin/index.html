@@ -4,7 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#174b35" />
   <title>Administrador | IADSDER</title>
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/admin/admin.css" />
   <script>
     if (window.location.pathname === "/admin") {
       window.location.replace("/admin/" + window.location.search + window.location.hash);
@@ -12,9 +15,32 @@
   </script>
 </head>
 <body>
+  <main class="admin-welcome" id="adminWelcome" aria-live="polite">
+    <section class="admin-welcome__card">
+      <img src="/img/Logo_IADSDER.png" alt="IADSDER" class="admin-welcome__logo" />
+      <span class="admin-welcome__eyebrow">Área privada</span>
+      <h1>Administración IADSDER</h1>
+      <p>Preparando el panel de contenidos…</p>
+      <span class="admin-welcome__loader" aria-hidden="true"></span>
+      <a href="/" class="admin-welcome__back">← Volver al sitio público</a>
+    </section>
+  </main>
+
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
+    (function () {
+      var welcome = document.getElementById("adminWelcome");
+      var observer = new MutationObserver(function () {
+        var root = document.getElementById("nc-root");
+        if (root && root.children.length) {
+          welcome.hidden = true;
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    })();
+
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", function () {
         var hash = window.location.hash || "";
