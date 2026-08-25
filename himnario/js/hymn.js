@@ -174,7 +174,7 @@ function generarTextoCompartido(himno) {
     return `⚠️ Himno #${himno?.number || 'sin número'} no tiene contenido disponible.`;
   }
 
-  let texto = `?? Himno #${himno.number}: ${himno.title}\n\n`;
+  let texto = `🎵 Himno #${himno.number}: ${himno.title}\n\n`;
 
   const estrofas = himno.content.filter(p => p.type === "verse");
   const coro = himno.content.find(p => p.type === "chorus");
@@ -194,15 +194,146 @@ function generarTextoCompartido(himno) {
   return texto.trim();
 }
 
-function obtenerTextoCompartible() {
+function obtenerHimnoCompartible() {
   const numero = currentHymnId;
   const personalizados = JSON.parse(localStorage.getItem('himnosPersonalizados')) || [];
   const originales = JSON.parse(localStorage.getItem('himnosOriginales')) || [];
   const todos = [...originales, ...personalizados];
-  const himno = todos.find(h => h.number == numero);
-  if (!himno) return '?? Himno no encontrado';
+  return todos.find(h => h.number == numero) || window.hymnData || null;
+}
 
-  return generarTextoCompartido(himno);
+function obtenerTextoCompartible() {
+  const himno = obtenerHimnoCompartible();
+  return himno ? generarTextoCompartido(himno) : 'Himno no encontrado';
+}
+
+function dividirLineaCanvas(ctx, texto, anchoMaximo) {
+  const palabras = String(texto || '').split(/\s+/).filter(Boolean);
+  const lineas = [];
+  let linea = '';
+
+  palabras.forEach(palabra => {
+    const prueba = linea ? `${linea} ${palabra}` : palabra;
+    if (linea && ctx.measureText(prueba).width > anchoMaximo) {
+      lineas.push(linea);
+      linea = palabra;
+    } else {
+      linea = prueba;
+    }
+  });
+  if (linea) lineas.push(linea);
+  return lineas.length ? lineas : [''];
+}
+
+function crearImagenHimno(himno) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  const width = 1080;
+  const padding = 92;
+  const maxTextWidth = width - (padding * 2);
+  const rows = [];
+
+  ctx.font = '500 38px Georgia, serif';
+  himno.content.forEach(block => {
+    rows.push({ kind: 'label', text: block.label || (block.type === 'chorus' ? 'Coro' : 'Estrofa') });
+    (block.lines || []).forEach(line => {
+      dividirLineaCanvas(ctx, line, maxTextWidth).forEach(text => rows.push({ kind: 'line', text }));
+    });
+    rows.push({ kind: 'space', text: '' });
+  });
+
+  const height = Math.max(1080, 330 + rows.reduce((sum, row) => {
+    if (row.kind === 'label') return sum + 62;
+    if (row.kind === 'space') return sum + 28;
+    return sum + 52;
+  }, 0));
+  canvas.width = width;
+  canvas.height = height;
+
+  const gradient = ctx.createLinearGradient(0, 0, width, height);
+  gradient.addColorStop(0, '#f7fbf8');
+  gradient.addColorStop(1, '#e6f2eb');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+
+  ctx.fillStyle = '#174b35';
+  ctx.fillRect(0, 0, 22, height);
+  ctx.fillStyle = '#d3a832';
+  ctx.fillRect(22, 0, 8, height);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#2f7a54';
+  ctx.font = '700 28px Arial, sans-serif';
+  ctx.fillText('HIMNARIO DIGITAL IADSDER', width / 2, 74);
+
+  ctx.fillStyle = '#174b35';
+  ctx.font = '700 54px Georgia, serif';
+  const titleLines = dividirLineaCanvas(ctx, `Himno ${himno.number} · ${himno.title}`, maxTextWidth);
+  let y = 150;
+  titleLines.forEach(line => {
+    ctx.fillText(line, width / 2, y);
+    y += 64;
+  });
+  y += 34;
+
+  rows.forEach(row => {
+    if (row.kind === 'label') {
+      ctx.fillStyle = '#b07f08';
+      ctx.font = '700 25px Arial, sans-serif';
+      ctx.fillText(row.text.toUpperCase(), width / 2, y);
+      y += 52;
+    } else if (row.kind === 'space') {
+      y += 28;
+    } else {
+      ctx.fillStyle = '#243c30';
+      ctx.font = '500 38px Georgia, serif';
+      ctx.fillText(row.text, width / 2, y);
+      y += 52;
+    }
+  });
+
+  ctx.fillStyle = '#607068';
+  ctx.font = '500 23px Arial, sans-serif';
+  ctx.fillText('iadsder.org · Compartiendo esperanza por medio de la alabanza', width / 2, height - 48);
+  return canvas;
+}
+
+async function compartirComoImagen() {
+  const himno = obtenerHimnoCompartible();
+  if (!himno || !Array.isArray(himno.content) || !himno.content.length) {
+    alert('No se pudo generar la imagen de este himno.');
+    return;
+  }
+
+  const canvas = crearImagenHimno(himno);
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  if (!blob) {
+    alert('No se pudo generar la imagen.');
+    return;
+  }
+
+  const fileName = `himno-${himno.number || 'iadsder'}.png`;
+  const file = new File([blob], fileName, { type: 'image/png' });
+
+  if (navigator.share && navigator.canShare?.({ files: [file] })) {
+    try {
+      await navigator.share({
+        title: `Himno ${himno.number}: ${himno.title}`,
+        text: 'Himnario Digital IADSDER',
+        files: [file]
+      });
+      return;
+    } catch (error) {
+      if (error.name === 'AbortError') return;
+    }
+  }
+
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  alert('La imagen se descargó. Ya puedes adjuntarla en la aplicación que prefieras.');
 }
 
 function compartirPorWhatsApp() {

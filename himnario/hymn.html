@@ -38,17 +38,24 @@
         <img src="icons/share.svg" alt="Compartir" />
       </button>
       <div id="menuCompartir" class="menu-compartir oculto">
-        <button onclick="compartirPorWhatsApp()" title="WhatsApp">
+        <strong class="menu-compartir__title">Compartir como</strong>
+        <span class="menu-compartir__label">Texto</span>
+        <div class="menu-compartir__apps">
+        <button onclick="compartirPorWhatsApp()" title="Compartir texto por WhatsApp" aria-label="Compartir texto por WhatsApp">
           <img src="icons/whatsapp.svg" alt="WhatsApp" />
         </button>
-        <button onclick="compartirPorTelegram()" title="Telegram">
+        <button onclick="compartirPorTelegram()" title="Compartir texto por Telegram" aria-label="Compartir texto por Telegram">
           <img src="icons/telegram.svg" alt="Telegram" />
         </button>
-        <button onclick="compartirPorEmail()" title="Email">
+        <button onclick="compartirPorEmail()" title="Compartir texto por correo" aria-label="Compartir texto por correo">
           <img src="icons/gmail.svg" alt="Email" />
         </button>
-        <button onclick="copiarAlPortapapeles()" title="Copiar">
+        <button onclick="copiarAlPortapapeles()" title="Copiar texto" aria-label="Copiar texto">
           <img src="icons/copy.svg" alt="Copiar" />
+        </button>
+        </div>
+        <button class="menu-compartir__image" onclick="compartirComoImagen()" type="button">
+          <span aria-hidden="true">▣</span> Compartir imagen
         </button>
       </div>
     </div>
