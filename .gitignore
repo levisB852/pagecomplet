@@ -1,0 +1,3 @@
+# Carpeta temporal para importar fotografias. Las copias publicables se guardan
+# en img/galeria/uploads y si forman parte del sitio.
+img/galeria/importar/

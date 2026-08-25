@@ -5,7 +5,16 @@
     render: function () {
       const value = this.props.entry.getIn(["data", "imagenes"]);
       const images = value && value.toJS ? value.toJS() : [];
-      const published = images.filter(image => image && image.published !== false && image.image);
+      const published = images
+        .filter(image => image && image.published !== false && image.image)
+        .flatMap(image => {
+          const sources = Array.isArray(image.image) ? image.image : [image.image];
+          return sources.filter(Boolean).map((source, index) => ({
+            ...image,
+            image: source,
+            alt: sources.length > 1 && image.alt ? `${image.alt} (${index + 1})` : image.alt
+          }));
+        });
 
       return h("main", { className: "gallery-preview" },
         h("header", { className: "gallery-preview__head" },

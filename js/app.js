@@ -852,7 +852,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!response.ok) throw new Error(`Galería no disponible (${response.status})`);
     const data = await response.json();
     const galleryItems = Array.isArray(data) ? data : data.imagenes;
-    renderImages(Array.isArray(galleryItems) ? galleryItems.filter(isPublished) : []);
+    const normalizedItems = Array.isArray(galleryItems)
+      ? galleryItems.flatMap(item => {
+          const sources = Array.isArray(item.image) ? item.image : [item.image];
+          return sources.filter(Boolean).map((source, index) => ({
+            ...item,
+            image: source,
+            alt: sources.length > 1 && item.alt ? `${item.alt} (${index + 1})` : item.alt
+          }));
+        })
+      : [];
+    renderImages(normalizedItems.filter(isPublished));
   } catch (e) {
     console.error(e);
     if (loading) loading.textContent = "No se pudieron cargar las fotografías. Intenta nuevamente.";
