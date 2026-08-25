@@ -65,13 +65,7 @@ Tambien puedes poner titulo y descripcion corta.
 
 ## Galeria
 
-Puedes subir fotos desde el telefono. Cada foto tiene:
-
-- Publicado
-- Imagen
-- Texto alternativo
-
-El texto alternativo es una descripcion breve de la foto. Ayuda a que la pagina sea mas clara y accesible.
+Puedes seleccionar y subir varias fotos al mismo tiempo desde el telefono. La galeria no pide descripcion, fecha ni otros datos: solamente las imagenes.
 
 La pagina usa solamente las fotos guardadas desde el administrador. Ya no mezcla imagenes de Cloudinary u otra galeria externa.
 
@@ -79,11 +73,11 @@ Las fotos nuevas que subas desde el admin se guardan en:
 
 `img/galeria/uploads`
 
-Puedes cambiar el orden arrastrando las fotografias dentro de la lista. Tambien puedes agregar una fecha y una descripcion, que apareceran en la galeria publica.
+Puedes cambiar el orden arrastrando las fotografias dentro de la lista.
 
 ## Vista previa del panel
 
-La vista previa del panel queda desactivada porque estos contenidos se guardan como archivos JSON. Para ver como queda en publico, guarda el cambio, espera que Netlify publique y revisa la pagina principal.
+La galeria incluye una vista previa de las imagenes seleccionadas antes de guardar.
 
 ## Activarlo en Netlify
 
@@ -137,9 +131,8 @@ El ID es:
 
 1. Entra a `/admin/`.
 2. Abre `Galeria juvenil` y luego `Administrar fotografias`.
-3. Presiona `Agregar fotografia`.
-4. Sube la imagen desde tu telefono.
-5. Escribe un texto alternativo.
-6. Guarda.
+3. Presiona `Agregar fotografias`.
+4. Selecciona una o varias imagenes desde tu telefono.
+5. Guarda.
 
 Las imagenes se guardan en `img/galeria/uploads`.

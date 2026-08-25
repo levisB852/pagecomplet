@@ -1,409 +1,72 @@
 {
   "imagenes": [
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-10-01.jpg",
-      "alt": "Actividad juvenil del 10 de mayo de 2026, fotografia 1",
-      "date": "2026-05-10"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-22.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 22",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-21.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 21",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-20.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 20",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-19.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 19",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-18.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 18",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-17.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 17",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-16.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 16",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-15.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 15",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-14.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 14",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-13.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 13",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-12.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 12",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-11.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 11",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-10.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 10",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-09.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 9",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-08.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 8",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-07.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 7",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-06.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 6",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-05.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 5",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-04.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 4",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-03.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 3",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-02.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 2",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-05-09-01.jpg",
-      "alt": "Actividad juvenil del 9 de mayo de 2026, fotografia 1",
-      "date": "2026-05-09"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-21.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 21",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-20.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 20",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-19.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 19",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-18.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 18",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-17.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 17",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-16.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 16",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-15.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 15",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-14.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 14",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-13.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 13",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-12.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 12",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-11.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 11",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-10.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 10",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-09.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 9",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-08.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 8",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-07.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 7",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-06.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 6",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-05.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 5",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-04.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 4",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-03.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 3",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-02.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 2",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-04-18-01.jpg",
-      "alt": "Actividad juvenil del 18 de abril de 2026, fotografia 1",
-      "date": "2026-04-18"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-13.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 13",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-12.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 12",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-11.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 11",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-10.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 10",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-09.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 9",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-08.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 8",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-07.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 7",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-06.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 6",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-05.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 5",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-04.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 4",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-03.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 3",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-02.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 2",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-28-01.jpg",
-      "alt": "Actividad juvenil del 28 de febrero de 2026, fotografia 1",
-      "date": "2026-02-28"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-15-08.jpg",
-      "alt": "Actividad juvenil del 15 de febrero de 2026, fotografia 8",
-      "date": "2026-02-15"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-15-07.jpg",
-      "alt": "Actividad juvenil del 15 de febrero de 2026, fotografia 7",
-      "date": "2026-02-15"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-15-06.jpg",
-      "alt": "Actividad juvenil del 15 de febrero de 2026, fotografia 6",
-      "date": "2026-02-15"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-15-05.jpg",
-      "alt": "Actividad juvenil del 15 de febrero de 2026, fotografia 5",
-      "date": "2026-02-15"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-15-04.jpg",
-      "alt": "Actividad juvenil del 15 de febrero de 2026, fotografia 4",
-      "date": "2026-02-15"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-15-03.jpg",
-      "alt": "Actividad juvenil del 15 de febrero de 2026, fotografia 3",
-      "date": "2026-02-15"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-15-02.jpg",
-      "alt": "Actividad juvenil del 15 de febrero de 2026, fotografia 2",
-      "date": "2026-02-15"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/uploads/evento-2026-02-15-01.jpg",
-      "alt": "Actividad juvenil del 15 de febrero de 2026, fotografia 1",
-      "date": "2026-02-15"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/01.jpg",
-      "alt": "Evento juvenil"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/02.jpg",
-      "alt": "Actividad juvenil"
-    },
-    {
-      "published": true,
-      "image": "/img/galeria/03.jpg",
-      "alt": "Momento especial"
-    }
+    "/img/galeria/uploads/evento-2026-05-10-01.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-22.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-21.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-20.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-19.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-18.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-17.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-16.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-15.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-14.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-13.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-12.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-11.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-10.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-09.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-08.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-07.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-06.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-05.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-04.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-03.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-02.jpg",
+    "/img/galeria/uploads/evento-2026-05-09-01.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-21.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-20.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-19.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-18.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-17.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-16.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-15.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-14.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-13.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-12.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-11.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-10.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-09.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-08.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-07.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-06.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-05.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-04.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-03.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-02.jpg",
+    "/img/galeria/uploads/evento-2026-04-18-01.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-13.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-12.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-11.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-10.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-09.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-08.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-07.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-06.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-05.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-04.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-03.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-02.jpg",
+    "/img/galeria/uploads/evento-2026-02-28-01.jpg",
+    "/img/galeria/uploads/evento-2026-02-15-08.jpg",
+    "/img/galeria/uploads/evento-2026-02-15-07.jpg",
+    "/img/galeria/uploads/evento-2026-02-15-06.jpg",
+    "/img/galeria/uploads/evento-2026-02-15-05.jpg",
+    "/img/galeria/uploads/evento-2026-02-15-04.jpg",
+    "/img/galeria/uploads/evento-2026-02-15-03.jpg",
+    "/img/galeria/uploads/evento-2026-02-15-02.jpg",
+    "/img/galeria/uploads/evento-2026-02-15-01.jpg",
+    "/img/galeria/01.jpg",
+    "/img/galeria/02.jpg",
+    "/img/galeria/03.jpg"
   ]
 }

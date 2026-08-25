@@ -5,16 +5,14 @@
     render: function () {
       const value = this.props.entry.getIn(["data", "imagenes"]);
       const images = value && value.toJS ? value.toJS() : [];
-      const published = images
-        .filter(image => image && image.published !== false && image.image)
-        .flatMap(image => {
-          const sources = Array.isArray(image.image) ? image.image : [image.image];
-          return sources.filter(Boolean).map((source, index) => ({
-            ...image,
-            image: source,
-            alt: sources.length > 1 && image.alt ? `${image.alt} (${index + 1})` : image.alt
-          }));
-        });
+      function normalize(item) {
+        if (typeof item === "string") return [{ image: item, alt: "Fotografía de evento juvenil" }];
+        if (Array.isArray(item)) return item.flatMap(normalize);
+        if (!item || item.published === false) return [];
+        const sources = Array.isArray(item.image) ? item.image : [item.image];
+        return sources.flatMap(source => Array.isArray(source) ? source.flatMap(normalize) : (source ? [{ ...item, image: source }] : []));
+      }
+      const published = images.flatMap(normalize);
 
       return h("main", { className: "gallery-preview" },
         h("header", { className: "gallery-preview__head" },
@@ -25,11 +23,7 @@
         published.length
           ? h("div", { className: "gallery-preview__grid" }, published.map((image, index) =>
               h("figure", { key: `${image.image}-${index}` },
-                h("img", { src: this.props.getAsset(image.image).toString(), alt: image.alt || "Fotografía" }),
-                h("figcaption", {},
-                  h("strong", {}, image.alt || "Sin descripción"),
-                  image.date ? h("time", {}, image.date) : null
-                )
+                h("img", { src: this.props.getAsset(image.image).toString(), alt: "Fotografía" })
               )
             ))
           : h("p", { className: "gallery-preview__empty" }, "No hay fotografías marcadas para publicar.")

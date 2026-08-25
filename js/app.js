@@ -815,9 +815,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const btn = document.createElement("button");
       btn.className = "gallery-item";
       btn.type = "button";
-      btn.dataset.caption = img.alt || "Fotografía de la comunidad";
-      btn.dataset.date = img.date || "";
-      btn.setAttribute("aria-label", `Abrir fotografía: ${btn.dataset.caption}`);
+      btn.setAttribute("aria-label", "Abrir fotografía de evento juvenil");
 
       const im = document.createElement("img");
       im.src = img.image;
@@ -825,24 +823,7 @@ document.addEventListener("DOMContentLoaded", () => {
       im.loading = "lazy";
       im.decoding = "async";
 
-      const meta = document.createElement("span");
-      meta.className = "gallery-item__meta";
-      const caption = document.createElement("strong");
-      caption.textContent = btn.dataset.caption;
-      meta.appendChild(caption);
-
-      if (img.date) {
-        const time = document.createElement("time");
-        time.dateTime = img.date;
-        const parsed = new Date(`${img.date}T12:00:00`);
-        time.textContent = Number.isNaN(parsed.getTime())
-          ? img.date
-          : parsed.toLocaleDateString("es-SV", { day: "numeric", month: "long", year: "numeric" });
-        meta.appendChild(time);
-      }
-
       btn.appendChild(im);
-      btn.appendChild(meta);
       track.appendChild(btn);
     });
   }
@@ -852,15 +833,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!response.ok) throw new Error(`Galería no disponible (${response.status})`);
     const data = await response.json();
     const galleryItems = Array.isArray(data) ? data : data.imagenes;
+    function normalizeGalleryItem(item) {
+      if (typeof item === "string") return [{ image: item, alt: "Fotografía de evento juvenil" }];
+      if (Array.isArray(item)) return item.flatMap(normalizeGalleryItem);
+      if (!item || typeof item !== "object") return [];
+
+      const sources = Array.isArray(item.image) ? item.image : [item.image];
+      return sources.flatMap(source => {
+        if (Array.isArray(source)) return source.flatMap(normalizeGalleryItem);
+        return source ? [{ ...item, image: source }] : [];
+      });
+    }
+
     const normalizedItems = Array.isArray(galleryItems)
-      ? galleryItems.flatMap(item => {
-          const sources = Array.isArray(item.image) ? item.image : [item.image];
-          return sources.filter(Boolean).map((source, index) => ({
-            ...item,
-            image: source,
-            alt: sources.length > 1 && item.alt ? `${item.alt} (${index + 1})` : item.alt
-          }));
-        })
+      ? galleryItems.flatMap(normalizeGalleryItem)
       : [];
     renderImages(normalizedItems.filter(isPublished));
   } catch (e) {
@@ -904,7 +890,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const view = document.getElementById("imgModalView");
   const prevBtn = document.getElementById("imgPrev");
   const nextBtn = document.getElementById("imgNext");
-  const captionEl = document.getElementById("imgModalCaption");
   const counterEl = document.getElementById("imgModalCounter");
   const shareBtn = document.getElementById("imgModalShare");
   const backdrop = modal?.querySelector(".img-modal__backdrop");
@@ -930,8 +915,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!item) return;
     view.src = item.src;
     view.alt = item.alt || item.caption || "Imagen";
-    if (captionEl) captionEl.textContent = item.caption || item.alt || "Fotografía de la comunidad";
-    if (counterEl) counterEl.textContent = `${currentIndex + 1} de ${images.length}${item.date ? ` · ${item.date}` : ""}`;
+    if (counterEl) counterEl.textContent = `${currentIndex + 1} de ${images.length}`;
   }
 
   function openGallery(galleryImages, startIndex = 0, alt = "Imagen") {
@@ -1004,12 +988,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!clickedImg || !galleryImgs.length) return;
 
       const urls = galleryImgs.map(img => {
-        const button = img.closest(".gallery-item");
         return {
           src: img.src,
           alt: img.alt,
-          caption: button?.dataset.caption || img.alt,
-          date: button?.dataset.date || ""
+          caption: "Fotografía de evento juvenil",
+          date: ""
         };
       });
       const index = galleryImgs.indexOf(clickedImg);

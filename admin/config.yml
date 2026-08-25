@@ -28,22 +28,19 @@ collections:
             name: "imagenes"
             widget: "list"
             label_singular: "Agregar fotografias"
-            summary: "{{fields.alt}}"
-            hint: "Presiona Agregar fotografias; luego puedes seleccionar una o varias fotos del telefono al mismo tiempo."
+            hint: "Presiona Agregar fotografias y selecciona todas las fotos que quieras desde el telefono."
             allow_add: true
             collapsed: true
             add_to_top: true
-            fields:
-              - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
-              - label: "Seleccionar una o varias imagenes"
-                name: "image"
-                widget: "image"
-                choose_url: false
-                media_library:
-                  config:
-                    multiple: true
-              - { label: "Descripcion", name: "alt", widget: "string", hint: "Describe brevemente lo que aparece en la fotografia." }
-              - { label: "Fecha de la fotografia", name: "date", widget: "datetime", required: false, date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD" }
+            field:
+              label: "Seleccionar imagenes"
+              name: "image"
+              widget: "image"
+              allow_multiple: true
+              choose_url: false
+              media_library:
+                config:
+                  multiple: true
 
   - name: "videos_admin"
     label: "Videos"

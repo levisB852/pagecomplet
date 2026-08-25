@@ -8,6 +8,4 @@ body { margin: 0; color: #17241d; background: #eef5f0; font-family: Inter, Arial
 .gallery-preview__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; }
 .gallery-preview figure { margin: 0; overflow: hidden; background: #fff; border-radius: 16px; box-shadow: 0 10px 28px rgba(23,75,53,.12); }
 .gallery-preview img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-.gallery-preview figcaption { display: grid; gap: .25rem; padding: .8rem 1rem; }
-.gallery-preview time { color: #607068; font-size: .8rem; }
 .gallery-preview__empty { padding: 2rem; text-align: center; background: #fff; border: 1px dashed #a9bbb0; border-radius: 16px; }
