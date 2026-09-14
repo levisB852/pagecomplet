@@ -26,7 +26,15 @@
 
 
   <section class="search">
-    <input type="text" id="searchInput" placeholder="Buscar himno..." />
+    <label class="sr-only" for="searchInput">Buscar himno</label>
+    <input type="search" id="searchInput" placeholder="Buscar por número, título o letra..." autocomplete="off" />
+    <div class="recent-searches" id="recentSearches" hidden>
+      <div class="recent-searches__head">
+        <span>Búsquedas recientes</span>
+        <button type="button" id="clearRecentSearches">Borrar</button>
+      </div>
+      <div class="recent-searches__list" id="recentSearchesList"></div>
+    </div>
   </section>
 <!-- Botón hamburguesa flotante -->
 <div class="menu-toggle" onclick="toggleMenu()">

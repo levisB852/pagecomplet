@@ -60,6 +60,27 @@ collections:
               - { label: "Titulo", name: "title", widget: "string" }
               - { label: "Descripcion corta", name: "description", widget: "text", required: false }
 
+  - name: "transmision_admin"
+    label: "Transmision en vivo"
+    description: "Muestra u oculta un Live de YouTube o Facebook en la pagina principal."
+    files:
+      - name: "transmision"
+        label: "Configurar transmision"
+        file: "data/en-vivo.json"
+        format: "json"
+        fields:
+          - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: false, hint: "Activalo solamente mientras haya una transmision disponible." }
+          - label: "Plataforma"
+            name: "platform"
+            widget: "select"
+            default: "youtube"
+            options:
+              - { label: "YouTube Live", value: "youtube" }
+              - { label: "Facebook Live", value: "facebook" }
+          - { label: "Enlace completo del Live", name: "url", widget: "string", required: false, hint: "Pega el enlace del video en vivo, por ejemplo https://www.youtube.com/watch?v=... o el enlace de Facebook Live." }
+          - { label: "Titulo", name: "title", widget: "string", default: "Transmision en vivo" }
+          - { label: "Descripcion", name: "description", widget: "text", required: false }
+
   - name: "filiales_admin"
     label: "Filiales"
     description: "Direcciones, contactos, horarios y ubicaciones de las iglesias."

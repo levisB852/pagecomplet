@@ -301,6 +301,55 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 // ============================================================
 // 13. VIDEOS YOUTUBE
 // ============================================================
+(function liveBroadcast() {
+  const section = document.getElementById('transmision');
+  const frame = document.getElementById('liveFrame');
+  const heading = document.getElementById('liveHeading');
+  const description = document.getElementById('liveDescription');
+  const platformLabel = document.getElementById('livePlatform');
+  const openLink = document.getElementById('liveOpenLink');
+  if (!section || !frame || !openLink) return;
+
+  function youtubeIdFromUrl(value) {
+    try {
+      const url = new URL(value);
+      if (url.hostname.includes('youtu.be')) return url.pathname.split('/').filter(Boolean)[0] || '';
+      if (url.pathname.startsWith('/live/') || url.pathname.startsWith('/shorts/') || url.pathname.startsWith('/embed/')) {
+        return url.pathname.split('/').filter(Boolean)[1] || '';
+      }
+      return url.searchParams.get('v') || '';
+    } catch (error) {
+      return '';
+    }
+  }
+
+  function getEmbedUrl(platform, sourceUrl) {
+    if (platform === 'facebook') {
+      return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(sourceUrl)}&show_text=false&autoplay=false`;
+    }
+    const videoId = youtubeIdFromUrl(sourceUrl);
+    return videoId ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?rel=0&modestbranding=1` : '';
+  }
+
+  fetch('/data/en-vivo.json', { cache: 'no-cache' })
+    .then(response => response.ok ? response.json() : Promise.reject(new Error('Sin configuración de transmisión')))
+    .then(data => {
+      const platform = data.platform === 'facebook' ? 'facebook' : 'youtube';
+      const sourceUrl = String(data.url || '').trim();
+      const embedUrl = getEmbedUrl(platform, sourceUrl);
+      if (data.published !== true || !sourceUrl || !embedUrl) return;
+
+      heading.textContent = data.title || 'Transmisión en vivo';
+      description.textContent = data.description || 'Acompáñanos en nuestra transmisión.';
+      platformLabel.textContent = platform === 'facebook' ? 'Facebook Live' : 'YouTube Live';
+      openLink.textContent = platform === 'facebook' ? 'Abrir en Facebook' : 'Abrir en YouTube';
+      openLink.href = sourceUrl;
+      frame.src = embedUrl;
+      section.hidden = false;
+    })
+    .catch(error => console.info('Transmisión en vivo no disponible:', error.message));
+})();
+
 (function youtubeCards() {
   const modal = document.getElementById("videoModal");
   const frame = document.getElementById("videoFrame");

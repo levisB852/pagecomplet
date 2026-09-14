@@ -2,9 +2,14 @@
 // ------------------------------
 const searchInput = document.getElementById('searchInput');
 const hymnList = document.getElementById('hymnList');
+const recentSearches = document.getElementById('recentSearches');
+const recentSearchesList = document.getElementById('recentSearchesList');
+const clearRecentSearches = document.getElementById('clearRecentSearches');
 let hymns = [];
 let currentPage = 1;
 const pageSize = 100;
+const RECENT_SEARCHES_KEY = 'busquedasRecientesHimnario';
+const MAX_RECENT_SEARCHES = 6;
 
 // Aplicar estilo guardado al cargar
 if (localStorage.getItem('modoOscuro') === 'true') {
@@ -99,6 +104,7 @@ function renderList(list) {
       <small>${preview}</small>
     `;
     card.onclick = () => {
+      saveRecentSearch(searchInput ? searchInput.value : '');
       window.location.href = `hymn.html?number=${item.number}`;
     };
     hymnList.appendChild(card);
@@ -158,6 +164,63 @@ searchInput?.addEventListener('input', () => {
   );
   renderList(filtered);
 });
+
+function getRecentSearches() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(RECENT_SEARCHES_KEY));
+    return Array.isArray(saved) ? saved.filter(item => typeof item === 'string').slice(0, MAX_RECENT_SEARCHES) : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveRecentSearch(value) {
+  const term = String(value || '').trim().replace(/\s+/g, ' ');
+  if (term.length < 2) return;
+  const searches = getRecentSearches().filter(item => item.toLocaleLowerCase('es') !== term.toLocaleLowerCase('es'));
+  searches.unshift(term);
+  localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(searches.slice(0, MAX_RECENT_SEARCHES)));
+  renderRecentSearches();
+}
+
+function applySearchTerm(term) {
+  if (!searchInput) return;
+  searchInput.value = term;
+  searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+  searchInput.focus();
+}
+
+function renderRecentSearches() {
+  if (!recentSearches || !recentSearchesList) return;
+  const searches = getRecentSearches();
+  recentSearches.hidden = searches.length === 0;
+  recentSearchesList.replaceChildren();
+  searches.forEach(term => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'recent-searches__chip';
+    button.textContent = term;
+    button.addEventListener('click', () => applySearchTerm(term));
+    recentSearchesList.appendChild(button);
+  });
+}
+
+searchInput?.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    saveRecentSearch(searchInput.value);
+  }
+});
+
+searchInput?.addEventListener('change', () => saveRecentSearch(searchInput.value));
+
+clearRecentSearches?.addEventListener('click', () => {
+  localStorage.removeItem(RECENT_SEARCHES_KEY);
+  renderRecentSearches();
+  searchInput?.focus();
+});
+
+renderRecentSearches();
 
 // ------------------------------
 // 6. Funciones generales del menú
