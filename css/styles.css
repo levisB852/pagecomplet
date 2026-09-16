@@ -1455,14 +1455,28 @@ footer{
 }
 
 .live-card{
-  max-width:1000px;
-  margin-inline:auto;
   overflow:hidden;
   border:1px solid rgba(255,255,255,.13);
   border-radius:22px;
   background:rgba(2,6,23,.7);
   box-shadow:0 24px 70px rgba(0,0,0,.35);
 }
+
+.live-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+  max-width:1180px;
+  margin-inline:auto;
+}
+
+.live-grid--single{
+  grid-template-columns:minmax(0,900px);
+  justify-content:center;
+}
+
+.live-card--youtube .live-card__footer .btn{ background:#dc2626; }
+.live-card--facebook .live-card__footer .btn{ background:#1877f2; }
 
 .live-frame{
   position:relative;
@@ -1493,6 +1507,7 @@ footer{
 }
 
 @media (max-width:600px){
+  .live-grid{ grid-template-columns:1fr; }
   .live-card{ border-radius:15px; }
   .live-card__footer{ align-items:stretch; flex-direction:column; }
   .live-card__footer .btn{ justify-content:center; }

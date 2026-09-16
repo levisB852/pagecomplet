@@ -303,12 +303,10 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 // ============================================================
 (function liveBroadcast() {
   const section = document.getElementById('transmision');
-  const frame = document.getElementById('liveFrame');
+  const grid = document.getElementById('liveGrid');
   const heading = document.getElementById('liveHeading');
   const description = document.getElementById('liveDescription');
-  const platformLabel = document.getElementById('livePlatform');
-  const openLink = document.getElementById('liveOpenLink');
-  if (!section || !frame || !openLink) return;
+  if (!section || !grid) return;
 
   function youtubeIdFromUrl(value) {
     try {
@@ -331,20 +329,48 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     return videoId ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?rel=0&modestbranding=1` : '';
   }
 
+  function createLiveCard(platform, sourceUrl) {
+    const embedUrl = getEmbedUrl(platform, sourceUrl);
+    if (!embedUrl) return null;
+    const platformName = platform === 'facebook' ? 'Facebook Live' : 'YouTube Live';
+    const article = document.createElement('article');
+    article.className = `live-card live-card--${platform}`;
+    article.innerHTML = `
+      <div class="live-frame">
+        <iframe title="${platformName} de IADSDER" src="${embedUrl}" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="live-card__footer">
+        <div>
+          <strong>${platformName}</strong>
+          <p>Transmisión oficial</p>
+        </div>
+        <a class="btn btn-primary" href="${sourceUrl}" target="_blank" rel="noopener">Abrir en ${platform === 'facebook' ? 'Facebook' : 'YouTube'}</a>
+      </div>`;
+    return article;
+  }
+
   fetch('/data/en-vivo.json', { cache: 'no-cache' })
     .then(response => response.ok ? response.json() : Promise.reject(new Error('Sin configuración de transmisión')))
     .then(data => {
-      const platform = data.platform === 'facebook' ? 'facebook' : 'youtube';
-      const sourceUrl = String(data.url || '').trim();
-      const embedUrl = getEmbedUrl(platform, sourceUrl);
-      if (data.published !== true || !sourceUrl || !embedUrl) return;
+      if (data.published !== true) return;
+
+      const streams = [
+        { platform: 'youtube', url: String(data.youtubeUrl || '').trim() },
+        { platform: 'facebook', url: String(data.facebookUrl || '').trim() }
+      ];
+
+      // Compatibilidad con la primera versión, que guardaba una sola plataforma.
+      if (!streams.some(stream => stream.url) && data.url) {
+        streams.push({ platform: data.platform === 'facebook' ? 'facebook' : 'youtube', url: String(data.url).trim() });
+      }
+
+      const cards = streams.filter(stream => stream.url).map(stream => createLiveCard(stream.platform, stream.url)).filter(Boolean);
+      if (!cards.length) return;
 
       heading.textContent = data.title || 'Transmisión en vivo';
       description.textContent = data.description || 'Acompáñanos en nuestra transmisión.';
-      platformLabel.textContent = platform === 'facebook' ? 'Facebook Live' : 'YouTube Live';
-      openLink.textContent = platform === 'facebook' ? 'Abrir en Facebook' : 'Abrir en YouTube';
-      openLink.href = sourceUrl;
-      frame.src = embedUrl;
+      grid.replaceChildren(...cards);
+      grid.classList.toggle('live-grid--single', cards.length === 1);
       section.hidden = false;
     })
     .catch(error => console.info('Transmisión en vivo no disponible:', error.message));

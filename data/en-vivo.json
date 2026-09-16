@@ -1,7 +1,7 @@
 {
   "published": false,
-  "platform": "youtube",
-  "url": "https://www.youtube.com/live/vR5hAFuTk-o?si=kIsXVZMydOrl0pb6",
+  "youtubeUrl": "https://www.youtube.com/live/vR5hAFuTk-o?si=kIsXVZMydOrl0pb6",
+  "facebookUrl": "",
   "title": "Alabanzas en vivo",
   "description": "Acompáñanos en nuestra transmisión oficial."
 }
