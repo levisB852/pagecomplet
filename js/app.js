@@ -800,6 +800,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return `https://www.google.com/maps?q=${encodeURIComponent(query || "El Salvador")}&output=embed`;
   }
 
+  function embedMapUrl(value, item) {
+    const savedValue = String(value || "").trim();
+    if (!savedValue) return fallbackMap(item);
+
+    // El administrador acepta tanto el URL como el iframe completo de Google Maps.
+    const iframeSource = savedValue.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
+    return iframeSource ? iframeSource[1] : savedValue;
+  }
+
   function bindMapButton(card) {
     const btn = card.querySelector(".toggle-map");
     const map = card.querySelector(".filial-map");
@@ -823,7 +832,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = item.name || "Iglesia filial";
     const address = item.address || "Direccion por confirmar";
     const mapsUrl = item.mapsUrl || "#";
-    const embedUrl = item.embedUrl || fallbackMap(item);
+    const embedUrl = embedMapUrl(item.embedUrl, item);
     const image = assetPath(item.image);
     const zone = item.zone || "";
     const circuit = item.circuit ? `<p class="muted">Circuito ${item.circuit}</p>` : "";

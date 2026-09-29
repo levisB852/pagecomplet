@@ -129,7 +129,7 @@ collections:
                   - { label: "Circuito 4", value: "4" }
               - { label: "Imagen", name: "image", widget: "image", required: false }
               - { label: "Enlace de Google Maps", name: "mapsUrl", widget: "string", required: false }
-              - { label: "Mapa incrustado", name: "embedUrl", widget: "string", required: false, hint: "Opcional. Pega solamente el src del iframe de Google Maps." }
+              - { label: "Mapa incrustado", name: "embedUrl", widget: "text", required: false, hint: "Opcional. Puedes pegar el enlace de inserción o el código iframe completo de Google Maps." }
               - { label: "Encargado o contacto", name: "contact", widget: "string", required: false }
               - { label: "Horario", name: "schedule", widget: "string", required: false }
 
