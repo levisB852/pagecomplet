@@ -1,39 +1,189 @@
 {
   "filiales": [
     {
-      "published": true,
+      "contact": "P. Eduardo Nieto",
+      "circuit": "1",
       "name": "Iglesia Filial Las Bermudas",
-      "address": "Suchitoto, El Salvador",
       "zone": "cuscatlan",
-      "circuit": "",
-      "image": "/img/Logo_IADSDER.png",
+      "published": true,
+      "address": "Suchitoto, El Salvador",
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1369.492280159727!2d-89.03300301520113!3d13.868474160346251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f63410041dcf555%3A0x542eb27e6c1df5d0!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20Dia%20en%20Reforma%2CLas%20Bermudas!5e0!3m2!1ses-419!2ssv!4v1790691299449!5m2!1ses-419!2ssv",
       "mapsUrl": "https://maps.app.goo.gl/CRYyDJYtej649ZhP8",
-      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1369.492280159727!2d-89.03300301520113!3d13.868474160346251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f63410041dcf555%3A0x542eb27e6c1df5d0!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20Dia%20en%20Reforma%2CLas%20Bermudas!5e0!3m2!1ses-419!2ssv!4v1790691299449!5m2!1ses-419!2ssv"
+      "image": "/img/Logo_IADSDER.png"
+    },
+    {
+      "contact": "P. Leonidas Benites",
+      "circuit": "1",
+      "name": "Iglesia Filial Monte Carlos",
+      "zone": "san salvador",
+      "published": true,
+      "address": "Ilopango, El Salvador",
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12003!1m3!1d1220.9090961151053!2d-89.09089631532052!3d13.709672513583248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6349115cc17%3A0x2bbea1f2ac1db10c!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20d%C3%ADa%20en%20Reforma%20Monte%20Carlos!5e0!3m2!1ses-419!2ssv!4v1790691452023!5m2!1ses-419!2ssv",
+      "mapsUrl": "https://maps.app.goo.gl/zkLzoXJH5C8TtjYV6",
+      "image": "/img/Logo_IADSDER.png"
+    },
+    {
+      "contact": "P. Alejandro Urquilla",
+      "circuit": "1",
+      "name": "Iglesia Filial Cojutepeque",
+      "zone": "cuscatlan",
+      "published": true,
+      "address": "Cojutepeque, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1937.956338399362!2d-88.9455983!3d13.7237364!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f634fea4c23b161%3A0xb37c315efcfb2927!2sIglesia%20Adventista%20del%20S%C3%A9ptimo%20D%C3%ADa%20En%20Reforma!5e0!3m2!1ses-419!2ssv!4v1790693865148!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/2y1d1pHdCJRySLwT8",
+      "image": "/img/Logo_IADSDER.png"
+    },
+    {
+      "contact": "P. Rony Lemus",
+      "circuit": "3",
+      "name": "Iglesia Filial Río Frío",
+      "zone": "san vicente",
+      "published": true,
+      "address": "Río Frío, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3877.905103669566!2d-88.6142208!3d13.6026077!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64b3e226470317%3A0xa7ce63600f0620a1!2sIglesia%20Adventista%20de%20Dios%20del%20septimo%20dia%20en%20reforma!5e0!3m2!1ses-419!2ssv!4v1790694012140!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/n128SFDfiNXiJJUR8",
+      "image": "/img/filiales/rio-frio.jpg"
+    },
+    {
+      "contact": "P. Avilio Navarrete",
+      "circuit": "3",
+      "name": "Iglesia Filial San Miguel",
+      "zone": "san miguel",
+      "published": true,
+      "address": "San Miguel, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1939.9027926049823!2d-88.1614974!3d13.4860743!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7ad5004f27c529%3A0x7731ea0bcd4c822c!2sIglesia%20Adventista%20de%20Dios%20del%20s%C3%A9ptimo%20d%C3%ADa%20en%20reforma!5e0!3m2!1ses-419!2ssv!4v1790694226616!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/4ze8oP4YThN3Bm366",
+      "image": "/img/filiales/san-miguel.jpeg"
+    },
+    {
+      "contact": "P. Armando Ortiz",
+      "circuit": "1",
+      "name": "Iglesia Filial Zapotitán",
+      "zone": "la libertad",
+      "published": true,
+      "address": "Zapotitán, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3874.6255924179563!2d-89.4471491!3d13.8014297!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f62d9fad9af995b%3A0xb7127c64b1ad9739!2sIglesia%20adventista%20de%20Dios%20del%20s%C3%A9ptimo%20d%C3%ADa%20en%20reforma%20zapotitan!5e0!3m2!1ses-419!2ssv!4v1790694398208!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/JwJRHieKuVBbzekW9",
+      "image": "/img/filiales/zapotitan.jpg"
+    },
+    {
+      "contact": "William Vásquez ",
+      "circuit": "3",
+      "name": "Iglesia Filial Chapeltique",
+      "zone": "san miguel",
+      "published": true,
+      "address": "Chapeltique, San Miguel, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d969.3417533471298!2d-88.2649164!3d13.6354247!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64d1a4a0dff1e7%3A0x69d84a08cd87223e!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20S%C3%89PTIMO%20D%C3%8DA%20EN%20REFORMA%20CHAPELTIQUE!5e0!3m2!1ses-419!2ssv!4v1790694577458!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/pQYQkv619bQysrc67",
+      "image": "/img/filiales/chapeltique.png"
+    },
+    {
+      "contact": "P. Josué Reyes",
+      "circuit": "4",
+      "name": "Iglesia Filial Los Guzman",
+      "zone": "la union",
+      "published": true,
+      "address": "Los Guzman, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1937.5974530353365!2d-87.8381347!3d13.7671168!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6547c772059963%3A0x68b29c209d1a6811!2sIglesia%20Adventista%20de%20Dios%20del%20S%C3%A9ptimo%20D%C3%ADa%20en%20Reforma!5e0!3m2!1ses-419!2ssv!4v1790694631424!5m2!1ses-419!2ssv\" width=\"400\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/eGkTBW2hZwPUJgtdA",
+      "image": "/img/filiales/los-guzman.jpeg"
     },
     {
       "published": true,
-      "name": "Iglesia Filial Monte Carlos",
-      "address": "Ilopango, El Salvador",
+      "name": "Iglesia Filial Apancino",
+      "address": "Apancino, El Salvador",
       "zone": "san salvador",
-      "circuit": "",
-      "image": "/img/Logo_IADSDER.png",
-      "mapsUrl": "https://maps.app.goo.gl/zkLzoXJH5C8TtjYV6",
-      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12003!1m3!1d1220.9090961151053!2d-89.09089631532052!3d13.709672513583248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6349115cc17%3A0x2bbea1f2ac1db10c!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20d%C3%ADa%20en%20Reforma%20Monte%20Carlos!5e0!3m2!1ses-419!2ssv!4v1790691452023!5m2!1ses-419!2ssv"
+      "circuit": "1",
+      "image": "/img/filiales/apulo.jpeg",
+      "mapsUrl": "https://maps.app.goo.gl/WGEak4u5cifr79B89",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d39407.56228488454!2d-89.0724567!3d13.7091413!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6349d44392425f%3A0x55a13211ca32bf28!2sIglesia%20Adventista%20Reforma!5e1!3m2!1ses-419!2ssv!4v1790694720135!5m2!1ses-419!2ssv\"</iframe>"
     },
-    { "published": true, "name": "Iglesia Filial Cojutepeque", "address": "Cojutepeque, El Salvador", "zone": "cuscatlan", "circuit": "", "image": "/img/Logo_IADSDER.png", "mapsUrl": "https://maps.app.goo.gl/2y1d1pHdCJRySLwT8" },
-    { "published": true, "name": "Iglesia Filial Río Frío", "address": "Río Frío, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/rio-frio.jpg", "mapsUrl": "https://maps.app.goo.gl/n128SFDfiNXiJJUR8" },
-    { "published": true, "name": "Iglesia Filial San Miguel", "address": "San Miguel, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/san-miguel.jpeg", "mapsUrl": "https://maps.app.goo.gl/4ze8oP4YThN3Bm366" },
-    { "published": true, "name": "Iglesia Filial Zapotitán", "address": "Zapotitán, El Salvador", "zone": "la libertad", "circuit": "", "image": "/img/filiales/zapotitan.jpg", "mapsUrl": "https://maps.app.goo.gl/JwJRHieKuVBbzekW9" },
-    { "published": true, "name": "Iglesia Filial Chapeltique", "address": "Chapeltique, San Miguel, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/chapeltique.png", "mapsUrl": "https://maps.app.goo.gl/pQYQkv619bQysrc67" },
-    { "published": true, "name": "Iglesia Filial Los Guzman", "address": "Los Guzman, El Salvador", "zone": "la union", "circuit": "", "image": "/img/filiales/los-guzman.jpeg", "mapsUrl": "https://maps.app.goo.gl/eGkTBW2hZwPUJgtdA" },
-    { "published": true, "name": "Iglesia Filial Apancino", "address": "Apancino, El Salvador", "zone": "san salvador", "circuit": "", "image": "/img/filiales/apulo.jpeg", "mapsUrl": "https://maps.app.goo.gl/WGEak4u5cifr79B89" },
-    { "published": true, "name": "Iglesia Filial Sensuntepeque", "address": "Sensuntepeque, El Salvador", "zone": "cabanas", "circuit": "", "image": "/img/Logo_IADSDER.png", "mapsUrl": "https://maps.app.goo.gl/fBTjp4dxtZddBWheA" },
-    { "published": true, "name": "Iglesia Filial San Juan", "address": "San Juan, El Salvador", "zone": "cabanas", "circuit": "", "image": "/img/Logo_IADSDER.png", "mapsUrl": "https://maps.app.goo.gl/3C3DVeMvvgMj8J8h6" },
-    { "published": true, "name": "Iglesia Filial Boquín", "address": "Boquín, El Salvador", "zone": "la union", "circuit": "", "image": "/img/filiales/boquin.jpeg", "mapsUrl": "https://maps.app.goo.gl/jtor7pqcmZTuQBKBA" },
-    { "published": true, "name": "Iglesia Filial El Tablón", "address": "El Tablón, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/el-tablon.jpeg", "mapsUrl": "https://maps.app.goo.gl/ymLhQjYqaCtfz2Y57" },
-    { "published": true, "name": "Iglesia Filial San Nicolás", "address": "San Nicolás, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/Logo_IADSDER.png", "mapsUrl": "https://maps.app.goo.gl/392b9xgMrc1DU6uY6" },
-    { "published": true, "name": "Iglesia Filial Los Fuentes", "address": "Polorós, La Unión, El Salvador", "zone": "la union", "circuit": "", "image": "/img/filiales/los-fuentes.jpeg", "mapsUrl": "https://maps.app.goo.gl/HswfzHLEZkCo1tvj6" },
-    { "published": true, "name": "Iglesia Filial Sesori", "address": "Sesori, San Miguel, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/sesori.JPG", "mapsUrl": "https://maps.app.goo.gl/e3dJWoLLeh4BMS2c6" },
-    { "published": true, "name": "Iglesia Filial Gualococti", "address": "Gualococti, Morazán, El Salvador", "zone": "morazan", "circuit": "", "image": "/img/filiales/gualococti.jpeg", "mapsUrl": "https://maps.app.goo.gl/p5YMYJQZ74Rj77n38" }
+    {
+      "contact": "Osmin Lara",
+      "circuit": "2",
+      "name": "Iglesia Filial Sensuntepeque",
+      "zone": "cabanas",
+      "published": true,
+      "address": "Sensuntepeque, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d731.7332514580859!2d-88.62267702834603!3d13.87270015451583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64bd00365fc4cb%3A0xe29edb04625a9ebc!2sIglesia%20Adventista%20de%20Dios%20del%20septimo%20dia%20en%20reforma%20Sensuntepeque!5e1!3m2!1ses-419!2ssv!4v1790694779763!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/9zoPQZ71wZ8fJKbYA",
+      "image": "/img/Logo_IADSDER.png"
+    },
+    {
+      "published": true,
+      "name": "Iglesia Filial San Juan",
+      "address": "San Juan, El Salvador",
+      "zone": "san miguel",
+      "circuit": "2",
+      "image": "/img/Logo_IADSDER.png",
+      "mapsUrl": "https://maps.app.goo.gl/3C3DVeMvvgMj8J8h6",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d4923.524205659822!2d-88.482933!3d13.824107999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTPCsDQ5JzI2LjgiTiA4OMKwMjgnNTguNiJX!5e1!3m2!1ses-419!2ssv!4v1790695414706!5m2!1ses-419!2ssv\"</iframe>"
+    },
+    {
+      "contact": "P. Hipólito Alfaro",
+      "circuit": "4",
+      "name": "Iglesia Filial Boquín",
+      "zone": "la union",
+      "published": true,
+      "address": "Boquín, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d307.8278044033418!2d-87.79260617731559!3d13.74249797521193!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6547b981616fa5%3A0x7bd1a92666c4f83e!2sTemplo%20Adventista%20del%20S%C3%A9ptimo%20d%C3%ADa%20en%20Reforma!5e1!3m2!1ses-419!2ssv!4v1790695469132!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/jtor7pqcmZTuQBKBA",
+      "image": "/img/filiales/boquin.jpeg"
+    },
+    {
+      "contact": "Misael Durán",
+      "circuit": "3",
+      "name": "Iglesia Filial El Tablón",
+      "zone": "san miguel",
+      "published": true,
+      "address": "El Tablón, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d615.6526714561809!2d-88.3674234484511!3d13.743615709050106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64c500002f68d5%3A0xccd83585faaa4161!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20dia%20en%20Reforma%2C%20El%20tablon!5e1!3m2!1ses-419!2ssv!4v1790695540843!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/ymLhQjYqaCtfz2Y57",
+      "image": "/img/filiales/el-tablon.jpeg"
+    },
+    {
+      "contact": "Santos Serrano",
+      "circuit": "3",
+      "name": "Iglesia Filial San Nicolás",
+      "zone": "san miguel",
+      "published": true,
+      "address": "San Nicolás, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4926.256068608612!2d-88.3534306!3d13.694315!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64cf0f8d7f96b3%3A0xc7207dfc5b54dec0!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20S%C3%89PTIMO%20D%C3%8DA%20EN%20REFORMA%20(San%20Nicolas)!5e1!3m2!1ses-419!2ssv!4v1790695741796!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/392b9xgMrc1DU6uY6",
+      "image": "/img/Logo_IADSDER.png"
+    },
+    {
+      "contact": "Vidal Fuentes",
+      "circuit": "4",
+      "name": "Iglesia Filial Los Fuentes",
+      "zone": "la union",
+      "published": true,
+      "address": "Polorós, La Unión, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1231.0725393540981!2d-87.8013662!3d13.7878379!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6547003a0ddf5f%3A0xa456ac57e32600fb!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA!5e1!3m2!1ses-419!2ssv!4v1790695798298!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/HswfzHLEZkCo1tvj6",
+      "image": "/img/filiales/los-fuentes.jpeg"
+    },
+    {
+      "contact": "Arnoldo Rivera",
+      "circuit": "3",
+      "name": "Iglesia Filial Sesori",
+      "zone": "san miguel",
+      "published": true,
+      "address": "Sesori, San Miguel, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d615.7100788109196!2d-88.35836315057017!3d13.721754622861294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64cf0078491b73%3A0x27e60f6c1827fd8a!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20Dia%20en%20Reforma.%20Sesori!5e1!3m2!1ses-419!2ssv!4v1790695903098!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/xWo7JaRNJ3N63FjRA",
+      "image": "/img/filiales/sesori.JPG"
+    },
+    {
+      "contact": "Vitelio Caballero",
+      "circuit": "3",
+      "name": "Iglesia Filial Gualococti",
+      "zone": "morazan",
+      "published": true,
+      "address": "Gualococti, Morazán, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2461.7938778728844!2d-88.20689361150056!3d13.821102264509149!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64df00685739a1%3A0xa81f1cb9bcd31caf!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20GUALOCOCTI!5e1!3m2!1ses-419!2ssv!4v1790696244020!5m2!1ses-419!2ssv\"</iframe>",
+      "mapsUrl": "https://maps.app.goo.gl/p5YMYJQZ74Rj77n38",
+      "image": "/img/filiales/gualococti.jpeg"
+    }
   ]
 }
