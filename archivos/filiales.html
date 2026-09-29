@@ -116,12 +116,37 @@
   </p>
 
   <div class="filial-filter-bar" aria-label="Filtros de filiales">
-    <button class="btn btn-ghost filial-filter active" type="button" data-filial-filter="all">Todas</button>
-    <button class="btn btn-ghost filial-filter" type="button" data-filial-filter="san miguel">San Miguel</button>
-    <button class="btn btn-ghost filial-filter" type="button" data-filial-filter="morazan">Morazan</button>
-    <button class="btn btn-ghost filial-filter" type="button" data-filial-filter="cabanas">Cabanas</button>
-    <button class="btn btn-ghost filial-filter" type="button" data-filial-filter="cuscatlan">Cuscatlan</button>
-    <button class="btn btn-ghost filial-filter" type="button" data-filial-filter="la libertad">La Libertad</button>
+    <label>
+      <span class="muted">Departamento</span>
+      <select class="input" id="filialDepartment">
+        <option value="all">Todos los departamentos</option>
+        <option value="ahuachapan">Ahuachapán</option>
+        <option value="santa ana">Santa Ana</option>
+        <option value="sonsonate">Sonsonate</option>
+        <option value="chalatenango">Chalatenango</option>
+        <option value="la libertad">La Libertad</option>
+        <option value="san salvador">San Salvador</option>
+        <option value="cuscatlan">Cuscatlán</option>
+        <option value="la paz">La Paz</option>
+        <option value="cabanas">Cabañas</option>
+        <option value="san vicente">San Vicente</option>
+        <option value="usulutan">Usulután</option>
+        <option value="san miguel">San Miguel</option>
+        <option value="morazan">Morazán</option>
+        <option value="la union">La Unión</option>
+      </select>
+    </label>
+    <label>
+      <span class="muted">Circuito</span>
+      <select class="input" id="filialCircuit">
+        <option value="all">Todos los circuitos</option>
+        <option value="1">Circuito 1</option>
+        <option value="2">Circuito 2</option>
+        <option value="3">Circuito 3</option>
+        <option value="4">Circuito 4</option>
+        <option value="unassigned">Sin asignar</option>
+      </select>
+    </label>
   </div>
 </div>
 

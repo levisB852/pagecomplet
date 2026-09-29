@@ -89,7 +89,7 @@ collections:
             name: "filiales"
             widget: "list"
             label_singular: "Agregar filial"
-            summary: "{{fields.name}}"
+            summary: "{{fields.name}} — {{fields.zone}} — Circuito {{fields.circuit}}"
             collapsed: true
             hint: "Puedes agregar varias filiales en esta misma pantalla antes de guardar."
             fields:
@@ -120,7 +120,7 @@ collections:
                 widget: "select"
                 required: false
                 default: ""
-                hint: "Selecciona el circuito al que pertenece la iglesia."
+                hint: "Abre cada filial y selecciona aquí el circuito al que pertenece. También aparecerá en el título de la ficha."
                 options:
                   - { label: "Sin asignar", value: "" }
                   - { label: "Circuito 1", value: "1" }

@@ -682,11 +682,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const clear = document.getElementById("filialClear");
   const countEl = document.getElementById("filialCount");
   const emptyEl = document.getElementById("filialEmpty");
-  const filters = Array.from(document.querySelectorAll("[data-filial-filter]"));
+  const departmentSelect = document.getElementById("filialDepartment");
+  const circuitSelect = document.getElementById("filialCircuit");
 
   if (!input || !clear || !countEl || !emptyEl) return;
 
   let activeZone = "all";
+  let activeCircuit = "all";
   let cards = [];
   let index = [];
 
@@ -714,7 +716,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return {
         card,
         text,
-        zone: normalize(card.dataset.zone || "") || zoneFor(text)
+        zone: normalize(card.dataset.zone || "") || zoneFor(text),
+        circuit: String(card.dataset.circuit || "")
       };
     });
   }
@@ -728,10 +731,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const q = normalize(value).trim();
     let visible = 0;
 
-    index.forEach(({ card, text, zone }) => {
+    index.forEach(({ card, text, zone, circuit }) => {
       const matchText = q === "" || text.includes(q);
       const matchZone = activeZone === "all" || zone === activeZone || text.includes(activeZone);
-      const match = matchText && matchZone;
+      const matchCircuit = activeCircuit === "all"
+        || (activeCircuit === "unassigned" ? !circuit : circuit === activeCircuit);
+      const match = matchText && matchZone && matchCircuit;
       card.classList.toggle("is-hidden", !match);
       if (match) visible++;
     });
@@ -758,17 +763,21 @@ document.addEventListener("DOMContentLoaded", () => {
   clear.addEventListener("click", () => {
     input.value = "";
     activeZone = "all";
-    filters.forEach(btn => btn.classList.toggle("active", btn.dataset.filialFilter === "all"));
+    activeCircuit = "all";
+    if (departmentSelect) departmentSelect.value = "all";
+    if (circuitSelect) circuitSelect.value = "all";
     input.focus();
     applyFilter("");
   });
 
-  filters.forEach(btn => {
-    btn.addEventListener("click", () => {
-      activeZone = btn.dataset.filialFilter || "all";
-      filters.forEach(item => item.classList.toggle("active", item === btn));
-      applyFilter(input.value);
-    });
+  departmentSelect?.addEventListener("change", () => {
+    activeZone = departmentSelect.value || "all";
+    applyFilter(input.value);
+  });
+
+  circuitSelect?.addEventListener("change", () => {
+    activeCircuit = circuitSelect.value || "all";
+    applyFilter(input.value);
   });
 });
 
@@ -824,6 +833,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const card = document.createElement("article");
     card.className = "card filial-card";
     card.dataset.zone = zone;
+    card.dataset.circuit = item.circuit || "";
     card.innerHTML = `
       <button class="filial-item" type="button">
         <img src="${image}" alt="${name}" loading="lazy">
