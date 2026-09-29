@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <script>
+    // Netlify Identity envía las invitaciones y recuperaciones a la portada.
+    // Conservamos el código y lo reenviamos al panel para completar el acceso.
+    (function () {
+      var authHash = window.location.hash || "";
+      var hasAuthToken = /(?:^#|&)(?:invite_token|confirmation_token|recovery_token|email_change_token)=/.test(authHash);
+
+      if (hasAuthToken) {
+        window.location.replace("/admin/" + window.location.search + authHash);
+      }
+    })();
+  </script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
