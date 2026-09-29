@@ -1,3 +1,19 @@
 {
-  "filiales": []
+  "filiales": [
+    {
+      "published": true,
+      "name": "Iglesia Filial Las Bermudas",
+      "address": "Suchitoto, El Salvador ",
+      "zone": "cuscatlan",
+      "mapsUrl": "https://maps.app.goo.gl/CRYyDJYtej649ZhP8",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1369.492280159727!2d-89.03300301520113!3d13.868474160346251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f63410041dcf555%3A0x542eb27e6c1df5d0!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20Dia%20en%20Reforma%2CLas%20Bermudas!5e0!3m2!1ses-419!2ssv!4v1790691299449!5m2!1ses-419!2ssv\" </iframe>"
+    },
+    {
+      "published": true,
+      "name": "Iglesia Filial Monte Carlos",
+      "address": "Ilopango, El Salvador",
+      "mapsUrl": "https://maps.app.goo.gl/zkLzoXJH5C8TtjYV6",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12003!1m3!1d1220.9090961151053!2d-89.09089631532052!3d13.709672513583248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6349115cc17%3A0x2bbea1f2ac1db10c!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20d%C3%ADa%20en%20Reforma%20Monte%20Carlos!5e0!3m2!1ses-419!2ssv!4v1790691452023!5m2!1ses-419!2ssv\"</iframe>"
+    }
+  ]
 }
