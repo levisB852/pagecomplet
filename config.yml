@@ -2,6 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
+publish_mode: editorial_workflow
 local_backend: true
 locale: "es"
 show_preview_links: false
@@ -77,7 +78,7 @@ collections:
 
   - name: "filiales_admin"
     label: "Filiales"
-    description: "Direcciones, contactos, horarios y ubicaciones de las iglesias."
+    description: "Agrega o edita varias iglesias, guárdalas como borrador y publícalas cuando todo esté listo."
     files:
       - name: "filiales"
         label: "Administrar filiales"
@@ -90,21 +91,42 @@ collections:
             label_singular: "Agregar filial"
             summary: "{{fields.name}}"
             collapsed: true
+            hint: "Puedes agregar varias filiales en esta misma pantalla antes de guardar."
             fields:
               - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
               - { label: "Nombre", name: "name", widget: "string" }
               - { label: "Direccion", name: "address", widget: "string", required: false }
-              - label: "Zona o departamento"
+              - label: "Departamento"
                 name: "zone"
                 widget: "select"
-                required: false
+                required: true
                 options:
-                  - { label: "San Miguel", value: "san miguel" }
-                  - { label: "Morazan", value: "morazan" }
-                  - { label: "Cabanas", value: "cabanas" }
-                  - { label: "Cuscatlan", value: "cuscatlan" }
+                  - { label: "Ahuachapán", value: "ahuachapan" }
+                  - { label: "Santa Ana", value: "santa ana" }
+                  - { label: "Sonsonate", value: "sonsonate" }
+                  - { label: "Chalatenango", value: "chalatenango" }
                   - { label: "La Libertad", value: "la libertad" }
-                  - { label: "Otro", value: "otro" }
+                  - { label: "San Salvador", value: "san salvador" }
+                  - { label: "Cuscatlán", value: "cuscatlan" }
+                  - { label: "La Paz", value: "la paz" }
+                  - { label: "Cabañas", value: "cabanas" }
+                  - { label: "San Vicente", value: "san vicente" }
+                  - { label: "Usulután", value: "usulutan" }
+                  - { label: "San Miguel", value: "san miguel" }
+                  - { label: "Morazán", value: "morazan" }
+                  - { label: "La Unión", value: "la union" }
+              - label: "Circuito"
+                name: "circuit"
+                widget: "select"
+                required: false
+                default: ""
+                hint: "Selecciona el circuito al que pertenece la iglesia."
+                options:
+                  - { label: "Sin asignar", value: "" }
+                  - { label: "Circuito 1", value: "1" }
+                  - { label: "Circuito 2", value: "2" }
+                  - { label: "Circuito 3", value: "3" }
+                  - { label: "Circuito 4", value: "4" }
               - { label: "Imagen", name: "image", widget: "image", required: false }
               - { label: "Enlace de Google Maps", name: "mapsUrl", widget: "string", required: false }
               - { label: "Mapa incrustado", name: "embedUrl", widget: "string", required: false, hint: "Opcional. Pega solamente el src del iframe de Google Maps." }

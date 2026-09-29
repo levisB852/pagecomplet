@@ -3,17 +3,37 @@
     {
       "published": true,
       "name": "Iglesia Filial Las Bermudas",
-      "address": "Suchitoto, El Salvador ",
+      "address": "Suchitoto, El Salvador",
       "zone": "cuscatlan",
+      "circuit": "",
+      "image": "/img/Logo_IADSDER.png",
       "mapsUrl": "https://maps.app.goo.gl/CRYyDJYtej649ZhP8",
-      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1369.492280159727!2d-89.03300301520113!3d13.868474160346251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f63410041dcf555%3A0x542eb27e6c1df5d0!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20Dia%20en%20Reforma%2CLas%20Bermudas!5e0!3m2!1ses-419!2ssv!4v1790691299449!5m2!1ses-419!2ssv\" </iframe>"
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1369.492280159727!2d-89.03300301520113!3d13.868474160346251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f63410041dcf555%3A0x542eb27e6c1df5d0!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20Dia%20en%20Reforma%2CLas%20Bermudas!5e0!3m2!1ses-419!2ssv!4v1790691299449!5m2!1ses-419!2ssv"
     },
     {
       "published": true,
       "name": "Iglesia Filial Monte Carlos",
       "address": "Ilopango, El Salvador",
+      "zone": "san salvador",
+      "circuit": "",
+      "image": "/img/Logo_IADSDER.png",
       "mapsUrl": "https://maps.app.goo.gl/zkLzoXJH5C8TtjYV6",
-      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12003!1m3!1d1220.9090961151053!2d-89.09089631532052!3d13.709672513583248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6349115cc17%3A0x2bbea1f2ac1db10c!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20d%C3%ADa%20en%20Reforma%20Monte%20Carlos!5e0!3m2!1ses-419!2ssv!4v1790691452023!5m2!1ses-419!2ssv\"</iframe>"
-    }
+      "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12003!1m3!1d1220.9090961151053!2d-89.09089631532052!3d13.709672513583248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6349115cc17%3A0x2bbea1f2ac1db10c!2sIglesia%20Adventista%20de%20Dios%20del%20Septimo%20d%C3%ADa%20en%20Reforma%20Monte%20Carlos!5e0!3m2!1ses-419!2ssv!4v1790691452023!5m2!1ses-419!2ssv"
+    },
+    { "published": true, "name": "Iglesia Filial Cojutepeque", "address": "Cojutepeque, El Salvador", "zone": "cuscatlan", "circuit": "", "image": "/img/Logo_IADSDER.png", "mapsUrl": "https://maps.app.goo.gl/2y1d1pHdCJRySLwT8" },
+    { "published": true, "name": "Iglesia Filial Río Frío", "address": "Río Frío, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/rio-frio.jpg", "mapsUrl": "https://maps.app.goo.gl/n128SFDfiNXiJJUR8" },
+    { "published": true, "name": "Iglesia Filial San Miguel", "address": "San Miguel, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/san-miguel.jpeg", "mapsUrl": "https://maps.app.goo.gl/4ze8oP4YThN3Bm366" },
+    { "published": true, "name": "Iglesia Filial Zapotitán", "address": "Zapotitán, El Salvador", "zone": "la libertad", "circuit": "", "image": "/img/filiales/zapotitan.jpg", "mapsUrl": "https://maps.app.goo.gl/JwJRHieKuVBbzekW9" },
+    { "published": true, "name": "Iglesia Filial Chapeltique", "address": "Chapeltique, San Miguel, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/chapeltique.png", "mapsUrl": "https://maps.app.goo.gl/pQYQkv619bQysrc67" },
+    { "published": true, "name": "Iglesia Filial Los Guzman", "address": "Los Guzman, El Salvador", "zone": "la union", "circuit": "", "image": "/img/filiales/los-guzman.jpeg", "mapsUrl": "https://maps.app.goo.gl/eGkTBW2hZwPUJgtdA" },
+    { "published": true, "name": "Iglesia Filial Apancino", "address": "Apancino, El Salvador", "zone": "san salvador", "circuit": "", "image": "/img/filiales/apulo.jpeg", "mapsUrl": "https://maps.app.goo.gl/WGEak4u5cifr79B89" },
+    { "published": true, "name": "Iglesia Filial Sensuntepeque", "address": "Sensuntepeque, El Salvador", "zone": "cabanas", "circuit": "", "image": "/img/Logo_IADSDER.png", "mapsUrl": "https://maps.app.goo.gl/fBTjp4dxtZddBWheA" },
+    { "published": true, "name": "Iglesia Filial San Juan", "address": "San Juan, El Salvador", "zone": "cabanas", "circuit": "", "image": "/img/Logo_IADSDER.png", "mapsUrl": "https://maps.app.goo.gl/3C3DVeMvvgMj8J8h6" },
+    { "published": true, "name": "Iglesia Filial Boquín", "address": "Boquín, El Salvador", "zone": "la union", "circuit": "", "image": "/img/filiales/boquin.jpeg", "mapsUrl": "https://maps.app.goo.gl/jtor7pqcmZTuQBKBA" },
+    { "published": true, "name": "Iglesia Filial El Tablón", "address": "El Tablón, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/el-tablon.jpeg", "mapsUrl": "https://maps.app.goo.gl/ymLhQjYqaCtfz2Y57" },
+    { "published": true, "name": "Iglesia Filial San Nicolás", "address": "San Nicolás, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/Logo_IADSDER.png", "mapsUrl": "https://maps.app.goo.gl/392b9xgMrc1DU6uY6" },
+    { "published": true, "name": "Iglesia Filial Los Fuentes", "address": "Polorós, La Unión, El Salvador", "zone": "la union", "circuit": "", "image": "/img/filiales/los-fuentes.jpeg", "mapsUrl": "https://maps.app.goo.gl/HswfzHLEZkCo1tvj6" },
+    { "published": true, "name": "Iglesia Filial Sesori", "address": "Sesori, San Miguel, El Salvador", "zone": "san miguel", "circuit": "", "image": "/img/filiales/sesori.JPG", "mapsUrl": "https://maps.app.goo.gl/e3dJWoLLeh4BMS2c6" },
+    { "published": true, "name": "Iglesia Filial Gualococti", "address": "Gualococti, Morazán, El Salvador", "zone": "morazan", "circuit": "", "image": "/img/filiales/gualococti.jpeg", "mapsUrl": "https://maps.app.goo.gl/p5YMYJQZ74Rj77n38" }
   ]
 }

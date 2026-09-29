@@ -817,6 +817,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const embedUrl = item.embedUrl || fallbackMap(item);
     const image = assetPath(item.image);
     const zone = item.zone || "";
+    const circuit = item.circuit ? `<p class="muted">Circuito ${item.circuit}</p>` : "";
     const contact = item.contact ? `<p class="muted">Encargado/contacto: ${item.contact}</p>` : "";
     const schedule = item.schedule ? `<p class="muted">Horario: ${item.schedule}</p>` : "";
 
@@ -829,6 +830,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </button>
       <h3>${name}</h3>
       <p class="muted">Direccion: ${address}</p>
+      ${circuit}
       ${contact}
       ${schedule}
       <div class="filial-actions">
@@ -856,9 +858,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const items = Array.isArray(data) ? data : data.filiales;
       if (!Array.isArray(items) || !items.length) return;
 
-      items.filter(isPublished).forEach(item => {
-        grid.appendChild(renderFilial(item));
-      });
+      const publishedItems = items.filter(isPublished);
+      grid.replaceChildren(...publishedItems.map(renderFilial));
 
       window.__refreshFilialSearch?.();
     })
