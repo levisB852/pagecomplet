@@ -116,8 +116,8 @@
       "zone": "san miguel",
       "circuit": "2",
       "image": "/img/Logo_IADSDER.png",
-      "mapsUrl": "https://maps.app.goo.gl/3C3DVeMvvgMj8J8h6",
-      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d4923.524205659822!2d-88.482933!3d13.824107999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTPCsDQ5JzI2LjgiTiA4OMKwMjgnNTguNiJX!5e1!3m2!1ses-419!2ssv!4v1790695414706!5m2!1ses-419!2ssv\"</iframe>"
+      "mapsUrl": "https://maps.app.goo.gl/vXmiBWEpctsPepNA6",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1230.8805360035171!2d-88.48360477147615!3d13.824205499157465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64bf006ce99059%3A0xdb8f31d8667417f9!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20SAN%20JUAN!5e1!3m2!1ses-419!2ssv!4v1790959844511!5m2!1ses-419!2ssv\"</iframe>"
     },
     {
       "contact": "P. Hipólito Alfaro",
@@ -184,6 +184,16 @@
       "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2461.7938778728844!2d-88.20689361150056!3d13.821102264509149!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64df00685739a1%3A0xa81f1cb9bcd31caf!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20GUALOCOCTI!5e1!3m2!1ses-419!2ssv!4v1790696244020!5m2!1ses-419!2ssv\"</iframe>",
       "mapsUrl": "https://maps.app.goo.gl/p5YMYJQZ74Rj77n38",
       "image": "/img/filiales/gualococti.jpeg"
+    },
+    {
+      "published": true,
+      "circuit": "3",
+      "name": "Iglesia Filial Ciudad Pacifica ",
+      "address": "Ciudad Pacifica, San miguel, El Salvador",
+      "zone": "san miguel",
+      "image": "/img/galeria/uploads/logo_iadsder.png",
+      "mapsUrl": "https://maps.app.goo.gl/Z9ZVqsch3nJW6mwT9",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d308.16761555277486!2d-88.21207112526263!3d13.481442013940526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses-419!2ssv!4v1790960579670!5m2!1ses-419!2ssv\"</iframe>"
     }
   ]
 }
