@@ -244,11 +244,11 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
     if (isHidden) {
       map.removeAttribute("hidden");
-      btn.textContent = "Ocultar ubicacion";
+      btn.textContent = window.iadsderI18n?.t("Ocultar ubicación") || "Ocultar ubicacion";
       btn.setAttribute("aria-expanded", "true");
     } else {
       map.setAttribute("hidden", "");
-      btn.textContent = "Ver ubicacion";
+      btn.textContent = window.iadsderI18n?.t("Ver ubicación") || "Ver ubicacion";
       btn.setAttribute("aria-expanded", "false");
     }
   });
@@ -691,6 +691,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeCircuit = "all";
   let cards = [];
   let index = [];
+  const language = window.iadsderI18n?.language?.() || "es";
 
   function normalize(value) {
     return String(value || "")
@@ -723,7 +724,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateUI(visible) {
-    countEl.textContent = `Mostrando ${visible} de ${cards.length} filiales.`;
+    countEl.textContent = language === "en"
+      ? `Showing ${visible} of ${cards.length} churches.`
+      : `Mostrando ${visible} de ${cards.length} filiales.`;
     emptyEl.style.display = visible === 0 ? "block" : "none";
   }
 
@@ -747,7 +750,9 @@ document.addEventListener("DOMContentLoaded", () => {
   buildIndex();
 
   if (!cards.length) {
-    countEl.textContent = "No se encontraron filiales en esta pagina.";
+    countEl.textContent = language === "en"
+      ? "No churches were found on this page."
+      : "No se encontraron filiales en esta pagina.";
     return;
   }
 
@@ -787,6 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
 (function loadAdminFiliales() {
   const grid = document.querySelector(".filial-grid");
   if (!grid) return;
+  const t = window.iadsderI18n?.t || (value => value);
 
   function assetPath(path) {
     const value = String(path || "").trim();
@@ -818,11 +824,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const hidden = map.hasAttribute("hidden");
       if (hidden) {
         map.removeAttribute("hidden");
-        btn.textContent = "Ocultar ubicacion";
+        btn.textContent = t("Ocultar ubicación");
         btn.setAttribute("aria-expanded", "true");
       } else {
         map.setAttribute("hidden", "");
-        btn.textContent = "Ver ubicacion";
+        btn.textContent = t("Ver ubicación");
         btn.setAttribute("aria-expanded", "false");
       }
     });
@@ -835,9 +841,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const embedUrl = embedMapUrl(item.embedUrl, item);
     const image = assetPath(item.image);
     const zone = item.zone || "";
-    const circuit = item.circuit ? `<p class="muted">Circuito ${item.circuit}</p>` : "";
-    const contact = item.contact ? `<p class="muted">Encargado/contacto: ${item.contact}</p>` : "";
-    const schedule = item.schedule ? `<p class="muted">Horario: ${item.schedule}</p>` : "";
+    const circuit = item.circuit ? `<p class="muted">${t("Circuito")} ${item.circuit}</p>` : "";
+    const contact = item.contact ? `<p class="muted">${t("Encargado/contacto")}: ${item.contact}</p>` : "";
+    const schedule = item.schedule ? `<p class="muted">${t("Horario")}: ${item.schedule}</p>` : "";
 
     const card = document.createElement("article");
     card.className = "card filial-card";
@@ -848,13 +854,13 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src="${image}" alt="${name}" loading="lazy">
       </button>
       <h3>${name}</h3>
-      <p class="muted">Direccion: ${address}</p>
+      <p class="muted">${t("Dirección")}: ${address}</p>
       ${circuit}
       ${contact}
       ${schedule}
       <div class="filial-actions">
-        <button class="btn btn-primary toggle-map" type="button" aria-expanded="false">Ver ubicacion</button>
-        <a class="btn btn-ghost" target="_blank" rel="noopener" href="${mapsUrl}">Abrir en Google Maps</a>
+        <button class="btn btn-primary toggle-map" type="button" aria-expanded="false">${t("Ver ubicación")}</button>
+        <a class="btn btn-ghost" target="_blank" rel="noopener" href="${mapsUrl}">${t("Abrir en Google Maps")}</a>
       </div>
       <div class="filial-map" hidden>
         <iframe
@@ -893,14 +899,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const loading = document.getElementById("galleryLoading");
   const counter = document.getElementById("galleryCounter");
   if (!track) return;
+  const language = window.iadsderI18n?.language?.() || "es";
 
   function renderImages(images) {
     if (counter) {
-      counter.textContent = `${images.length} ${images.length === 1 ? "fotografía" : "fotografías"}`;
+      counter.textContent = language === "en"
+        ? `${images.length} ${images.length === 1 ? "photo" : "photos"}`
+        : `${images.length} ${images.length === 1 ? "fotografía" : "fotografías"}`;
     }
 
     if (!images.length) {
-      if (loading) loading.textContent = "Todavía no hay fotografías publicadas.";
+      if (loading) loading.textContent = language === "en"
+        ? "There are no published photos yet."
+        : "Todavía no hay fotografías publicadas.";
       return;
     }
 
@@ -910,7 +921,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const btn = document.createElement("button");
       btn.className = "gallery-item";
       btn.type = "button";
-      btn.setAttribute("aria-label", "Abrir fotografía de evento juvenil");
+      btn.setAttribute("aria-label", language === "en" ? "Open youth event photo" : "Abrir fotografía de evento juvenil");
 
       const im = document.createElement("img");
       im.src = img.image;
@@ -946,7 +957,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderImages(normalizedItems.filter(isPublished));
   } catch (e) {
     console.error(e);
-    if (loading) loading.textContent = "No se pudieron cargar las fotografías. Intenta nuevamente.";
+    if (loading) loading.textContent = language === "en"
+      ? "The photos could not be loaded. Please try again."
+      : "No se pudieron cargar las fotografías. Intenta nuevamente.";
     if (counter) counter.textContent = "Galería no disponible";
   }
 })();

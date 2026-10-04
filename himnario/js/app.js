@@ -66,7 +66,10 @@ function renderList(list) {
   const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
 
   if (list.length === 0) {
-    hymnList.innerHTML = '<p class="no-results">No se encontraron himnos.</p>';
+    const noResults = window.iadsderI18n?.language?.() === "en"
+      ? "No hymns were found."
+      : "No se encontraron himnos.";
+    hymnList.innerHTML = `<p class="no-results">${noResults}</p>`;
     return;
   }
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v27";
+const CACHE_NAME = "iadsder-pwa-v28";
 
 const PRECACHE_URLS = [
   "/",
@@ -7,6 +7,7 @@ const PRECACHE_URLS = [
   "/manifest.json",
   "/css/styles.css",
   "/js/app.js",
+  "/js/i18n.js",
   "/js/pwa.js",
   "/data/ajustes.json",
   "/data/versiculo.json",
