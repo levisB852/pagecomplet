@@ -1,6 +1,7 @@
 (function registerPwa() {
   const english = localStorage.getItem("iadsder-language") === "en";
   const text = (es, en) => english ? en : es;
+  const isHymnal = location.pathname.startsWith("/himnario/");
 
   function addGlobalTools() {
     if (document.getElementById("siteTools")) return;
@@ -36,7 +37,7 @@
           <button type="button" data-access="motion">${text("Sin animación", "Reduce motion")}</button>
           <button type="button" data-access="reset">${text("Restablecer", "Reset")}</button>
         </div>
-        <button class="site-tools__install" id="installSite" type="button">${text("Instalar aplicación", "Install app")}</button>
+        <button class="site-tools__install" id="installSite" type="button">${isHymnal ? text("Instalar Himnario", "Install Hymnal") : text("Instalar aplicación", "Install app")}</button>
         <p class="site-tools__status" id="siteToolsStatus"></p>
       </section>`;
     document.body.appendChild(tools);

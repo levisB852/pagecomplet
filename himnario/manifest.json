@@ -1,0 +1,39 @@
+{
+  "id": "/himnario/",
+  "name": "Himnario Digital IADSDER",
+  "short_name": "Himnario",
+  "description": "Letras, favoritos, listas personales y modo de proyección del Himnario Digital IADSDER.",
+  "start_url": "/himnario/inicio.html?source=pwa",
+  "scope": "/himnario/",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#1f6f43",
+  "orientation": "any",
+  "categories": ["music", "education", "lifestyle"],
+  "icons": [
+    {
+      "src": "/img/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Buscar himnos",
+      "short_name": "Buscar",
+      "url": "/himnario/inicio.html#searchInput"
+    },
+    {
+      "name": "Himnos favoritos",
+      "short_name": "Favoritos",
+      "url": "/himnario/favoritos.html"
+    }
+  ]
+}
