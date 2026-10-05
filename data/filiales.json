@@ -116,8 +116,8 @@
       "zone": "san miguel",
       "circuit": "2",
       "image": "/img/Logo_IADSDER.png",
-      "mapsUrl": "https://maps.app.goo.gl/vXmiBWEpctsPepNA6",
-      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1230.8805360035171!2d-88.48360477147615!3d13.824205499157465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64bf006ce99059%3A0xdb8f31d8667417f9!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20SAN%20JUAN!5e1!3m2!1ses-419!2ssv!4v1790959844511!5m2!1ses-419!2ssv\"</iframe>"
+      "mapsUrl": "https://maps.app.goo.gl/552fJ7RnDf1FAk6a6",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1740.7267221387078!2d-88.48174069672964!3d13.824369427767254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64bf006ce99059%3A0xdb8f31d8667417f9!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20SAN%20JUAN!5e1!3m2!1ses-419!2ssv!4v1791212272773!5m2!1ses-419!2ssv\"</iframe>"
     },
     {
       "contact": "P. Hipólito Alfaro",
@@ -186,14 +186,25 @@
       "image": "/img/filiales/gualococti.jpeg"
     },
     {
-      "published": true,
+      "contact": "David Serrano",
       "circuit": "3",
       "name": "Iglesia Filial Ciudad Pacifica ",
-      "address": "Ciudad Pacifica, San miguel, El Salvador",
       "zone": "san miguel",
-      "image": "/img/galeria/uploads/logo_iadsder.png",
+      "published": true,
+      "address": "Ciudad Pacifica, San miguel, El Salvador",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d308.16761555277486!2d-88.21207112526263!3d13.481442013940526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses-419!2ssv!4v1790960579670!5m2!1ses-419!2ssv\"</iframe>",
       "mapsUrl": "https://maps.app.goo.gl/Z9ZVqsch3nJW6mwT9",
-      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d308.16761555277486!2d-88.21207112526263!3d13.481442013940526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses-419!2ssv!4v1790960579670!5m2!1ses-419!2ssv\"</iframe>"
+      "image": "/img/galeria/uploads/logo_iadsder.png"
+    },
+    {
+      "published": true,
+      "circuit": "3",
+      "name": "Iglesia Filial Uluazapa",
+      "address": "Uluazapa, San Miguel, EL Salvador",
+      "zone": "san miguel",
+      "mapsUrl": "https://maps.app.goo.gl/zhLDUb3EnsVuknJJ9",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1232.5864824951254!2d-88.05815467147647!3d13.497714699175846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7ad30001c06fcb%3A0x6185c777fdcdc046!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20ULUAPAZA!5e1!3m2!1ses-419!2ssv!4v1791214305934!5m2!1ses-419!2ssv\"</iframe>",
+      "contact": "Carlos Sanchez"
     }
   ]
 }
