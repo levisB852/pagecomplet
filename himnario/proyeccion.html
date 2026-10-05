@@ -84,6 +84,43 @@
     }
     .fullscreen-btn:hover { background: #ffffff33; }
 
+    .projection-controls {
+      position: fixed;
+      left: 50%;
+      bottom: 1rem;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .4rem;
+      border: 1px solid #ffffff26;
+      border-radius: 14px;
+      background: #071126cc;
+      box-shadow: 0 10px 35px #0007;
+      backdrop-filter: blur(12px);
+      transform: translateX(-50%);
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .projection-controls button {
+      min-width: 42px;
+      min-height: 42px;
+      border: 0;
+      border-radius: 10px;
+      background: #ffffff14;
+      color: #fff;
+      font: 700 1rem system-ui, sans-serif;
+      cursor: pointer;
+    }
+    .projection-controls button:hover,
+    .projection-controls button:focus-visible { background: #ffffff2b; outline: none; }
+    .projection-controls .wide { padding-inline: .8rem; }
+    body.controls-hidden .projection-controls,
+    body.controls-hidden .fullscreen-btn,
+    body.controls-hidden .info { opacity: 0; pointer-events: none; }
+    body.blackout #bloque,
+    body.blackout .badge { opacity: 0; }
+    body.blackout { background: #000 !important; }
+
     .info {
       position: fixed;
       bottom: 0.6rem;
@@ -123,16 +160,33 @@
       pointer-events: none;
     }
     .toast.show { opacity: 1; }
+
+    @media (max-width: 640px) {
+      #bloque { padding: 0 4vw; }
+      .projection-controls { bottom: .55rem; max-width: calc(100vw - 1rem); }
+      .projection-controls button { min-width: 38px; min-height: 38px; }
+      .projection-controls .optional { display: none; }
+      .info { display: none; }
+    }
   </style>
 </head>
 <body>
-  <button class="fullscreen-btn" onclick="activarPantallaCompleta()">⛶</button>
+  <button class="fullscreen-btn" onclick="activarPantallaCompleta()" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
   <div class="badge" id="badge">—</div>
   <div id="bloque">
     <div id="tituloBloque"></div>
     <div id="textoBloque"></div>
   </div>
-  <div class="info">← → / Espacio · Números: saltar a estrofa</div>
+  <div class="info">← → / Espacio · Números: saltar a estrofa · H: ocultar controles</div>
+  <div class="projection-controls" id="projectionControls" aria-label="Controles de proyección">
+    <button type="button" onclick="anterior()" title="Anterior" aria-label="Anterior">←</button>
+    <button type="button" onclick="siguiente()" title="Siguiente" aria-label="Siguiente">→</button>
+    <button type="button" onclick="ajustarLetra(-0.1)" title="Reducir letra" aria-label="Reducir letra">A−</button>
+    <button type="button" onclick="ajustarLetra(0.1)" title="Aumentar letra" aria-label="Aumentar letra">A+</button>
+    <button class="optional" type="button" onclick="cambiarTema()" title="Cambiar fondo" aria-label="Cambiar fondo">◐</button>
+    <button class="wide" type="button" onclick="alternarNegro()" title="Pantalla negra">Negro</button>
+    <button class="optional" type="button" onclick="alternarControles()" title="Ocultar controles" aria-label="Ocultar controles">×</button>
+  </div>
   <div class="toast" id="toast"></div>
 
   <script>
@@ -145,6 +199,25 @@
     const raw = localStorage.getItem("himnoSeleccionado");
     let contenido = [];
     let indice = 0;
+    let fontScale = Number(localStorage.getItem("projectionFontScale")) || 1;
+    let themeIndex = Number(localStorage.getItem("projectionTheme")) || 0;
+    let controlsTimer;
+
+    const themes = [
+      {
+        verse: "radial-gradient(circle at center, #1b2b52, #0a1124)",
+        chorus: "radial-gradient(circle at center, #253f73, #0a1124)"
+      },
+      {
+        verse: "radial-gradient(circle at center, #234b3b, #071c16)",
+        chorus: "radial-gradient(circle at center, #32634d, #071c16)"
+      },
+      {
+        verse: "radial-gradient(circle at center, #4a3030, #1c0b0b)",
+        chorus: "radial-gradient(circle at center, #67423b, #1c0b0b)"
+      },
+      { verse: "#050505", chorus: "#151515" }
+    ];
 
     // Mapeo estrofa N (1-based) -> índice en 'contenido'
     let verseToContentIndex = [];
@@ -199,7 +272,7 @@
           if (fits(mid)) { best = mid; lo = mid + STEP_REM; }
           else { hi = mid - STEP_REM; }
         }
-        textoBloque.style.fontSize = `${Math.max(MIN_FONT_REM, best).toFixed(2)}rem`;
+        textoBloque.style.fontSize = `${(Math.max(MIN_FONT_REM, best) * fontScale).toFixed(2)}rem`;
         return;
       }
 
@@ -210,7 +283,7 @@
         if (fits(mid)) { best = mid; lo = mid + STEP_REM; }
         else { hi = mid - STEP_REM; }
       }
-      textoBloque.style.fontSize = `${Math.min(MAX_FONT_REM, best).toFixed(2)}rem`;
+      textoBloque.style.fontSize = `${(Math.min(MAX_FONT_REM, best) * fontScale).toFixed(2)}rem`;
     }
 
     function debounce(fn, wait=120) {
@@ -285,11 +358,45 @@
     }
 
     function cambiarColorFondo(type) {
-      const colores = {
-        verse:  "radial-gradient(circle at center, #1b2b52, #0a1124)",
-        chorus: "radial-gradient(circle at center, #253f73, #0a1124)"
-      };
+      const colores = themes[themeIndex] || themes[0];
       document.body.style.background = colores[type] || colores.verse;
+    }
+
+    function siguiente() {
+      if (indice < contenido.length - 1) { indice++; mostrarBloque(indice); }
+    }
+
+    function anterior() {
+      if (indice > 0) { indice--; mostrarBloque(indice); }
+    }
+
+    function ajustarLetra(delta) {
+      fontScale = Math.min(1.35, Math.max(.75, fontScale + delta));
+      localStorage.setItem("projectionFontScale", fontScale.toFixed(2));
+      fitTextoBloque();
+      toastMsg(`Tamaño ${Math.round(fontScale * 100)}%`);
+    }
+
+    function cambiarTema() {
+      themeIndex = (themeIndex + 1) % themes.length;
+      localStorage.setItem("projectionTheme", themeIndex);
+      cambiarColorFondo(contenido[indice]?.type);
+      toastMsg(`Fondo ${themeIndex + 1}/${themes.length}`);
+    }
+
+    function alternarNegro() {
+      document.body.classList.toggle("blackout");
+      toastMsg(document.body.classList.contains("blackout") ? "Pantalla negra" : "Proyección visible");
+    }
+
+    function alternarControles() {
+      document.body.classList.toggle("controls-hidden");
+    }
+
+    function mostrarControlesTemporalmente() {
+      document.body.classList.remove("controls-hidden");
+      clearTimeout(controlsTimer);
+      controlsTimer = setTimeout(() => document.body.classList.add("controls-hidden"), 5000);
     }
 
     function activarPantallaCompleta() {
@@ -328,13 +435,17 @@
     // Navegación teclado
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight" || e.key === " ") {
-        if (indice < contenido.length - 1) { indice++; mostrarBloque(indice); }
+        siguiente();
         return;
       }
       if (e.key === "ArrowLeft") {
-        if (indice > 0) { indice--; mostrarBloque(indice); }
+        anterior();
         return;
       }
+      if (e.key.toLowerCase() === "h") { alternarControles(); return; }
+      if (e.key.toLowerCase() === "b") { alternarNegro(); return; }
+      if (e.key === "+" || e.key === "=") { ajustarLetra(.1); return; }
+      if (e.key === "-") { ajustarLetra(-.1); return; }
       if (/^\d$/.test(e.key)) {
         if (numberBuffer === "" && e.key === "0") return;
         numberBuffer += e.key;
@@ -356,6 +467,9 @@
     // Recalcular auto-fit al cambiar tamaño/FS
     window.addEventListener('resize', fitDebounced);
     document.addEventListener('fullscreenchange', fitDebounced);
+    document.addEventListener('mousemove', mostrarControlesTemporalmente);
+    document.addEventListener('touchstart', mostrarControlesTemporalmente, { passive: true });
+    mostrarControlesTemporalmente();
   </script>
   <script src="../js/i18n.js"></script>
 </body>
