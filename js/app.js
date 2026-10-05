@@ -812,9 +812,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function assetPath(path) {
     const value = String(path || "").trim();
-    if (!value) return "../img/Logo_IADSDER.png";
-    if (/^(https?:)?\/\//.test(value) || value.startsWith("/")) return value;
-    return `/${value}`;
+    if (!value) return "/.netlify/images?url=/img/Logo_IADSDER.png&w=760&q=78";
+    if (/^(https?:)?\/\//.test(value) || value.startsWith("/.netlify/images")) return value;
+    const localPath = value.startsWith("/") ? value : `/${value}`;
+    if (/\.svg(?:\?|$)/i.test(localPath)) return localPath;
+    return `/.netlify/images?url=${encodeURIComponent(localPath)}&w=760&q=78`;
   }
 
   function fallbackMap(item) {
@@ -917,6 +919,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!track) return;
   const language = window.iadsderI18n?.language?.() || "es";
 
+  function optimizedGalleryImage(path) {
+    const value = String(path || "");
+    if (!value.startsWith("/") || value.startsWith("/.netlify/images") || /\.svg(?:\?|$)/i.test(value)) return value;
+    return `/.netlify/images?url=${encodeURIComponent(value)}&w=900&q=76`;
+  }
+
   function renderImages(images) {
     if (counter) {
       counter.textContent = language === "en"
@@ -940,7 +948,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.setAttribute("aria-label", language === "en" ? "Open youth event photo" : "Abrir fotografía de evento juvenil");
 
       const im = document.createElement("img");
-      im.src = img.image;
+      im.src = optimizedGalleryImage(img.image);
       im.alt = img.alt || "Foto";
       im.loading = "lazy";
       im.decoding = "async";

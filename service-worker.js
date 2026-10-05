@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v32";
+const CACHE_NAME = "iadsder-pwa-v33";
 
 const PRECACHE_URLS = [
   "/",
@@ -16,7 +16,6 @@ const PRECACHE_URLS = [
   "/data/videos.json",
   "/data/en-vivo.json",
   "/archivos/filiales.html",
-  "/img/Logo_IADSDER.png",
   "/img/pwa-192.png",
   "/img/pwa-512.png",
   "/img/whatsapp-icon.svg",
@@ -31,15 +30,14 @@ const PRECACHE_URLS = [
   "/himnario/style.css",
   "/himnario/js/app.js",
   "/himnario/js/hymn.js",
-  "/himnario/js/himnos-data.js",
   "/himnario/js/himnos_seccion_1.json",
   "/himnario/js/fondo.js",
   "/himnario/js/versiculo.js",
   "/himnario/js/estilosusuario.js",
-  "/himnario/img/logo1.png",
+  "/.netlify/images?url=/himnario/img/logo1.png&w=320&q=80",
   "/himnario/img/logo2.png",
   "/himnario/img/logo2.ico",
-  "/himnario/img/portada.png",
+  "/.netlify/images?url=/himnario/img/portada.png&w=520&q=80",
   "/himnario/img/infographic_2572455.png",
   "/himnario/icons/share.svg",
   "/himnario/icons/whatsapp.svg",
