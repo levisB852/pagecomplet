@@ -50,7 +50,7 @@ getHymnsData()
   .catch(err => {
     console.error('Error al cargar el JSON:', err);
     if (hymnList) {
-      hymnList.innerHTML = '<p class="no-results">Error al cargar los himnos. Verifica que exista js/himnos-data.js.</p>';
+      hymnList.innerHTML = `<p class="no-results">${window.iadsderI18n?.language?.() === "en" ? "The hymns could not be loaded." : "Error al cargar los himnos. Verifica que exista js/himnos-data.js."}</p>`;
     }
   });
 
@@ -125,7 +125,7 @@ function renderHimnario(himnos) {
   hymnList.innerHTML = '';
 
   if (himnos.length === 0) {
-    hymnList.innerHTML = '<p class="no-results">Aún no has agregado himnos a tu himnario personal.</p>';
+    hymnList.innerHTML = `<p class="no-results">${window.iadsderI18n?.language?.() === "en" ? "You have not added any hymns to your personal hymnal yet." : "Aún no has agregado himnos a tu himnario personal."}</p>`;
   } else {
     himnos.forEach(himno => {
       const card = document.createElement('div');
@@ -141,7 +141,7 @@ function renderHimnario(himnos) {
 
   if (!document.querySelector('.btn-volver-esquina')) {
     const volverBtn = document.createElement('button');
-    volverBtn.textContent = '\uD83C\uDFE0 Inicio';
+    volverBtn.textContent = window.iadsderI18n?.language?.() === "en" ? "🏠 Home" : "🏠 Inicio";
     volverBtn.className = 'btn-volver-esquina';
     volverBtn.onclick = () => {
       window.location.href = 'inicio.html';
@@ -341,7 +341,7 @@ function renderPagination(totalItems) {
   if (totalPages <= 1) return;
 
   const prevBtn = document.createElement('button');
-  prevBtn.textContent = '\u2039 Ant';
+  prevBtn.textContent = window.iadsderI18n?.language?.() === "en" ? "‹ Prev" : "‹ Ant";
   prevBtn.disabled = currentPage === 1;
   prevBtn.className = 'nav-btn';
   prevBtn.onclick = () => {
@@ -350,7 +350,7 @@ function renderPagination(totalItems) {
   };
 
   const nextBtn = document.createElement('button');
-  nextBtn.textContent = 'Sig \u203A';
+  nextBtn.textContent = window.iadsderI18n?.language?.() === "en" ? "Next ›" : "Sig ›";
   nextBtn.disabled = currentPage === totalPages;
   nextBtn.className = 'nav-btn';
   nextBtn.onclick = () => {
@@ -359,7 +359,9 @@ function renderPagination(totalItems) {
   };
 
   const info = document.createElement('span');
-  info.textContent = `Página ${currentPage} de ${totalPages}`;
+  info.textContent = window.iadsderI18n?.language?.() === "en"
+    ? `Page ${currentPage} of ${totalPages}`
+    : `Página ${currentPage} de ${totalPages}`;
   info.style.margin = '0 1rem';
   info.style.fontWeight = 'bold';
 

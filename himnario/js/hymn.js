@@ -35,8 +35,9 @@ getHymnsData()
     const hymn = list.find(h => h.number === currentHymnId);
 
     if (!hymn) {
-      titleEl.textContent = 'Himno no encontrado';
-      lyricsEl.innerHTML = '<p>No se encontró el himno solicitado.</p>';
+      const english = window.iadsderI18n?.language?.() === "en";
+      titleEl.textContent = english ? "Hymn not found" : "Himno no encontrado";
+      lyricsEl.innerHTML = `<p>${english ? "The requested hymn was not found." : "No se encontró el himno solicitado."}</p>`;
       return;
     }
 
@@ -71,7 +72,7 @@ getHymnsData()
   .catch(err => {
     console.error('Error al cargar el JSON:', err);
     titleEl.textContent = 'Error';
-    lyricsEl.innerHTML = '<p>No se pudo cargar el himno. Verifica que exista js/himnos-data.js.</p>';
+    lyricsEl.innerHTML = `<p>${window.iadsderI18n?.language?.() === "en" ? "The hymn could not be loaded." : "No se pudo cargar el himno. Verifica que exista js/himnos-data.js."}</p>`;
   });
 
 
@@ -104,11 +105,11 @@ function actualizarBotonFavorito(guardado) {
   if (!btn) return;
 
   if (guardado) {
-    btn.textContent = '\u274C Quitar de Mi Himnario';
+    btn.textContent = window.iadsderI18n?.language?.() === "en" ? "❌ Remove from My Hymnal" : "❌ Quitar de Mi Himnario";
     btn.style.backgroundColor = '#ff7043';
     btn.onclick = eliminarDeHimnario;
   } else {
-    btn.textContent = '\u2795 Agregar a Mi Himnario';
+    btn.textContent = window.iadsderI18n?.language?.() === "en" ? "➕ Add to My Hymnal" : "➕ Agregar a Mi Himnario";
     btn.style.backgroundColor = '#b39ddb';
     btn.onclick = agregarAHimnario;
   }

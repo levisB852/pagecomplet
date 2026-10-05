@@ -19,6 +19,8 @@
 // ============================================================
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+const appT = window.iadsderI18n?.t || (value => value);
+const appLanguage = window.iadsderI18n?.language?.() || "es";
 
 // Estado comun del contenido administrable. Admite borradores y, cuando los
 // campos existen, fechas automaticas de publicacion y retiro.
@@ -76,9 +78,9 @@ if (menuBtn && mobileMenu) {
         return;
       }
 
-      setText("verseText", data.text);
+      setText("verseText", appT(data.text));
       setText("verseReference", data.reference);
-      setText("verseNote", data.note);
+      setText("verseNote", appT(data.note));
     })
     .catch(() => {});
 
@@ -88,15 +90,21 @@ if (menuBtn && mobileMenu) {
       const seo = data.seo || {};
 
       if (seo.title) {
-        document.title = `${seo.title} | iadsder.org`;
-        setMeta('meta[property="og:title"]', "content", seo.title);
-        setMeta('meta[name="twitter:title"]', "content", seo.title);
+        const translatedTitle = appLanguage === "en"
+          ? "Iglesia Adventista de Dios del Séptimo Día en Reforma"
+          : seo.title;
+        document.title = `${translatedTitle} | iadsder.org`;
+        setMeta('meta[property="og:title"]', "content", translatedTitle);
+        setMeta('meta[name="twitter:title"]', "content", translatedTitle);
       }
 
       if (seo.description) {
-        setMeta('meta[name="description"]', "content", seo.description);
-        setMeta('meta[property="og:description"]', "content", seo.description);
-        setMeta('meta[name="twitter:description"]', "content", seo.description);
+        const translatedDescription = appLanguage === "en"
+          ? "Official IADSDER website with hymnal, live radio, videos, local churches, resources and contact information in El Salvador."
+          : seo.description;
+        setMeta('meta[name="description"]', "content", translatedDescription);
+        setMeta('meta[property="og:description"]', "content", translatedDescription);
+        setMeta('meta[name="twitter:description"]', "content", translatedDescription);
       }
 
       if (seo.image) {
@@ -270,7 +278,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    msg.textContent = "Enviando...";
+    msg.textContent = appT("Enviando...");
     setDisabled(true);
 
     const body = new URLSearchParams(new FormData(form)).toString();
@@ -285,13 +293,19 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
       const ok = res.ok || (res.status >= 300 && res.status < 400);
 
       if (ok) {
-        msg.textContent = "Mensaje enviado correctamente. Gracias por escribirnos.";
+        msg.textContent = appLanguage === "en"
+          ? "Message sent successfully. Thank you for writing to us."
+          : "Mensaje enviado correctamente. Gracias por escribirnos.";
         form.reset();
       } else {
-        msg.textContent = `No se pudo enviar (codigo ${res.status}). Intenta mas tarde.`;
+        msg.textContent = appLanguage === "en"
+          ? `The message could not be sent (code ${res.status}). Please try again later.`
+          : `No se pudo enviar (codigo ${res.status}). Intenta mas tarde.`;
       }
     } catch (err) {
-      msg.textContent = "Error de conexion. Intenta nuevamente.";
+      msg.textContent = appLanguage === "en"
+        ? "Connection error. Please try again."
+        : "Error de conexion. Intenta nuevamente.";
     } finally {
       setDisabled(false);
     }
@@ -367,8 +381,8 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
       const cards = streams.filter(stream => stream.url).map(stream => createLiveCard(stream.platform, stream.url)).filter(Boolean);
       if (!cards.length) return;
 
-      heading.textContent = data.title || 'Transmisión en vivo';
-      description.textContent = data.description || 'Acompáñanos en nuestra transmisión.';
+      heading.textContent = appT(data.title || 'Transmisión en vivo');
+      description.textContent = appT(data.description || 'Acompáñanos en nuestra transmisión.');
       grid.replaceChildren(...cards);
       grid.classList.toggle('live-grid--single', cards.length === 1);
       section.hidden = false;
@@ -427,21 +441,22 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     const publishedVideos = videos.filter(isPublished);
     if (!publishedVideos.length) return;
 
+    const t = window.iadsderI18n?.t || (value => value);
     grid.innerHTML = publishedVideos.map(video => `
       <article class="card video-card"
                data-youtube-id="${video.id}"
                data-title="${video.title || "Video"}">
         <div class="video-thumb">
           <img src="https://img.youtube.com/vi/${video.id}/hqdefault.jpg" alt="${video.title || "Video"}" loading="lazy">
-          <button class="video-play" type="button" aria-label="Reproducir video">&#9658;</button>
+          <button class="video-play" type="button" aria-label="${t("Reproducir video")}">&#9658;</button>
         </div>
 
         <h3>${video.title || "Video"}</h3>
-        <p class="muted">${video.description || "Mensaje para fortalecer la fe."}</p>
+        <p class="muted">${t(video.description || "Mensaje para fortalecer la fe.")}</p>
 
         <div class="video-actions">
-          <button class="btn btn-primary video-open" type="button">Reproducir aqui</button>
-          <a class="btn btn-ghost video-youtube" href="${getWebUrl(video.id)}" target="_blank" rel="noopener">Abrir en YouTube</a>
+          <button class="btn btn-primary video-open" type="button">${t("Reproducir aquí")}</button>
+          <a class="btn btn-ghost video-youtube" href="${getWebUrl(video.id)}" target="_blank" rel="noopener">${t("Abrir en YouTube")}</a>
         </div>
       </article>
     `).join("");
@@ -520,13 +535,14 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   const STREAM_URL = "https://stream.zeno.fm/rghmon0t9xauv";
   const MAX_RECONNECT_ATTEMPTS = 5;
   const RECONNECT_DELAY = 5000;
+  const radioText = (es, en) => appLanguage === "en" ? en : es;
 
   let userWantsRadio = false;
   let reconnectAttempts = 0;
   let reconnectTimer = null;
 
   function setUI(playing) {
-    btn.textContent = playing ? "Pausar" : "Reproducir";
+    btn.textContent = playing ? appT("Pausar") : appT("Reproducir");
     btn.setAttribute("aria-pressed", playing ? "true" : "false");
 
     if (card) {
@@ -548,8 +564,8 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   async function startRadio() {
     clearReconnectTimer();
     status.textContent = reconnectAttempts > 0
-      ? `Reconectando... intento ${reconnectAttempts} de ${MAX_RECONNECT_ATTEMPTS}.`
-      : "Conectando...";
+      ? radioText(`Reconectando... intento ${reconnectAttempts} de ${MAX_RECONNECT_ATTEMPTS}.`, `Reconnecting... attempt ${reconnectAttempts} of ${MAX_RECONNECT_ATTEMPTS}.`)
+      : radioText("Conectando...", "Connecting...");
 
     audio.src = getStreamUrl();
     audio.load();
@@ -557,7 +573,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
     reconnectAttempts = 0;
     setUI(true);
-    status.textContent = "Reproduciendo en vivo.";
+    status.textContent = radioText("Reproduciendo en vivo.", "Playing live.");
   }
 
   function stopRadio() {
@@ -568,26 +584,26 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     audio.load();
     reconnectAttempts = 0;
     setUI(false);
-    status.textContent = "Pausado.";
+    status.textContent = radioText("Pausado.", "Paused.");
   }
 
   function scheduleReconnect(reason = "Se corto la transmision.") {
     if (!userWantsRadio || reconnectTimer) return;
 
     if (!navigator.onLine) {
-      status.textContent = "Sin internet. Se intentara reconectar cuando vuelva la conexion.";
+      status.textContent = radioText("Sin internet. Se intentara reconectar cuando vuelva la conexion.", "No internet connection. The radio will reconnect when the connection returns.");
       return;
     }
 
     if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
       setUI(false);
-      status.textContent = "No se pudo reconectar. Presiona reproducir otra vez.";
+      status.textContent = radioText("No se pudo reconectar. Presiona reproducir otra vez.", "Unable to reconnect. Press play to try again.");
       return;
     }
 
     reconnectAttempts += 1;
     setUI(false);
-    status.textContent = `${reason} Reconectando en 5 segundos...`;
+    status.textContent = appLanguage === "en" ? "Reconnecting in 5 seconds..." : `${reason} Reconectando en 5 segundos...`;
 
     reconnectTimer = setTimeout(async () => {
       reconnectTimer = null;
@@ -625,19 +641,19 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
   // ESTADOS
   audio.addEventListener("waiting", () => {
-    if (userWantsRadio) status.textContent = "Cargando senal...";
+    if (userWantsRadio) status.textContent = radioText("Cargando senal...", "Loading stream...");
   });
 
   audio.addEventListener("playing", () => {
     clearReconnectTimer();
     reconnectAttempts = 0;
     setUI(true);
-    status.textContent = "Reproduciendo en vivo.";
+    status.textContent = radioText("Reproduciendo en vivo.", "Playing live.");
   });
 
   audio.addEventListener("pause", () => {
     if (!userWantsRadio && !audio.ended) {
-      status.textContent = "Pausado.";
+      status.textContent = radioText("Pausado.", "Paused.");
     }
   });
 
@@ -668,7 +684,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     if (userWantsRadio) {
       clearReconnectTimer();
       setUI(false);
-      status.textContent = "Sin internet. La radio se reconectara al volver la conexion.";
+      status.textContent = radioText("Sin internet. La radio se reconectara al volver la conexion.", "No internet connection. The radio will reconnect when the connection returns.");
     }
   });
 

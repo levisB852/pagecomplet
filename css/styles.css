@@ -554,7 +554,7 @@ footer{
 .developer-signature{
   position:relative;
   overflow:hidden;
-  padding:.8rem;
+  padding:.62rem;
   border:1px solid color-mix(in srgb, var(--accent-2) 24%, var(--line));
   border-radius:8px;
   background:
@@ -576,9 +576,9 @@ footer{
 
 .developer-eyebrow{
   display:block;
-  margin-bottom:.65rem;
+  margin-bottom:.42rem;
   color:var(--muted);
-  font-size:.72rem;
+  font-size:.66rem;
   font-weight:800;
   letter-spacing:.14em;
   text-transform:uppercase;
@@ -586,9 +586,9 @@ footer{
 
 .developer-logo{
   position:relative;
-  width:min(100%, 210px);
+  width:min(100%, 158px);
   height:auto;
-  margin:.1rem auto .65rem;
+  margin:.05rem auto .42rem;
   border-radius:8px;
   filter:contrast(1.12) brightness(1.08) drop-shadow(0 0 14px rgba(124,58,237,.34));
 }
@@ -596,7 +596,7 @@ footer{
 .developer-signature p{
   position:relative;
   margin:0;
-  font-size:.92rem;
+  font-size:.8rem;
 }
 
 .footer-bottom{
@@ -1569,7 +1569,7 @@ footer{
   }
 
   .developer-signature{
-    max-width:360px;
+    max-width:290px;
   }
 
   .menu-btn svg path{
@@ -1653,7 +1653,7 @@ footer{
   }
 
   .developer-logo{
-    width:min(100%, 210px);
+    width:min(100%, 150px);
   }
 
   .filial-filter-bar .btn{
