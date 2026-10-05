@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v35";
+const CACHE_NAME = "iadsder-pwa-v36";
 
 const PRECACHE_URLS = [
   "/",
@@ -35,10 +35,8 @@ const PRECACHE_URLS = [
   "/himnario/js/fondo.js",
   "/himnario/js/versiculo.js",
   "/himnario/js/estilosusuario.js",
-  "/.netlify/images?url=/himnario/img/logo1.png&w=320&fm=png",
   "/himnario/img/logo2.png",
   "/himnario/img/logo2.ico",
-  "/.netlify/images?url=/himnario/img/portada.png&w=520&fm=png",
   "/himnario/img/infographic_2572455.png",
   "/himnario/icons/share.svg",
   "/himnario/icons/whatsapp.svg",
