@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v31";
+const CACHE_NAME = "iadsder-pwa-v32";
 
 const PRECACHE_URLS = [
   "/",
@@ -15,6 +15,7 @@ const PRECACHE_URLS = [
   "/data/galeria.json",
   "/data/videos.json",
   "/data/en-vivo.json",
+  "/archivos/filiales.html",
   "/img/Logo_IADSDER.png",
   "/img/pwa-192.png",
   "/img/pwa-512.png",
@@ -75,7 +76,13 @@ self.addEventListener("fetch", event => {
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
-        .then(response => response)
+        .then(response => {
+          if (response && response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          }
+          return response;
+        })
         .catch(() => caches.match(request, { ignoreSearch: true })
           .then(cached => cached || caches.match("/offline.html")))
     );
