@@ -123,6 +123,7 @@
     "Favoritos": "Favorites",
     "Mis Himnos": "My Hymns",
     "Mi Himnario": "My Hymnal",
+    "Página principal IADSDER": "IADSDER home page",
     "➕ Agregar a mi Himnario": "➕ Add to My Hymnal",
     "➖ Quitar de mi Himnario": "➖ Remove from My Hymnal",
     "Compartir": "Share",
