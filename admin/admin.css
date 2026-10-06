@@ -155,3 +155,108 @@ body {
 @media (max-width: 600px) {
   .admin-bulk-link { right: 12px; bottom: 12px; left: 12px; justify-content: center; }
 }
+
+/* Panel moderno: estilos aplicados sobre la interfaz generada por Decap. */
+#nc-root {
+  --admin-surface: #f4f7f5;
+  --admin-line: #dce7e0;
+  background: var(--admin-surface);
+}
+
+#nc-root > div {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 100% 0, rgba(211,168,50,.10), transparent 28rem),
+    var(--admin-surface);
+}
+
+#nc-root header {
+  border-bottom: 1px solid rgba(255,255,255,.12) !important;
+  background: linear-gradient(110deg, #0d3525, #1e6547) !important;
+  box-shadow: 0 8px 28px rgba(13,53,37,.18) !important;
+}
+
+#nc-root aside,
+#nc-root nav[role="navigation"] {
+  border-right-color: var(--admin-line) !important;
+}
+
+#nc-root main {
+  max-width: 1500px;
+  margin-inline: auto;
+}
+
+#nc-root h1,
+#nc-root h2,
+#nc-root h3 {
+  color: #153d2c;
+  letter-spacing: -.02em;
+}
+
+#nc-root label {
+  color: #274a3a;
+  font-weight: 720;
+}
+
+#nc-root input,
+#nc-root textarea,
+#nc-root select {
+  min-height: 44px;
+  border: 1px solid #c8d8cf !important;
+  background: #fff !important;
+  box-shadow: 0 1px 2px rgba(23,75,53,.04) !important;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+#nc-root textarea { min-height: 110px; }
+
+#nc-root input:focus,
+#nc-root textarea:focus,
+#nc-root select:focus {
+  border-color: #2f7a54 !important;
+  box-shadow: 0 0 0 3px rgba(47,122,84,.14) !important;
+}
+
+#nc-root button {
+  min-height: 40px;
+  font-weight: 720 !important;
+  transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+}
+
+#nc-root button:hover { transform: translateY(-1px); }
+
+#nc-root [class*="Card"],
+#nc-root [class*="card"],
+#nc-root [class*="ControlPane"] {
+  border-color: var(--admin-line) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 26px rgba(23,75,53,.07) !important;
+}
+
+#nc-root [class*="ListItem"] {
+  margin-bottom: 10px !important;
+  border: 1px solid var(--admin-line) !important;
+  border-radius: 13px !important;
+  background: #fff !important;
+  box-shadow: 0 3px 12px rgba(23,75,53,.05) !important;
+}
+
+#nc-root [class*="Toolbar"] {
+  border-radius: 14px !important;
+}
+
+#nc-root a:focus-visible,
+#nc-root button:focus-visible {
+  outline: 3px solid rgba(211,168,50,.6) !important;
+  outline-offset: 2px;
+}
+
+@media (max-width: 800px) {
+  #nc-root main { width: 100%; }
+  #nc-root h1 { font-size: 1.55rem !important; }
+  #nc-root input,
+  #nc-root textarea,
+  #nc-root select { font-size: 16px !important; }
+  #nc-root [class*="ControlPane"] { border-radius: 12px !important; }
+  .admin-bulk-link { padding-block: 11px; }
+}

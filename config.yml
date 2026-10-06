@@ -2,7 +2,6 @@ backend:
   name: git-gateway
   branch: main
 
-publish_mode: editorial_workflow
 local_backend: true
 locale: "es"
 show_preview_links: false
@@ -91,6 +90,7 @@ collections:
             label_singular: "Agregar filial"
             summary: "{{fields.name}} — {{fields.zone}} — Circuito {{fields.circuit}}"
             collapsed: true
+            add_to_top: true
             hint: "Puedes agregar varias filiales en esta misma pantalla antes de guardar."
             fields:
               - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }

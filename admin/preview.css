@@ -9,3 +9,13 @@ body { margin: 0; color: #17241d; background: #eef5f0; font-family: Inter, Arial
 .gallery-preview figure { margin: 0; overflow: hidden; background: #fff; border-radius: 16px; box-shadow: 0 10px 28px rgba(23,75,53,.12); }
 .gallery-preview img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .gallery-preview__empty { padding: 2rem; text-align: center; background: #fff; border: 1px dashed #a9bbb0; border-radius: 16px; }
+.filiales-preview { min-height: 100vh; padding: 2rem; color: #17241d; background: #eef5f0; font-family: Inter, Arial, sans-serif; }
+.filiales-preview__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; }
+.filiales-preview article { overflow: hidden; background: #fff; border: 1px solid #dce7e0; border-radius: 18px; box-shadow: 0 10px 28px rgba(23,75,53,.10); }
+.filiales-preview article > img { display: block; width: 100%; height: 165px; object-fit: cover; background: #f5f7f6; }
+.filiales-preview__body { padding: 1rem; }
+.filiales-preview__body h2 { margin: .55rem 0 .4rem; color: #174b35; font-size: 1.08rem; }
+.filiales-preview__body p { margin: 0 0 .6rem; color: #52645b; }
+.filiales-preview__body small { color: #607068; text-transform: capitalize; }
+.filiales-preview__circuit { display: inline-block; padding: .3rem .55rem; border-radius: 999px; background: #e1f1e7; color: #1d6548; font-size: .72rem; font-weight: 800; }
+@media (max-width: 600px) { .filiales-preview { padding: 1rem; } }
