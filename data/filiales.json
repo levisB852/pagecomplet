@@ -205,6 +205,16 @@
       "mapsUrl": "https://maps.app.goo.gl/zhLDUb3EnsVuknJJ9",
       "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1232.5864824951254!2d-88.05815467147647!3d13.497714699175846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7ad30001c06fcb%3A0x6185c777fdcdc046!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20ULUAPAZA!5e1!3m2!1ses-419!2ssv!4v1791214305934!5m2!1ses-419!2ssv\"</iframe>",
       "contact": "Carlos Sanchez"
+    },
+    {
+      "published": true,
+      "circuit": "4",
+      "name": "Iglesia Filial Terreritos",
+      "address": "Cton. Terreritos, Anamorós, La Union.",
+      "zone": "la union",
+      "mapsUrl": "https://maps.app.goo.gl/bz7SiRVJ4bZE9kLCA",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d630478.5611954357!2d-88.95143124273136!3d13.724939867011024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f65470028167d1d%3A0x48e3cf850c7129a1!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20TERRERITOS!5e1!3m2!1ses-419!2ssv!4v1791293740569!5m2!1ses-419!2ssv\"</iframe>",
+      "contact": "Jesús Orellana "
     }
   ]
 }
