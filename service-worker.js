@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v37";
+const CACHE_NAME = "iadsder-pwa-v38";
 
 const PRECACHE_URLS = [
   "/",
@@ -69,6 +69,12 @@ self.addEventListener("fetch", event => {
   if (request.method !== "GET") return;
 
   const url = new URL(request.url);
+
+  // El administrador siempre debe leer la configuración más reciente.
+  if (url.origin === self.location.origin && url.pathname.startsWith("/admin/")) {
+    event.respondWith(fetch(request));
+    return;
+  }
 
   if (request.mode === "navigate") {
     event.respondWith(
