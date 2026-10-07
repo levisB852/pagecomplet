@@ -215,6 +215,15 @@
       "mapsUrl": "https://maps.app.goo.gl/zhLDUb3EnsVuknJJ9",
       "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1232.5864824951254!2d-88.05815467147647!3d13.497714699175846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7ad30001c06fcb%3A0x6185c777fdcdc046!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20ULUAPAZA!5e1!3m2!1ses-419!2ssv!4v1791214305934!5m2!1ses-419!2ssv\"</iframe>",
       "contact": "Carlos Sanchez"
+    },
+    {
+      "published": true,
+      "circuit": "2",
+      "name": "Iglesia Filial Niqueresques",
+      "address": "Niqueresques, Cabañas, El Salvador",
+      "zone": "cabanas",
+      "mapsUrl": "https://maps.app.goo.gl/6evYTfNYFpnYom3r7",
+      "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1230.9731668486068!2d-88.5228105!3d13.8066719!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64b9003cd08c2b%3A0xe31ebee6e2dab4c4!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20NIQUERESQUE!5e1!3m2!1ses-419!2ssv!4v1791327892011!5m2!1ses-419!2ssv\"</iframe>"
     }
   ]
 }
