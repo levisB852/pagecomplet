@@ -108,7 +108,7 @@ function renderList(list) {
     `;
     card.onclick = () => {
       saveRecentSearch(searchInput ? searchInput.value : '');
-      window.location.href = `hymn.html?number=${item.number}`;
+      window.location.href = `himnos/${item.number}/`;
     };
     hymnList.appendChild(card);
   });
@@ -255,7 +255,7 @@ function cambiarEstilo() {
 }
 
 function verHimno(id) {
-  window.location.href = `hymn.html?number=${id}`;
+  window.location.href = `himnos/${id}/`;
 }
 
 function toggleFavorito(numero) {

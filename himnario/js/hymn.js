@@ -1,6 +1,7 @@
 // 🔢 Obtener el número del himno desde la URL
 const params = new URLSearchParams(window.location.search);
-const currentHymnId = parseInt(params.get('number'), 10);
+const pathMatch = window.location.pathname.match(/\/himnario\/himnos\/(\d+)\/?$/);
+const currentHymnId = parseInt(params.get('number') || pathMatch?.[1], 10);
 
 // 🔗 Referencias a elementos del DOM
 const titleEl = document.getElementById('hymnTitle');
@@ -42,6 +43,14 @@ getHymnsData()
     }
 
     titleEl.textContent = `${hymn.number} - ${hymn.title}`;
+    document.title = `${hymn.number} - ${hymn.title} | Himnario Digital IADSDER`;
+
+    const description = `Letra y pista del himno ${hymn.number}, ${hymn.title}, en el Himnario Digital IADSDER.`;
+    const descriptionMeta = document.querySelector('meta[name="description"]');
+    if (descriptionMeta) descriptionMeta.setAttribute('content', description);
+
+    const canonical = document.getElementById('hymnCanonical');
+    if (canonical) canonical.href = `${window.location.origin}/himnario/himnos/${hymn.number}/`;
     if (hymn.author) {
       const autorElemento = document.createElement('p');
       autorElemento.className = 'author';
@@ -61,10 +70,10 @@ getHymnsData()
     const nextId = currentHymnId + 1;
 
     if (list.some(h => h.number === prevId)) {
-      navButtons.innerHTML += `<a href="hymn.html?number=${prevId}" class="nav-btn">\u2190 Himno anterior</a>`;
+      navButtons.innerHTML += `<a href="himnos/${prevId}/" class="nav-btn">\u2190 Himno anterior</a>`;
     }
     if (list.some(h => h.number === nextId)) {
-      navButtons.innerHTML += `<a href="hymn.html?number=${nextId}" class="nav-btn">Siguiente himno \u2192</a>`;
+      navButtons.innerHTML += `<a href="himnos/${nextId}/" class="nav-btn">Siguiente himno \u2192</a>`;
     }
 
     verificarFavorito();

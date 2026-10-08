@@ -39,7 +39,7 @@
       const filiales = value && value.toJS ? value.toJS() : [];
       const visible = filiales.filter(item => item && item.published !== false);
       const asset = path => {
-        if (!path) return "/img/Logo_IADSDER.png";
+        if (!path) return "/img/Logo_IADSDER-1000.webp";
         try { return this.props.getAsset(path).toString(); } catch { return path; }
       };
 

@@ -12,7 +12,7 @@ media_folder: "img/galeria/uploads"
 public_folder: "/img/galeria/uploads"
 site_url: "https://iadsder.org"
 display_url: "https://iadsder.org"
-logo_url: "/img/Logo_IADSDER.png"
+logo_url: "/img/Logo_IADSDER-1000.webp"
 
 collections:
   - name: "galeria_admin"

@@ -812,7 +812,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function assetPath(path) {
     const value = String(path || "").trim();
-    if (!value) return "../img/Logo_IADSDER.png";
+    if (!value) return "/img/Logo_IADSDER-1000.webp";
     if (/^(https?:)?\/\//.test(value) || value.startsWith("/")) return value;
     return `/${value}`;
   }
@@ -867,7 +867,7 @@ document.addEventListener("DOMContentLoaded", () => {
     card.dataset.circuit = item.circuit || "";
     card.innerHTML = `
       <button class="filial-item" type="button">
-        <img src="${image}" alt="${name}" loading="lazy">
+        <img src="${image}" alt="${name}" loading="lazy" decoding="async">
       </button>
       <h3>${name}</h3>
       <p class="muted">${t("Dirección")}: ${address}</p>
@@ -943,6 +943,7 @@ document.addEventListener("DOMContentLoaded", () => {
       im.src = img.image;
       im.alt = img.alt || "Foto";
       im.loading = "lazy";
+      im.decoding = "async";
       im.decoding = "async";
 
       btn.appendChild(im);
