@@ -42,6 +42,7 @@
         if (!path) return "/img/Logo_IADSDER-1000.webp";
         try { return this.props.getAsset(path).toString(); } catch { return path; }
       };
+      const photoCount = item => 1 + (Array.isArray(item.gallery) ? item.gallery.filter(Boolean).length : 0);
 
       return h("main", { className: "filiales-preview" },
         h("header", { className: "gallery-preview__head" },
@@ -56,7 +57,7 @@
               h("span", { className: "filiales-preview__circuit" }, item.circuit ? `Circuito ${item.circuit}` : "Sin circuito"),
               h("h2", {}, item.name || "Filial sin nombre"),
               h("p", {}, item.address || "Dirección pendiente"),
-              h("small", {}, item.zone || "Departamento pendiente")
+              h("small", {}, `${item.zone || "Departamento pendiente"} · ${photoCount(item)} ${photoCount(item) === 1 ? "foto" : "fotos"}`)
             )
           )
         ))

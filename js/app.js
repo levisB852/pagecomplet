@@ -856,6 +856,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const mapsUrl = item.mapsUrl || "#";
     const embedUrl = embedMapUrl(item.embedUrl, item);
     const image = assetPath(item.image);
+    const galleryImages = [image, ...(Array.isArray(item.gallery) ? item.gallery : [])
+      .map(entry => assetPath(typeof entry === "string" ? entry : entry?.image))]
+      .filter((src, index, list) => src && list.indexOf(src) === index);
+    const photoBadge = galleryImages.length > 1
+      ? `<span class="filial-photo-count" aria-hidden="true">📷 ${galleryImages.length}</span>`
+      : "";
     const zone = item.zone || "";
     const circuit = item.circuit ? `<p class="muted">${t("Circuito")} ${item.circuit}</p>` : "";
     const contact = item.contact ? `<p class="muted">${t("Encargado/contacto")}: ${item.contact}</p>` : "";
@@ -868,6 +874,7 @@ document.addEventListener("DOMContentLoaded", () => {
     card.innerHTML = `
       <button class="filial-item" type="button">
         <img src="${image}" alt="${name}" loading="lazy" decoding="async">
+        ${photoBadge}
       </button>
       <h3>${name}</h3>
       <p class="muted">${t("Dirección")}: ${address}</p>
@@ -888,6 +895,8 @@ document.addEventListener("DOMContentLoaded", () => {
         </iframe>
       </div>
     `;
+
+    card.querySelector(".filial-item").dataset.gallery = JSON.stringify(galleryImages);
 
     bindMapButton(card);
     return card;
@@ -1095,10 +1104,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!gallery) return;
 
-      const filialImages = gallery
-        .split(",")
-        .map(src => src.trim())
-        .filter(Boolean);
+      let filialImages;
+      try {
+        filialImages = JSON.parse(gallery);
+      } catch {
+        filialImages = gallery.split(",").map(src => src.trim()).filter(Boolean);
+      }
 
       openGallery(filialImages, 0, img?.alt || "Imagen de filial");
       return;

@@ -1243,6 +1243,7 @@ footer{
 }
 
 .filial-item{
+  position:relative;
   width:100%;
   aspect-ratio:16 / 10;
   padding:0;
@@ -1251,6 +1252,24 @@ footer{
   overflow:hidden;
   background:color-mix(in srgb, var(--paper) 82%, var(--bg-t1));
   cursor:pointer;
+}
+
+.filial-photo-count{
+  position:absolute;
+  right:.65rem;
+  bottom:.65rem;
+  display:inline-flex;
+  align-items:center;
+  padding:.35rem .6rem;
+  border:1px solid rgba(255,255,255,.45);
+  border-radius:999px;
+  color:#fff;
+  background:rgba(17,35,26,.76);
+  box-shadow:0 5px 16px rgba(0,0,0,.2);
+  font-size:.78rem;
+  font-weight:800;
+  line-height:1;
+  backdrop-filter:blur(7px);
 }
 
 .filial-item img{

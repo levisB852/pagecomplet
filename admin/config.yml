@@ -127,7 +127,15 @@ collections:
                   - { label: "Circuito 2", value: "2" }
                   - { label: "Circuito 3", value: "3" }
                   - { label: "Circuito 4", value: "4" }
-              - { label: "Imagen", name: "image", widget: "image", required: false }
+              - { label: "Imagen principal", name: "image", widget: "image", required: false, hint: "Es la fotografía que aparecerá en la tarjeta de la filial." }
+              - label: "Fotos adicionales"
+                name: "gallery"
+                widget: "list"
+                required: false
+                allow_add: true
+                collapsed: true
+                hint: "Agrega fotografías del interior, reuniones o actividades. Al tocar la imagen principal se abrirá esta galería."
+                field: { label: "Fotografía", name: "image", widget: "image", choose_url: false }
               - { label: "Enlace de Google Maps", name: "mapsUrl", widget: "string", required: false }
               - { label: "Mapa incrustado", name: "embedUrl", widget: "text", required: false, hint: "Opcional. Puedes pegar el enlace de inserción o el código iframe completo de Google Maps." }
               - { label: "Encargado o contacto", name: "contact", widget: "string", required: false }
