@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v40";
+const CACHE_NAME = "iadsder-pwa-v43";
 
 const PRECACHE_URLS = [
   "/",
@@ -93,9 +93,9 @@ self.addEventListener("fetch", event => {
   }
 
   if (url.origin !== self.location.origin) {
-    event.respondWith(
-      caches.match(request).then(cached => cached || fetch(request))
-    );
+    // Deja que el navegador gestione directamente recursos externos.
+    // Esto es especialmente importante para transmisiones de audio continuas:
+    // algunos navegadores móviles interrumpen el stream si pasa por un worker.
     return;
   }
 

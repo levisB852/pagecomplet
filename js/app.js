@@ -42,17 +42,32 @@ function isPublished(item) {
 const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 
+function setMobileMenu(open) {
+  if (!menuBtn || !mobileMenu) return;
+  mobileMenu.toggleAttribute("hidden", !open);
+  menuBtn.setAttribute("aria-expanded", String(open));
+  menuBtn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+}
+
 if (menuBtn && mobileMenu) {
   menuBtn.addEventListener("click", () => {
-    const open = mobileMenu.hasAttribute("hidden") === false;
+    setMobileMenu(mobileMenu.hasAttribute("hidden"));
+  });
 
-    if (open) {
-      mobileMenu.setAttribute("hidden", "");
-      menuBtn.setAttribute("aria-expanded", "false");
-    } else {
-      mobileMenu.removeAttribute("hidden");
-      menuBtn.setAttribute("aria-expanded", "true");
+  document.addEventListener("click", event => {
+    if (mobileMenu.hasAttribute("hidden")) return;
+    if (!mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) setMobileMenu(false);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !mobileMenu.hasAttribute("hidden")) {
+      setMobileMenu(false);
+      menuBtn.focus();
     }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 960) setMobileMenu(false);
   });
 }
 
@@ -179,10 +194,7 @@ sections.forEach(section => spy.observe(section));
 // ============================================================
 document.querySelectorAll("#mobileMenu a").forEach(a => {
   a.addEventListener("click", () => {
-    if (mobileMenu && !mobileMenu.hasAttribute("hidden")) {
-      mobileMenu.setAttribute("hidden", "");
-      if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
-    }
+    if (mobileMenu && !mobileMenu.hasAttribute("hidden")) setMobileMenu(false);
   });
 });
 
@@ -533,13 +545,14 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
   const card = btn.closest(".radio-card");
   const STREAM_URL = "https://stream.zeno.fm/rghmon0t9xauv";
-  const MAX_RECONNECT_ATTEMPTS = 5;
-  const RECONNECT_DELAY = 5000;
+  const MAX_RECONNECT_ATTEMPTS = 6;
+  const BUFFER_TIMEOUT = 15000;
   const radioText = (es, en) => appLanguage === "en" ? en : es;
 
   let userWantsRadio = false;
   let reconnectAttempts = 0;
   let reconnectTimer = null;
+  let bufferTimer = null;
 
   function setUI(playing) {
     btn.textContent = playing ? appT("Pausar") : appT("Reproducir");
@@ -561,8 +574,24 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     }
   }
 
+  function clearBufferTimer() {
+    if (bufferTimer) {
+      clearTimeout(bufferTimer);
+      bufferTimer = null;
+    }
+  }
+
+  function waitForSignal() {
+    clearBufferTimer();
+    bufferTimer = setTimeout(() => {
+      bufferTimer = null;
+      scheduleReconnect(radioText("La señal tardó demasiado.", "The stream took too long."));
+    }, BUFFER_TIMEOUT);
+  }
+
   async function startRadio() {
     clearReconnectTimer();
+    clearBufferTimer();
     status.textContent = reconnectAttempts > 0
       ? radioText(`Reconectando... intento ${reconnectAttempts} de ${MAX_RECONNECT_ATTEMPTS}.`, `Reconnecting... attempt ${reconnectAttempts} of ${MAX_RECONNECT_ATTEMPTS}.`)
       : radioText("Conectando...", "Connecting...");
@@ -579,6 +608,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   function stopRadio() {
     userWantsRadio = false;
     clearReconnectTimer();
+    clearBufferTimer();
     audio.pause();
     audio.removeAttribute("src");
     audio.load();
@@ -589,6 +619,8 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
   function scheduleReconnect(reason = "Se corto la transmision.") {
     if (!userWantsRadio || reconnectTimer) return;
+
+    clearBufferTimer();
 
     if (!navigator.onLine) {
       status.textContent = radioText("Sin internet. Se intentara reconectar cuando vuelva la conexion.", "No internet connection. The radio will reconnect when the connection returns.");
@@ -602,8 +634,12 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     }
 
     reconnectAttempts += 1;
+    const reconnectDelay = Math.min(3000 * reconnectAttempts, 9000);
+    const reconnectSeconds = reconnectDelay / 1000;
     setUI(false);
-    status.textContent = appLanguage === "en" ? "Reconnecting in 5 seconds..." : `${reason} Reconectando en 5 segundos...`;
+    status.textContent = appLanguage === "en"
+      ? `${reason} Reconnecting in ${reconnectSeconds} seconds...`
+      : `${reason} Reconectando en ${reconnectSeconds} segundos...`;
 
     reconnectTimer = setTimeout(async () => {
       reconnectTimer = null;
@@ -611,9 +647,15 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
       try {
         await startRadio();
       } catch (error) {
-        scheduleReconnect("Aun no hay senal.");
+        if (error?.name === "NotAllowedError") {
+          userWantsRadio = false;
+          setUI(false);
+          status.textContent = radioText("El celular bloqueó la reproducción automática. Presiona Reproducir otra vez.", "Your device blocked automatic playback. Press Play again.");
+          return;
+        }
+        scheduleReconnect(radioText("Aún no hay señal.", "The stream is still unavailable."));
       }
-    }, RECONNECT_DELAY);
+    }, reconnectDelay);
   }
 
   // BOTON PLAY / PAUSE
@@ -641,11 +683,14 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
   // ESTADOS
   audio.addEventListener("waiting", () => {
-    if (userWantsRadio) status.textContent = radioText("Cargando senal...", "Loading stream...");
+    if (!userWantsRadio) return;
+    status.textContent = radioText("Cargando señal...", "Loading stream...");
+    waitForSignal();
   });
 
   audio.addEventListener("playing", () => {
     clearReconnectTimer();
+    clearBufferTimer();
     reconnectAttempts = 0;
     setUI(true);
     status.textContent = radioText("Reproduciendo en vivo.", "Playing live.");
@@ -658,7 +703,9 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   });
 
   audio.addEventListener("stalled", () => {
-    scheduleReconnect("La senal se detuvo.");
+    if (!userWantsRadio) return;
+    status.textContent = radioText("La señal está lenta; esperando audio...", "The stream is slow; waiting for audio...");
+    waitForSignal();
   });
 
   audio.addEventListener("ended", () => {
@@ -666,7 +713,12 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   });
 
   audio.addEventListener("error", () => {
-    scheduleReconnect("Error en la transmision.");
+    if (!userWantsRadio) return;
+    const mediaError = audio.error?.code;
+    const reason = mediaError === 2
+      ? radioText("La conexión con la radio se interrumpió.", "The radio connection was interrupted.")
+      : radioText("Error en la transmisión.", "Stream error.");
+    scheduleReconnect(reason);
   });
 
   window.addEventListener("online", async () => {
@@ -683,6 +735,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   window.addEventListener("offline", () => {
     if (userWantsRadio) {
       clearReconnectTimer();
+      clearBufferTimer();
       setUI(false);
       status.textContent = radioText("Sin internet. La radio se reconectara al volver la conexion.", "No internet connection. The radio will reconnect when the connection returns.");
     }
@@ -1025,7 +1078,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevBtn = document.getElementById("imgPrev");
   const nextBtn = document.getElementById("imgNext");
   const counterEl = document.getElementById("imgModalCounter");
-  const shareBtn = document.getElementById("imgModalShare");
   const backdrop = modal?.querySelector(".img-modal__backdrop");
 
   if (!modal || !view || !prevBtn || !nextBtn || !backdrop) return;
@@ -1146,37 +1198,6 @@ document.addEventListener("DOMContentLoaded", () => {
   nextBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     showNext();
-  });
-
-  shareBtn?.addEventListener("click", async (e) => {
-    e.stopPropagation();
-    const item = images[currentIndex];
-    if (!item) return;
-
-    const shareData = {
-      title: item.caption || "Fotografía IADSDER",
-      text: `${item.caption || "Fotografía de IADSDER"} — iadsder.org`,
-      url: item.src
-    };
-
-    try {
-      const response = await fetch(item.src);
-      const blob = response.ok ? await response.blob() : null;
-      const extension = blob?.type === "image/png" ? "png" : "jpg";
-      const file = blob ? new File([blob], `iadsder-foto-${currentIndex + 1}.${extension}`, { type: blob.type || "image/jpeg" }) : null;
-
-      if (file && navigator.share && navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ title: shareData.title, text: shareData.text, files: [file] });
-      } else if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        window.open(`https://wa.me/?text=${encodeURIComponent(`${shareData.text}\n${shareData.url}`)}`, "_blank", "noopener");
-      }
-    } catch (error) {
-      if (error.name !== "AbortError") {
-        window.open(`https://wa.me/?text=${encodeURIComponent(`${shareData.text}\n${shareData.url}`)}`, "_blank", "noopener");
-      }
-    }
   });
 
   // CERRAR
