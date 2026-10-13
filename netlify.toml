@@ -6,6 +6,12 @@
 [functions]
   node_bundler = "esbuild"
 
+[[redirects]]
+  from = "/api/comments-admin"
+  to = "https://jtadiyslvplvravtqzrh.supabase.co/functions/v1/comments-admin"
+  status = 200
+  force = true
+
 # El HTML y los datos del administrador deben comprobar cambios siempre.
 [[headers]]
   for = "/*.html"

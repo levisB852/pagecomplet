@@ -331,6 +331,13 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
   const form = document.getElementById("commentForm");
   const formMsg = document.getElementById("commentFormMsg");
   const list = document.getElementById("commentsList");
+  const commentsConfig = window.IADSDER_COMMENTS || {};
+  const supabaseReady = Boolean(
+    commentsConfig.supabaseUrl &&
+    commentsConfig.publishableKey &&
+    !commentsConfig.supabaseUrl.startsWith("__") &&
+    !commentsConfig.publishableKey.startsWith("__")
+  );
 
   function text(es, en) {
     return appLanguage === "en" ? en : es;
@@ -347,7 +354,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 
   function formatDate(value) {
     if (!value) return "";
-    const date = new Date(`${value}T12:00:00`);
+    const date = new Date(value.length <= 10 ? `${value}T12:00:00` : value);
     if (Number.isNaN(date.getTime())) return "";
     return new Intl.DateTimeFormat(appLanguage === "en" ? "en-US" : "es-SV", {
       day: "numeric",
@@ -379,13 +386,22 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     return article;
   }
 
-  if (list) {
-    fetch("/data/comentarios.json", { cache: "no-store" })
-      .then(response => response.ok ? response.json() : Promise.reject(new Error("comments unavailable")))
+  function loadComments() {
+    if (!list) return;
+    const request = supabaseReady
+      ? fetch(`${commentsConfig.supabaseUrl}/rest/v1/comments?select=id,nombre,filial,comentario,approved_at&status=eq.approved&order=approved_at.desc`, {
+          cache: "no-store",
+          headers: { apikey: commentsConfig.publishableKey }
+        }).then(response => response.ok ? response.json() : Promise.reject(new Error("comments unavailable")))
+      : fetch("/data/comentarios.json", { cache: "no-store" })
+          .then(response => response.ok ? response.json() : Promise.reject(new Error("comments unavailable")))
+          .then(data => Array.isArray(data.comentarios) ? data.comentarios : []);
+
+    request
       .then(data => {
-        const comments = Array.isArray(data.comentarios)
-          ? data.comentarios.filter(item => item && item.published !== false && item.nombre && item.comentario)
-          : [];
+        const comments = (Array.isArray(data) ? data : [])
+          .filter(item => item && item.published !== false && item.nombre && item.comentario)
+          .map(item => ({ ...item, fecha: item.approved_at || item.fecha }));
 
         if (!comments.length) {
           showEmpty(text("Todavía no hay comentarios publicados.", "There are no published comments yet."));
@@ -399,6 +415,7 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
         "Comments could not be loaded right now."
       )));
   }
+  loadComments();
 
   if (!form || !formMsg) return;
 
@@ -409,15 +426,31 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     formMsg.textContent = text("Enviando comentario...", "Sending comment...");
 
     try {
-      const response = await fetch("/.netlify/forms", {
+      const formData = new FormData(form);
+      if (supabaseReady) {
+        const response = await fetch(`${commentsConfig.supabaseUrl}/rest/v1/comments`, {
+          method: "POST",
+          headers: {
+            apikey: commentsConfig.publishableKey,
+            "Content-Type": "application/json",
+            Prefer: "return=minimal"
+          },
+          body: JSON.stringify({
+            nombre: String(formData.get("nombre") || "").trim(),
+            filial: String(formData.get("filial") || "").trim() || null,
+            comentario: String(formData.get("comentario") || "").trim()
+          })
+        });
+        if (!response.ok) throw new Error(`Supabase ${response.status}`);
+      }
+
+      // Netlify conserva el correo en privado y puede enviar la notificación.
+      // La moderación y publicación pública se hacen en Supabase sin despliegues.
+      fetch("/.netlify/forms", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(new FormData(form)).toString()
-      });
-
-      if (!response.ok && (response.status < 300 || response.status >= 400)) {
-        throw new Error(`HTTP ${response.status}`);
-      }
+        body: new URLSearchParams(formData).toString()
+      }).catch(() => {});
 
       form.reset();
       formMsg.textContent = text(

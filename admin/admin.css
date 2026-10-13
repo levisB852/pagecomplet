@@ -152,8 +152,64 @@ body {
 }
 .admin-bulk-link[hidden] { display: none; }
 .admin-bulk-link span { font-size: 22px; line-height: 1; }
+.admin-comments-link {
+  position: fixed;
+  right: 20px;
+  bottom: 78px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-radius: 999px;
+  color: #fff;
+  background: #183c68;
+  box-shadow: 0 10px 30px rgba(16, 47, 87, .25);
+  font: 700 15px/1.2 Inter, system-ui, sans-serif;
+  text-decoration: none;
+}
+.admin-comments-link[hidden] { display: none; }
 @media (max-width: 600px) {
   .admin-bulk-link { right: 12px; bottom: 12px; left: 12px; justify-content: center; }
+  .admin-comments-link { right: 12px; bottom: 70px; left: 12px; justify-content: center; }
+}
+
+/* Moderación de comentarios: usa la sesión existente de Netlify Identity. */
+.moderation-page { min-height: 100vh; padding: clamp(18px, 4vw, 48px); }
+.moderation-header,
+.moderation-main { width: min(100%, 1040px); margin-inline: auto; }
+.moderation-header { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 28px; }
+.moderation-header h1 { margin: 7px 0 6px; color: var(--admin-green); font: 700 clamp(2rem, 5vw, 3.4rem)/1 Georgia, serif; }
+.moderation-header p { margin: 0; color: var(--admin-muted); }
+.moderation-header nav { display: flex; gap: 9px; flex-wrap: wrap; }
+.moderation-link { padding: 10px 14px; border: 1px solid rgba(23,75,53,.16); border-radius: 999px; color: var(--admin-green); background: #fff; text-decoration: none; font-weight: 750; }
+.moderation-main { padding: clamp(16px, 3vw, 28px); border: 1px solid rgba(23,75,53,.12); border-radius: 24px; background: rgba(255,255,255,.94); box-shadow: 0 24px 70px rgba(23,75,53,.12); }
+.moderation-toolbar { display: flex; gap: 8px; flex-wrap: wrap; padding-bottom: 18px; border-bottom: 1px solid #e2ebe6; }
+.moderation-toolbar button { min-height: 42px; padding: 9px 14px; border: 0; border-radius: 12px; cursor: pointer; font: 750 14px/1 Inter, system-ui, sans-serif; }
+.moderation-filter { color: #446055; background: #edf3ef; }
+.moderation-filter.is-active { color: #fff; background: var(--admin-green); }
+.moderation-filter b { display: inline-grid; min-width: 22px; min-height: 22px; margin-left: 5px; place-items: center; border-radius: 99px; color: var(--admin-green); background: #fff; }
+.moderation-refresh { margin-left: auto; color: #174b35; background: #f5e9bf; }
+.moderation-message { min-height: 22px; margin: 15px 0; color: #41735b; font-weight: 700; }
+.moderation-message.is-error { color: #a22d35; }
+.moderation-list { display: grid; gap: 14px; }
+.moderation-card { padding: 19px; border: 1px solid #dce7e0; border-radius: 17px; background: #fff; box-shadow: 0 5px 18px rgba(23,75,53,.06); }
+.moderation-card__top { display: flex; justify-content: space-between; gap: 18px; }
+.moderation-card__top div { display: grid; gap: 3px; }
+.moderation-card__top strong { color: #163e2d; font-size: 1.08rem; }
+.moderation-card__top span,
+.moderation-card__top time { color: #6b7d74; font-size: .84rem; }
+.moderation-card blockquote { margin: 17px 0; color: #243e32; font: 500 1.03rem/1.65 Georgia, serif; }
+.moderation-actions { display: flex; gap: 9px; }
+.moderation-actions button { padding: 10px 16px; border: 0; border-radius: 10px; color: #fff; cursor: pointer; font-weight: 800; }
+.moderation-approve { background: #1d704c; }
+.moderation-reject { background: #a53a40; }
+.moderation-empty { padding: 42px 20px; text-align: center; color: var(--admin-muted); border: 1px dashed #c9d9d0; border-radius: 16px; }
+@media (max-width: 680px) {
+  .moderation-header { align-items: stretch; flex-direction: column; }
+  .moderation-header nav a { flex: 1; text-align: center; }
+  .moderation-refresh { margin-left: 0; }
+  .moderation-card__top { flex-direction: column; gap: 5px; }
 }
 
 /* Panel moderno: estilos aplicados sobre la interfaz generada por Decap. */

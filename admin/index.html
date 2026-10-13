@@ -18,6 +18,9 @@
   <a class="admin-bulk-link" id="adminBulkLink" href="/admin/galeria-multiple.html" hidden>
     <span aria-hidden="true">＋</span> Subir varias fotos
   </a>
+  <a class="admin-comments-link" id="adminCommentsLink" href="/admin/comentarios.html" hidden>
+    <span aria-hidden="true">◌</span> Revisar comentarios
+  </a>
   <main class="admin-welcome" id="adminWelcome" aria-live="polite">
     <section class="admin-welcome__card">
       <img src="/img/Logo_IADSDER-1000.webp" alt="IADSDER" class="admin-welcome__logo" width="1000" height="891" />
@@ -41,6 +44,7 @@
         if (root && root.children.length) {
           welcome.hidden = true;
           document.getElementById("adminBulkLink").hidden = false;
+          document.getElementById("adminCommentsLink").hidden = false;
           observer.disconnect();
         }
       });

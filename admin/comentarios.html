@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#174b35" />
+  <title>Moderar comentarios | IADSDER</title>
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body class="moderation-page">
+  <header class="moderation-header">
+    <div>
+      <span class="admin-welcome__eyebrow">Administración IADSDER</span>
+      <h1>Comentarios recibidos</h1>
+      <p>Aprueba solamente los mensajes que deseas mostrar públicamente.</p>
+    </div>
+    <nav>
+      <a class="moderation-link" href="/admin/">← Contenido</a>
+      <a class="moderation-link" href="/">Ver sitio</a>
+    </nav>
+  </header>
+
+  <main class="moderation-main">
+    <section class="moderation-toolbar" aria-label="Filtros de comentarios">
+      <button class="moderation-filter is-active" type="button" data-status="pending">Pendientes <b id="pendingCount">0</b></button>
+      <button class="moderation-filter" type="button" data-status="approved">Publicados</button>
+      <button class="moderation-filter" type="button" data-status="rejected">Rechazados</button>
+      <button class="moderation-refresh" id="refreshComments" type="button">Actualizar</button>
+    </section>
+    <p class="moderation-message" id="moderationMessage" role="status" aria-live="polite">Comprobando acceso…</p>
+    <section class="moderation-list" id="moderationList" aria-live="polite"></section>
+  </main>
+
+  <template id="commentCardTemplate">
+    <article class="moderation-card">
+      <div class="moderation-card__top">
+        <div><strong data-field="nombre"></strong><span data-field="meta"></span></div>
+        <time data-field="date"></time>
+      </div>
+      <blockquote data-field="comentario"></blockquote>
+      <div class="moderation-actions">
+        <button class="moderation-approve" type="button" data-action="approved">Publicar</button>
+        <button class="moderation-reject" type="button" data-action="rejected">Rechazar</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="/admin/comentarios.js"></script>
+</body>
+</html>
