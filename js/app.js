@@ -416,6 +416,10 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
       )));
   }
   loadComments();
+  window.setInterval(() => {
+    if (!document.hidden) loadComments();
+  }, 30000);
+  window.addEventListener("focus", loadComments);
 
   if (!form || !formMsg) return;
 

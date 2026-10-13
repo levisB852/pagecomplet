@@ -2,10 +2,15 @@
   const list = document.getElementById("moderationList");
   const message = document.getElementById("moderationMessage");
   const pendingCount = document.getElementById("pendingCount");
+  const approvedCount = document.getElementById("approvedCount");
+  const rejectedCount = document.getElementById("rejectedCount");
+  const updated = document.getElementById("moderationUpdated");
+  const refreshButton = document.getElementById("refreshComments");
   const template = document.getElementById("commentCardTemplate");
   const filters = Array.from(document.querySelectorAll("[data-status]"));
   let comments = [];
   let activeStatus = "pending";
+  let loading = false;
 
   function setMessage(value, isError) {
     message.textContent = value;
@@ -17,6 +22,8 @@
   function render() {
     const visible = comments.filter(item => item.status === activeStatus);
     pendingCount.textContent = comments.filter(item => item.status === "pending").length;
+    approvedCount.textContent = comments.filter(item => item.status === "approved").length;
+    rejectedCount.textContent = comments.filter(item => item.status === "rejected").length;
     list.replaceChildren();
     if (!visible.length) {
       const empty = document.createElement("p");
@@ -28,11 +35,17 @@
     visible.forEach(item => {
       const card = template.content.firstElementChild.cloneNode(true);
       card.dataset.id = item.id;
+      card.dataset.status = item.status;
+      card.querySelector('[data-field="status"]').textContent = {
+        pending: "Pendiente",
+        approved: "Publicado",
+        rejected: "Rechazado"
+      }[item.status] || item.status;
       card.querySelector('[data-field="nombre"]').textContent = item.nombre;
-      card.querySelector('[data-field="meta"]').textContent = item.filial || "Sin filial indicada";
+      card.querySelector('[data-field="meta"]').textContent = item.filial || "Lugar no indicado";
       card.querySelector('[data-field="date"]').textContent = formatDate(item.created_at);
       card.querySelector('[data-field="comentario"]').textContent = item.comentario;
-      if (activeStatus !== "pending") card.querySelector(".moderation-actions").hidden = true;
+      if (item.status !== "pending") card.querySelector(".moderation-actions").hidden = true;
       list.append(card);
     });
   }
@@ -42,20 +55,29 @@
     const token = await user.jwt();
     return fetch(url, { ...options, headers: { ...(options && options.headers), Authorization: `Bearer ${token}` } });
   }
-  async function loadComments() {
-    setMessage("Cargando comentarios…");
+  async function loadComments(options = {}) {
+    if (loading) return;
+    loading = true;
+    refreshButton.disabled = true;
+    refreshButton.classList.add("is-loading");
+    if (!options.silent) setMessage("Cargando comentarios…");
     try {
       const response = await authorizedFetch("/api/comments-admin");
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "No se pudieron cargar los comentarios.");
       comments = Array.isArray(data.comments) ? data.comments : [];
       setMessage("");
+      updated.textContent = `Actualizado ${new Intl.DateTimeFormat("es-SV", { hour: "numeric", minute: "2-digit", second: "2-digit" }).format(new Date())}`;
       render();
     } catch (error) {
       if (error.message === "AUTH") {
         setMessage("Inicia sesión para moderar comentarios.", true);
         window.netlifyIdentity.open("login");
       } else setMessage(error.message, true);
+    } finally {
+      loading = false;
+      refreshButton.disabled = false;
+      refreshButton.classList.remove("is-loading");
     }
   }
   async function moderate(id, status, button) {
@@ -69,9 +91,8 @@
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "No se pudo guardar el cambio.");
-      comments = comments.map(item => item.id === id ? data.comment : item);
       setMessage(status === "approved" ? "Comentario publicado sin hacer un despliegue." : "Comentario rechazado.");
-      render();
+      await loadComments({ silent: true });
     } catch (error) {
       button.disabled = false;
       setMessage(error.message, true);
@@ -82,7 +103,7 @@
     filters.forEach(item => item.classList.toggle("is-active", item === button));
     render();
   }));
-  document.getElementById("refreshComments").addEventListener("click", loadComments);
+  refreshButton.addEventListener("click", () => loadComments());
   list.addEventListener("click", event => {
     const button = event.target.closest("[data-action]");
     const card = event.target.closest("[data-id]");
@@ -93,4 +114,15 @@
     window.netlifyIdentity.on("login", () => { window.netlifyIdentity.close(); loadComments(); });
     window.netlifyIdentity.init();
   }
+
+  // Mantiene el panel sincronizado sin recargar la página ni crear despliegues.
+  window.setInterval(() => {
+    if (!document.hidden && window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
+      loadComments({ silent: true });
+    }
+  }, 10000);
+  window.addEventListener("focus", () => loadComments({ silent: true }));
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) loadComments({ silent: true });
+  });
 })();

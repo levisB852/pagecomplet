@@ -25,18 +25,21 @@
   <main class="moderation-main">
     <section class="moderation-toolbar" aria-label="Filtros de comentarios">
       <button class="moderation-filter is-active" type="button" data-status="pending">Pendientes <b id="pendingCount">0</b></button>
-      <button class="moderation-filter" type="button" data-status="approved">Publicados</button>
-      <button class="moderation-filter" type="button" data-status="rejected">Rechazados</button>
+      <button class="moderation-filter" type="button" data-status="approved">Publicados <b id="approvedCount">0</b></button>
+      <button class="moderation-filter" type="button" data-status="rejected">Rechazados <b id="rejectedCount">0</b></button>
       <button class="moderation-refresh" id="refreshComments" type="button">Actualizar</button>
     </section>
-    <p class="moderation-message" id="moderationMessage" role="status" aria-live="polite">Comprobando acceso…</p>
+    <div class="moderation-statusbar">
+      <p class="moderation-message" id="moderationMessage" role="status" aria-live="polite">Comprobando acceso…</p>
+      <span id="moderationUpdated" class="moderation-updated"></span>
+    </div>
     <section class="moderation-list" id="moderationList" aria-live="polite"></section>
   </main>
 
   <template id="commentCardTemplate">
     <article class="moderation-card">
       <div class="moderation-card__top">
-        <div><strong data-field="nombre"></strong><span data-field="meta"></span></div>
+        <div><span class="moderation-card__status" data-field="status"></span><strong data-field="nombre"></strong><span data-field="meta"></span></div>
         <time data-field="date"></time>
       </div>
       <blockquote data-field="comentario"></blockquote>

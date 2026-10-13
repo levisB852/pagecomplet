@@ -190,16 +190,23 @@ body {
 .moderation-filter.is-active { color: #fff; background: var(--admin-green); }
 .moderation-filter b { display: inline-grid; min-width: 22px; min-height: 22px; margin-left: 5px; place-items: center; border-radius: 99px; color: var(--admin-green); background: #fff; }
 .moderation-refresh { margin-left: auto; color: #174b35; background: #f5e9bf; }
+.moderation-refresh.is-loading { opacity: .65; cursor: wait; }
+.moderation-statusbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 52px; }
 .moderation-message { min-height: 22px; margin: 15px 0; color: #41735b; font-weight: 700; }
 .moderation-message.is-error { color: #a22d35; }
+.moderation-updated { color: #718078; font-size: .78rem; white-space: nowrap; }
 .moderation-list { display: grid; gap: 14px; }
-.moderation-card { padding: 19px; border: 1px solid #dce7e0; border-radius: 17px; background: #fff; box-shadow: 0 5px 18px rgba(23,75,53,.06); }
+.moderation-card { position: relative; padding: 22px; overflow: hidden; border: 1px solid #d6e4dc; border-left: 5px solid #276c4c; border-radius: 19px; background: linear-gradient(145deg, #fff, #f7faf8); box-shadow: 0 8px 25px rgba(23,75,53,.08); }
+.moderation-card::after { content: "“"; position: absolute; top: 8px; right: 18px; color: rgba(23,75,53,.08); font: 700 6rem/.8 Georgia, serif; pointer-events: none; }
 .moderation-card__top { display: flex; justify-content: space-between; gap: 18px; }
 .moderation-card__top div { display: grid; gap: 3px; }
-.moderation-card__top strong { color: #163e2d; font-size: 1.08rem; }
+.moderation-card__status { width: fit-content; margin-bottom: 5px; padding: 4px 8px; border-radius: 999px; color: #8a5b00 !important; background: #fff0bd; font-size: .68rem !important; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+.moderation-card[data-status="approved"] .moderation-card__status { color: #17643f !important; background: #dcefe4; }
+.moderation-card[data-status="rejected"] .moderation-card__status { color: #8e2b31 !important; background: #f7dfe1; }
+.moderation-card__top strong { color: #22503a; font-size: .9rem; }
 .moderation-card__top span,
 .moderation-card__top time { color: #6b7d74; font-size: .84rem; }
-.moderation-card blockquote { margin: 17px 0; color: #243e32; font: 500 1.03rem/1.65 Georgia, serif; }
+.moderation-card blockquote { position: relative; z-index: 1; margin: 18px 0 21px; color: #173629; font: 600 clamp(1.15rem, 2.2vw, 1.4rem)/1.6 Georgia, serif; }
 .moderation-actions { display: flex; gap: 9px; }
 .moderation-actions button { padding: 10px 16px; border: 0; border-radius: 10px; color: #fff; cursor: pointer; font-weight: 800; }
 .moderation-approve { background: #1d704c; }
@@ -210,6 +217,8 @@ body {
   .moderation-header nav a { flex: 1; text-align: center; }
   .moderation-refresh { margin-left: 0; }
   .moderation-card__top { flex-direction: column; gap: 5px; }
+  .moderation-statusbar { align-items: flex-start; flex-direction: column; gap: 0; }
+  .moderation-updated { padding-bottom: 12px; }
 }
 
 /* Panel moderno: estilos aplicados sobre la interfaz generada por Decap. */
