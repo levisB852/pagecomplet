@@ -27,6 +27,7 @@
 
   // Chrome y otros navegadores mostrarán su opción nativa de instalación.
   if (!("serviceWorker" in navigator)) return;
+  if (location.hostname === "127.0.0.1" || location.hostname === "localhost") return;
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("/service-worker.js").catch(function (error) {
       console.warn("No se pudo activar el modo offline:", error);

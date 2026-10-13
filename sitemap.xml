@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://iadsder.org/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
   </url>
@@ -19,14 +19,14 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://iadsder.org/archivos/estatutos/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://iadsder.org/archivos/estatutos.html</loc>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://iadsder.org/archivos/manual-doctrina/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://iadsder.org/archivos/manual.html</loc>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.80</priority>
   </url>

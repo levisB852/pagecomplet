@@ -136,3 +136,15 @@ El ID es:
 5. Guarda.
 
 Las imagenes se guardan en `img/galeria/uploads`.
+
+## Revisar y publicar comentarios
+
+Los comentarios enviados desde la pagina no aparecen publicamente de inmediato.
+
+1. Revisa los mensajes privados en Netlify, dentro de `Forms` > `comentarios`.
+2. Descarta cualquier mensaje no deseado.
+3. Entra a `/admin/` y abre `Comentarios aprobados`.
+4. Agrega solamente el nombre, filial, comentario y fecha del mensaje aprobado. No copies el correo.
+5. Puedes agregar o editar varios comentarios antes de guardar y publicar todo junto.
+
+Para recibir un aviso por correo con cada comentario nuevo, configura una sola vez en Netlify: `Forms` > `Submission notifications` > `Add notification` > `Email notification`, y selecciona el formulario `comentarios`.

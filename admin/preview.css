@@ -19,3 +19,11 @@ body { margin: 0; color: #17241d; background: #eef5f0; font-family: Inter, Arial
 .filiales-preview__body small { color: #607068; text-transform: capitalize; }
 .filiales-preview__circuit { display: inline-block; padding: .3rem .55rem; border-radius: 999px; background: #e1f1e7; color: #1d6548; font-size: .72rem; font-weight: 800; }
 @media (max-width: 600px) { .filiales-preview { padding: 1rem; } }
+
+.comments-preview { max-width: 1000px; min-height: 100vh; margin: 0 auto; padding: 2rem; color: #17241d; background: #eef5f0; font-family: Inter, Arial, sans-serif; }
+.comments-preview__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.comments-preview__grid article { display: flex; flex-direction: column; min-height: 145px; padding: 1.1rem; border: 1px solid #dce7e0; border-radius: 16px; background: #fff; box-shadow: 0 10px 28px rgba(23,75,53,.10); }
+.comments-preview__grid blockquote { margin: 0 0 1.1rem; line-height: 1.6; }
+.comments-preview__grid strong { margin-top: auto; color: #174b35; }
+.comments-preview__grid small { margin-top: .25rem; color: #607068; }
+@media (max-width: 600px) { .comments-preview { padding: 1rem; } }

@@ -325,6 +325,117 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
 })();
 
 // ============================================================
+// 12.5 COMENTARIOS MODERADOS
+// ============================================================
+(function moderatedComments() {
+  const form = document.getElementById("commentForm");
+  const formMsg = document.getElementById("commentFormMsg");
+  const list = document.getElementById("commentsList");
+
+  function text(es, en) {
+    return appLanguage === "en" ? en : es;
+  }
+
+  function showEmpty(message) {
+    if (!list) return;
+    list.replaceChildren();
+    const empty = document.createElement("p");
+    empty.className = "card comment-empty";
+    empty.textContent = message;
+    list.append(empty);
+  }
+
+  function formatDate(value) {
+    if (!value) return "";
+    const date = new Date(`${value}T12:00:00`);
+    if (Number.isNaN(date.getTime())) return "";
+    return new Intl.DateTimeFormat(appLanguage === "en" ? "en-US" : "es-SV", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }).format(date);
+  }
+
+  function renderComment(item) {
+    const article = document.createElement("article");
+    article.className = "card comment-card";
+
+    const quote = document.createElement("blockquote");
+    quote.textContent = item.comentario;
+
+    const footer = document.createElement("footer");
+    const author = document.createElement("strong");
+    author.textContent = item.nombre;
+    footer.append(author);
+
+    const details = [item.filial, formatDate(item.fecha)].filter(Boolean);
+    if (details.length) {
+      const meta = document.createElement("span");
+      meta.textContent = details.join(" · ");
+      footer.append(meta);
+    }
+
+    article.append(quote, footer);
+    return article;
+  }
+
+  if (list) {
+    fetch("/data/comentarios.json", { cache: "no-store" })
+      .then(response => response.ok ? response.json() : Promise.reject(new Error("comments unavailable")))
+      .then(data => {
+        const comments = Array.isArray(data.comentarios)
+          ? data.comentarios.filter(item => item && item.published !== false && item.nombre && item.comentario)
+          : [];
+
+        if (!comments.length) {
+          showEmpty(text("Todavía no hay comentarios publicados.", "There are no published comments yet."));
+          return;
+        }
+
+        list.replaceChildren(...comments.map(renderComment));
+      })
+      .catch(() => showEmpty(text(
+        "No fue posible cargar los comentarios en este momento.",
+        "Comments could not be loaded right now."
+      )));
+  }
+
+  if (!form || !formMsg) return;
+
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
+    const button = form.querySelector('button[type="submit"]');
+    if (button) button.disabled = true;
+    formMsg.textContent = text("Enviando comentario...", "Sending comment...");
+
+    try {
+      const response = await fetch("/.netlify/forms", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(new FormData(form)).toString()
+      });
+
+      if (!response.ok && (response.status < 300 || response.status >= 400)) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      form.reset();
+      formMsg.textContent = text(
+        "Comentario enviado. Lo revisaremos antes de publicarlo.",
+        "Comment sent. We will review it before publishing."
+      );
+    } catch (error) {
+      formMsg.textContent = text(
+        "No se pudo enviar el comentario. Intenta nuevamente.",
+        "The comment could not be sent. Please try again."
+      );
+    } finally {
+      if (button) button.disabled = false;
+    }
+  });
+})();
+
+// ============================================================
 // 13. VIDEOS YOUTUBE
 // ============================================================
 (function liveBroadcast() {

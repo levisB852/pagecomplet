@@ -18,9 +18,9 @@
 
   <!-- SEO básico -->
   <title>Iglesia Adventista de Dios del Séptimo Día en Reforma | iadsder.org</title>
-  <meta name="description" content="Sitio oficial de la Iglesia Adventista del Séptimo Día en Reforma. Himnario, estatutos, manual doctrinal, misión, visión y contacto en El Salvador." />
+  <meta name="description" content="Sitio oficial de la Iglesia Adventista de Dios del Séptimo Día en Reforma en El Salvador: himnario digital, radio cristiana, filiales, videos, doctrina y contacto." />
   <link rel="canonical" href="https://iadsder.org/">
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -31,7 +31,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="Iglesia Adventista de Dios del Séptimo Día en Reforma">
-  <meta property="og:description" content="Himnario, estatutos, manual doctrinal, misión, visión y contacto.">
+  <meta property="og:description" content="Himnario digital, radio cristiana, filiales, videos, recursos doctrinales y contacto de IADSDER en El Salvador.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://iadsder.org/">
   <meta property="og:image" content="https://iadsder.org/img/Logo_IADSDER.png">
@@ -49,17 +49,34 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Church",
-    "name": "Iglesia Adventista de Dios del Séptimo Día en Reforma",
-    "url": "https://iadsder.org/",
-    "logo": "https://iadsder.org/img/Logo_IADSDER.png",
-    "image": "https://iadsder.org/img/Logo_IADSDER.png",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "El Salvador",
-      "addressLocality": "El Salvador",
-      "addressCountry": "SV"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://iadsder.org/#website",
+        "url": "https://iadsder.org/",
+        "name": "IADSDER",
+        "alternateName": "Iglesia Adventista de Dios del Séptimo Día en Reforma",
+        "inLanguage": ["es-SV", "en"]
+      },
+      {
+        "@type": "Church",
+        "@id": "https://iadsder.org/#church",
+        "name": "Iglesia Adventista de Dios del Séptimo Día en Reforma",
+        "alternateName": "IADSDER",
+        "url": "https://iadsder.org/",
+        "logo": "https://iadsder.org/img/Logo_IADSDER.png",
+        "image": "https://iadsder.org/img/Logo_IADSDER.png",
+        "description": "Iglesia cristiana en El Salvador con himnario digital, radio, recursos doctrinales e información de sus iglesias filiales.",
+        "areaServed": {
+          "@type": "Country",
+          "name": "El Salvador"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "SV"
+        }
+      }
+    ]
   }
   </script>
 
@@ -85,6 +102,7 @@
         <a href="#recursos">Recursos</a>
         <a href="#radio">Radio</a>
         <a href="#videos">Videos</a>
+        <a href="#comentarios">Comentarios</a>
         <a href="#contacto">Contacto</a>
       </nav>
 
@@ -101,6 +119,7 @@
         <a role="menuitem" href="#recursos">Recursos</a>
         <a role="menuitem" href="#radio">Radio en vivo</a>
         <a role="menuitem" href="#videos">Videos</a>
+        <a role="menuitem" href="#comentarios">Comentarios</a>
         <a role="menuitem" href="#contacto">Contacto</a>
       </div>
     </div>
@@ -417,6 +436,103 @@
     </div>
   </div>
 
+  <!-- COMENTARIOS MODERADOS -->
+  <section id="comentarios" class="section comments-section">
+    <div class="container">
+      <div class="comments-panel" data-reveal>
+        <div class="comments-intro">
+          <span class="comments-kicker">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17h4l2.5 3v-3H17a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3Z"/></svg>
+            Comunidad IADSDER
+          </span>
+          <h2>Tu mensaje también forma parte de nuestra comunidad</h2>
+          <p>Comparte un saludo, un testimonio o unas palabras de ánimo para nuestra iglesia.</p>
+
+          <div class="comments-trust">
+            <span><b>✓</b> Revisamos cada mensaje antes de publicarlo</span>
+            <span><b>✓</b> Tu correo siempre permanece privado</span>
+          </div>
+
+          <div class="comments-ornament" aria-hidden="true">“</div>
+        </div>
+
+        <aside class="comment-form-card">
+          <div class="published-comments">
+            <div class="published-comments__head">
+              <div>
+                <span>Palabras compartidas</span>
+                <h3>Mensajes de nuestra comunidad</h3>
+              </div>
+            </div>
+            <div id="commentsList" class="comments-list" aria-live="polite">
+              <p class="comment-empty">Cargando comentarios...</p>
+            </div>
+          </div>
+
+          <details class="comment-composer">
+            <summary class="comment-composer__toggle">
+              <span class="comment-composer__icon" aria-hidden="true">✎</span>
+              <span>
+                <small>Comparte con la comunidad</small>
+                <strong>Enviar comentario</strong>
+              </span>
+              <span class="comment-composer__arrow" aria-hidden="true">⌄</span>
+            </summary>
+
+            <div class="comment-composer__body">
+              <div class="comment-form-heading">
+                <span>Puedes escribirnos aquí</span>
+                <h3>Deja tu comentario</h3>
+              </div>
+
+              <form id="commentForm"
+                    name="comentarios"
+                    method="POST"
+                    data-netlify="true"
+                    netlify-honeypot="comment-bot-field"
+                    action="/">
+            <input type="hidden" name="form-name" value="comentarios" />
+            <input type="hidden" name="subject" value="Nuevo comentario pendiente en IADSDER" />
+            <p class="form-honeypot" aria-hidden="true">
+              <label>No llenar: <input name="comment-bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
+
+            <div class="field">
+              <label for="commentName">Nombre</label>
+              <input class="input" id="commentName" name="nombre" required minlength="2" maxlength="60" autocomplete="name" placeholder="Escribe tu nombre" />
+            </div>
+
+            <div class="comment-form-row">
+              <div class="field">
+                <label for="commentEmail">Correo <small>Privado</small></label>
+                <input class="input" id="commentEmail" name="email" type="email" required maxlength="120" autocomplete="email" placeholder="tucorreo@ejemplo.com" />
+              </div>
+
+              <div class="field">
+                <label for="commentChurch">Filial <small>Opcional</small></label>
+                <input class="input" id="commentChurch" name="filial" maxlength="80" placeholder="Tu filial" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="commentText">Comentario</label>
+              <textarea class="input" id="commentText" name="comentario" rows="5" required minlength="10" maxlength="600" placeholder="Escribe tu mensaje"></textarea>
+              <small class="comment-limit">Máximo 600 caracteres</small>
+            </div>
+
+                <button class="btn btn-primary comment-submit" type="submit">
+                  <span>Enviar para revisión</span>
+                  <span aria-hidden="true">→</span>
+                </button>
+                <p id="commentFormMsg" class="muted" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+          </details>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACTO -->
   <section id="contacto" class="section alt">
     <div class="container">
@@ -514,6 +630,7 @@
           <li><a href="#radio">Radio en vivo</a></li>
           <li><a href="#videos">Videos</a></li>
           <li><a href="#galeria">Galería</a></li>
+          <li><a href="#comentarios">Comentarios</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
       </div>

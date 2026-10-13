@@ -141,6 +141,30 @@ collections:
               - { label: "Encargado o contacto", name: "contact", widget: "string", required: false }
               - { label: "Horario", name: "schedule", widget: "string", required: false }
 
+  - name: "comentarios_admin"
+    label: "Comentarios aprobados"
+    description: "Publica solamente los comentarios que ya revisaste en Netlify Forms. El correo del visitante nunca se copia aqui."
+    files:
+      - name: "comentarios"
+        label: "Administrar comentarios"
+        file: "data/comentarios.json"
+        format: "json"
+        fields:
+          - label: "Comentarios visibles"
+            name: "comentarios"
+            widget: "list"
+            label_singular: "Agregar comentario aprobado"
+            summary: "{{fields.nombre}} — {{fields.fecha}}"
+            collapsed: true
+            add_to_top: true
+            hint: "Revisa primero el mensaje recibido. Si es apropiado, copia aqui solamente el nombre, filial y comentario. Puedes preparar varios antes de publicar."
+            fields:
+              - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
+              - { label: "Nombre", name: "nombre", widget: "string" }
+              - { label: "Filial", name: "filial", widget: "string", required: false }
+              - { label: "Comentario aprobado", name: "comentario", widget: "text" }
+              - { label: "Fecha", name: "fecha", widget: "datetime", date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD", required: false }
+
   - name: "pagina_admin"
     label: "Pagina principal"
     description: "Versiculo semanal y datos usados al compartir el sitio."

@@ -66,5 +66,32 @@
   });
 
   CMS.registerPreviewTemplate("filiales_admin", FilialesPreview);
+
+  const CommentsPreview = createClass({
+    render: function () {
+      const value = this.props.entry.getIn(["data", "comentarios"]);
+      const comments = value && value.toJS ? value.toJS() : [];
+      const visible = comments.filter(item => item && item.published !== false && item.nombre && item.comentario);
+
+      return h("main", { className: "comments-preview" },
+        h("header", { className: "gallery-preview__head" },
+          h("span", {}, "Vista previa"),
+          h("h1", {}, "Mensajes de nuestra comunidad"),
+          h("p", {}, `${visible.length} ${visible.length === 1 ? "comentario publicado" : "comentarios publicados"}`)
+        ),
+        visible.length
+          ? h("div", { className: "comments-preview__grid" }, visible.map((item, index) =>
+              h("article", { key: `${item.nombre}-${index}` },
+                h("blockquote", {}, item.comentario),
+                h("strong", {}, item.nombre),
+                h("small", {}, [item.filial, item.fecha].filter(Boolean).join(" · "))
+              )
+            ))
+          : h("p", { className: "gallery-preview__empty" }, "No hay comentarios aprobados para mostrar.")
+      );
+    }
+  });
+
+  CMS.registerPreviewTemplate("comentarios_admin", CommentsPreview);
   CMS.registerPreviewStyle("/admin/preview.css");
 })();
