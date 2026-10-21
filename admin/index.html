@@ -15,12 +15,45 @@
   </script>
 </head>
 <body>
-  <a class="admin-bulk-link" id="adminBulkLink" href="/admin/galeria-multiple.html" hidden>
-    <span aria-hidden="true">＋</span> Subir varias fotos
-  </a>
-  <a class="admin-comments-link" id="adminCommentsLink" href="/admin/comentarios.html" hidden>
-    <span aria-hidden="true">◌</span> Revisar comentarios
-  </a>
+  <div class="admin-connection" id="adminConnection" hidden>
+    <span class="admin-connection__dot" aria-hidden="true"></span>
+    <span id="adminConnectionText">En línea</span>
+  </div>
+
+  <nav class="admin-dock" id="adminDock" aria-label="Accesos rápidos del administrador" hidden>
+    <a href="/admin/#/" data-admin-route="home">
+      <span aria-hidden="true">⌂</span>
+      <b>Inicio</b>
+    </a>
+    <a href="/admin/galeria-multiple.html">
+      <span aria-hidden="true">▧</span>
+      <b>Fotos</b>
+    </a>
+    <a href="/admin/comentarios.html">
+      <span aria-hidden="true">◌</span>
+      <b>Comentarios</b>
+    </a>
+    <button type="button" id="adminHelpToggle" aria-expanded="false" aria-controls="adminHelp">
+      <span aria-hidden="true">?</span>
+      <b>Ayuda</b>
+    </button>
+  </nav>
+
+  <aside class="admin-help" id="adminHelp" hidden>
+    <div class="admin-help__head">
+      <div>
+        <span>Guía rápida</span>
+        <h2>Trabajar desde el teléfono</h2>
+      </div>
+      <button type="button" id="adminHelpClose" aria-label="Cerrar ayuda">×</button>
+    </div>
+    <ol>
+      <li><b>Abre una sección</b><small>Filiales, videos, transmisiones o página principal.</small></li>
+      <li><b>Haz todos tus cambios</b><small>Puedes añadir varias cosas antes de guardar.</small></li>
+      <li><b>Guarda una sola vez</b><small>Espera la confirmación antes de cerrar la pantalla.</small></li>
+    </ol>
+    <p>Las fotografías grandes se optimizan automáticamente para evitar errores de carga.</p>
+  </aside>
   <main class="admin-welcome" id="adminWelcome" aria-live="polite">
     <section class="admin-welcome__card">
       <img src="/img/Logo_IADSDER-1000.webp" alt="IADSDER" class="admin-welcome__logo" width="1000" height="891" />
@@ -34,6 +67,8 @@
 
 
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="/admin/mobile-image-optimizer.js"></script>
+  <script src="/admin/admin-ui.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script src="/admin/preview.js"></script>
   <script>
@@ -43,8 +78,8 @@
         var root = document.getElementById("nc-root");
         if (root && root.children.length) {
           welcome.hidden = true;
-          document.getElementById("adminBulkLink").hidden = false;
-          document.getElementById("adminCommentsLink").hidden = false;
+          document.getElementById("adminDock").hidden = false;
+          document.getElementById("adminConnection").hidden = false;
           observer.disconnect();
         }
       });

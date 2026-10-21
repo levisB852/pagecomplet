@@ -134,7 +134,8 @@ collections:
                 required: false
                 allow_add: true
                 collapsed: true
-                hint: "Agrega fotografías del interior, reuniones o actividades. Al tocar la imagen principal se abrirá esta galería."
+                label_singular: "Agregar otra foto"
+                hint: "Agrega fotos del interior, reuniones o actividades. En teléfono se reducirán automáticamente antes de subir. Puedes añadir varias y guardar una sola vez al finalizar."
                 field: { label: "Fotografía", name: "image", widget: "image", choose_url: false }
               - { label: "Enlace de Google Maps", name: "mapsUrl", widget: "string", required: false }
               - { label: "Mapa incrustado", name: "embedUrl", widget: "text", required: false, hint: "Opcional. Puedes pegar el enlace de inserción o el código iframe completo de Google Maps." }

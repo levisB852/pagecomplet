@@ -160,7 +160,11 @@
       "address": "San Nicolás, El Salvador",
       "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4926.256068608612!2d-88.3534306!3d13.694315!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64cf0f8d7f96b3%3A0xc7207dfc5b54dec0!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20S%C3%89PTIMO%20D%C3%8DA%20EN%20REFORMA%20(San%20Nicolas)!5e1!3m2!1ses-419!2ssv!4v1790695741796!5m2!1ses-419!2ssv\"</iframe>",
       "mapsUrl": "https://maps.app.goo.gl/392b9xgMrc1DU6uY6",
-      "image": "/img/Logo_IADSDER-1000.webp"
+      "image": "/img/Logo_IADSDER-1000.webp",
+      "gallery": [
+        "/img/filiales/san-nicolas-reunion-1.jpg",
+        "/img/filiales/san-nicolas-reunion-2.jpg"
+      ]
     },
     {
       "contact": "Vidal Fuentes",
@@ -193,7 +197,11 @@
       "address": "Gualococti, Morazán, El Salvador",
       "embedUrl": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2461.7938778728844!2d-88.20689361150056!3d13.821102264509149!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f64df00685739a1%3A0xa81f1cb9bcd31caf!2sIGLESIA%20ADVENTISTA%20DE%20DIOS%20DEL%20SEPTIMO%20DIA%20EN%20REFORMA%2C%20GUALOCOCTI!5e1!3m2!1ses-419!2ssv!4v1790696244020!5m2!1ses-419!2ssv\"</iframe>",
       "mapsUrl": "https://maps.app.goo.gl/p5YMYJQZ74Rj77n38",
-      "image": "/img/filiales/gualococti.jpeg"
+      "image": "/img/filiales/gualococti.jpeg",
+      "gallery": [
+        "/img/filiales/gualococti-pena-blanca-1.jpg",
+        "/img/filiales/gualococti-pena-blanca-2.jpg"
+      ]
     },
     {
       "contact": "David Serrano",
