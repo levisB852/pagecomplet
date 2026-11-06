@@ -11,6 +11,7 @@
   let comments = [];
   let activeStatus = "pending";
   let loading = false;
+  let initialized = false;
 
   function setMessage(value, isError) {
     message.textContent = value;
@@ -53,7 +54,15 @@
     const user = window.netlifyIdentity && window.netlifyIdentity.currentUser();
     if (!user) throw new Error("AUTH");
     const token = await user.jwt();
-    return fetch(url, { ...options, headers: { ...(options && options.headers), Authorization: `Bearer ${token}` } });
+    return fetch(url, {
+      ...options,
+      cache: "no-store",
+      headers: {
+        ...(options && options.headers),
+        Authorization: `Bearer ${token}`,
+        "Cache-Control": "no-cache"
+      }
+    });
   }
   async function loadComments(options = {}) {
     if (loading) return;
@@ -62,11 +71,29 @@
     refreshButton.classList.add("is-loading");
     if (!options.silent) setMessage("Cargando comentarios…");
     try {
-      const response = await authorizedFetch("/api/comments-admin");
+      const previousPending = new Set(
+        comments.filter(item => item.status === "pending").map(item => item.id)
+      );
+      const response = await authorizedFetch(`/api/comments-admin?fresh=${Date.now()}`);
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "No se pudieron cargar los comentarios.");
       comments = Array.isArray(data.comments) ? data.comments : [];
-      setMessage("");
+      const newPending = initialized
+        ? comments.filter(item => item.status === "pending" && !previousPending.has(item.id)).length
+        : 0;
+      initialized = true;
+      if (newPending) {
+        activeStatus = "pending";
+        filters.forEach(item => item.classList.toggle("is-active", item.dataset.status === "pending"));
+        setMessage(`${newPending === 1 ? "Llegó un comentario nuevo" : `Llegaron ${newPending} comentarios nuevos`}. Ya aparece en revisión.`);
+        document.title = `(${comments.filter(item => item.status === "pending").length}) Comentarios | IADSDER`;
+      } else {
+        setMessage("");
+        const totalPending = comments.filter(item => item.status === "pending").length;
+        document.title = totalPending
+          ? `(${totalPending}) Comentarios | IADSDER`
+          : "Moderar comentarios | IADSDER";
+      }
       updated.textContent = `Actualizado ${new Intl.DateTimeFormat("es-SV", { hour: "numeric", minute: "2-digit", second: "2-digit" }).format(new Date())}`;
       render();
     } catch (error) {
@@ -91,8 +118,12 @@
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "No se pudo guardar el cambio.");
+      if (data.comment) {
+        comments = comments.map(item => item.id === id ? data.comment : item);
+        render();
+      }
       setMessage(status === "approved" ? "Comentario publicado sin hacer un despliegue." : "Comentario rechazado.");
-      await loadComments({ silent: true });
+      window.setTimeout(() => loadComments({ silent: true }), 800);
     } catch (error) {
       button.disabled = false;
       setMessage(error.message, true);
@@ -120,7 +151,7 @@
     if (!document.hidden && window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
       loadComments({ silent: true });
     }
-  }, 10000);
+  }, 3000);
   window.addEventListener("focus", () => loadComments({ silent: true }));
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) loadComments({ silent: true });

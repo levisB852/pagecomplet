@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v49";
+const CACHE_NAME = "iadsder-pwa-v50";
 
 const PRECACHE_URLS = [
   "/",
@@ -72,8 +72,11 @@ self.addEventListener("fetch", event => {
 
   const url = new URL(request.url);
 
-  // El administrador siempre debe leer la configuración más reciente.
-  if (url.origin === self.location.origin && url.pathname.startsWith("/admin/")) {
+  // El administrador y sus API privadas nunca deben usar la caché de la PWA.
+  if (
+    url.origin === self.location.origin &&
+    (url.pathname.startsWith("/admin/") || url.pathname.startsWith("/api/"))
+  ) {
     event.respondWith(fetch(request));
     return;
   }
