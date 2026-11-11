@@ -154,7 +154,7 @@ collections:
           - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
           - { label: "Cita biblica", name: "reference", widget: "string" }
           - { label: "Texto del versiculo", name: "text", widget: "text" }
-          - { label: "Nota corta", name: "note", widget: "string", required: false }
+          - { label: "Reflexion corta", name: "note", widget: "text", required: false, hint: "Una idea breve para acompañar y aplicar el versiculo durante la semana." }
       - name: "ajustes"
         label: "SEO y compartir"
         file: "data/ajustes.json"

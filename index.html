@@ -179,6 +179,7 @@
           <strong id="verseReference">Salmo 119:105</strong>
           <span class="muted" id="verseNote">Versiculo para recordar durante la semana.</span>
         </div>
+        <button class="btn btn-ghost content-share" id="shareVerse" type="button">Compartir reflexión</button>
       </article>
     </div>
   </section>
@@ -275,6 +276,7 @@
         </div>
 
         <p class="muted" id="radioStatus">Listo para reproducir.</p>
+        <button class="btn btn-ghost content-share" id="shareRadio" type="button">Compartir radio</button>
 
       </article>
     </div>
@@ -649,9 +651,37 @@
 
   <button id="toTop" class="btn btn-primary to-top" aria-label="Volver arriba">↑</button>
 
+  <button class="site-search-launch" id="siteSearchLaunch" type="button" aria-haspopup="dialog" aria-controls="siteSearchDialog">
+    <span aria-hidden="true">⌕</span><b>Buscar</b>
+  </button>
+
+  <div class="site-search" id="siteSearchDialog" hidden aria-hidden="true">
+    <button class="site-search__backdrop" type="button" data-search-close aria-label="Cerrar buscador"></button>
+    <section class="site-search__dialog" role="dialog" aria-modal="true" aria-labelledby="siteSearchTitle">
+      <header>
+        <div><span>Encuentra rápidamente</span><h2 id="siteSearchTitle">Buscar en IADSDER</h2></div>
+        <button type="button" data-search-close aria-label="Cerrar">×</button>
+      </header>
+      <label class="site-search__input">
+        <span aria-hidden="true">⌕</span>
+        <input id="siteSearchInput" type="search" placeholder="Himnos, filiales, radio, recursos…" autocomplete="off" />
+      </label>
+      <p class="muted site-search__hint" id="siteSearchHint">Escribe para ver resultados.</p>
+      <div class="site-search__results" id="siteSearchResults"></div>
+    </section>
+  </div>
+
+  <aside class="radio-mini" id="radioMini" hidden aria-live="polite">
+    <span class="radio-mini__dot" aria-hidden="true"></span>
+    <div><b>Radio IADSDER</b><small>Transmitiendo en vivo</small></div>
+    <button type="button" id="radioMiniToggle" aria-label="Pausar radio">❚❚</button>
+    <a href="#radio">Ver radio</a>
+  </aside>
+
   <script src="js/i18n.js"></script>
   <script src="js/comments-config.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/improvements.js"></script>
   <script src="js/pwa.js"></script>
 </body>
 </html>

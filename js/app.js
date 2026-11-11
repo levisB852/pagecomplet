@@ -973,7 +973,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  applyFilter("");
+  const initialQuery = new URLSearchParams(window.location.search).get("q") || "";
+  input.value = initialQuery;
+  applyFilter(initialQuery);
+  if (initialQuery) document.getElementById("filialSearch")?.scrollIntoView({ block: "center" });
 
   window.__refreshFilialSearch = () => {
     buildIndex();
@@ -1232,6 +1235,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let images = [];
   let currentIndex = 0;
+  let galleryScrollY = 0;
+  let galleryTrigger = null;
 
   let touchStartX = 0;
   let touchEndX = 0;
@@ -1260,8 +1265,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateModalImage();
 
+    galleryScrollY = window.scrollY;
+    galleryTrigger = document.activeElement;
     modal.hidden = false;
     modal.setAttribute("aria-hidden", "false");
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${galleryScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
     document.body.style.overflow = "hidden";
 
     // Mostrar flechas solo si hay varias imagenes
@@ -1276,7 +1287,14 @@ document.addEventListener("DOMContentLoaded", () => {
     view.src = "";
     view.alt = "";
     images = [];
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
     document.body.style.overflow = "";
+    window.scrollTo({ top: galleryScrollY, behavior: "instant" });
+    if (galleryTrigger instanceof HTMLElement) galleryTrigger.focus({ preventScroll: true });
+    galleryTrigger = null;
   }
 
   // SIGUIENTE
