@@ -60,27 +60,30 @@ collections:
               - { label: "Titulo", name: "title", widget: "string" }
               - { label: "Descripcion corta", name: "description", widget: "text", required: false }
 
-  - name: "facebook_admin"
-    label: "Publicaciones de Facebook"
-    description: "Pega enlaces de publicaciones publicas de Facebook para mostrar eventos, anuncios y actividades en la pagina principal."
+  - name: "novedades_admin"
+    label: "Novedades y noticias"
+    description: "Publica eventos, avisos y actividades. Si la lista esta vacia, esta seccion no aparecera en la pagina."
     files:
-      - name: "facebook"
-        label: "Administrar publicaciones"
-        file: "data/facebook.json"
+      - name: "novedades"
+        label: "Administrar novedades"
+        file: "data/novedades.json"
         format: "json"
         fields:
-          - { label: "Enlace de la pagina de Facebook", name: "pageUrl", widget: "string", required: false, hint: "Opcional. Se usara en el boton Visitar Facebook." }
-          - label: "Publicaciones"
-            name: "publicaciones"
+          - label: "Novedades"
+            name: "novedades"
             widget: "list"
-            label_singular: "Agregar publicacion"
+            label_singular: "Agregar novedad"
             collapsed: true
             add_to_top: true
-            hint: "Puedes agregar varias publicaciones y guardar una sola vez al terminar. Deben ser publicaciones publicas."
+            hint: "Puedes preparar varias novedades y guardar una sola vez al terminar."
             fields:
               - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
-              - { label: "Titulo corto", name: "title", widget: "string", required: false, hint: "Ejemplo: Campaña evangelistica o Actividad juvenil." }
-              - { label: "Enlace de la publicacion", name: "url", widget: "string", hint: "Abre el video o publicacion y copia su direccion permanente. No uses enlaces que comiencen con facebook.com/share/." }
+              - { label: "Tipo", name: "category", widget: "select", options: ["Evento", "Aviso", "Noticia", "Actividad"], default: "Noticia" }
+              - { label: "Titulo", name: "title", widget: "string" }
+              - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, required: false }
+              - { label: "Resumen", name: "summary", widget: "text" }
+              - { label: "Imagen", name: "image", widget: "image", required: false }
+              - { label: "Enlace para ampliar", name: "url", widget: "string", required: false, hint: "Opcional: puede ser un enlace de Facebook, YouTube u otra pagina." }
 
   - name: "transmision_admin"
     label: "Transmision en vivo"

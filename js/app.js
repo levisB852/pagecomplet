@@ -371,16 +371,26 @@ document.querySelectorAll(".toggle-map").forEach(btn => {
     quote.textContent = item.comentario;
 
     const footer = document.createElement("footer");
+    const avatar = document.createElement("span");
+    avatar.className = "comment-card__avatar";
+    avatar.setAttribute("aria-hidden", "true");
+    avatar.textContent = String(item.nombre || "?").trim().charAt(0).toUpperCase();
+
+    const identity = document.createElement("span");
+    identity.className = "comment-card__identity";
     const author = document.createElement("strong");
     author.textContent = item.nombre;
-    footer.append(author);
+    identity.append(author);
 
     const details = [item.filial, formatDate(item.fecha)].filter(Boolean);
     if (details.length) {
       const meta = document.createElement("span");
+      meta.className = "comment-card__meta";
       meta.textContent = details.join(" · ");
-      footer.append(meta);
+      identity.append(meta);
     }
+
+    footer.append(avatar, identity);
 
     article.append(quote, footer);
     return article;

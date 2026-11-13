@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v53";
+const CACHE_NAME = "iadsder-pwa-v54";
 
 const PRECACHE_URLS = [
   "/",
@@ -18,7 +18,7 @@ const PRECACHE_URLS = [
   "/data/galeria.json",
   "/data/videos.json",
   "/data/en-vivo.json",
-  "/data/facebook.json",
+  "/data/novedades.json",
   "/data/comentarios.json",
   "/archivos/filiales.html",
   "/img/pwa-192.png",

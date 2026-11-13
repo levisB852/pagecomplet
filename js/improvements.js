@@ -93,64 +93,73 @@
     }
   }
 
-  (function loadFacebookPosts() {
-    const section = document.getElementById("facebook");
-    const container = document.getElementById("facebookPosts");
-    const pageLink = document.getElementById("facebookPageLink");
+  (function loadNews() {
+    const section = document.getElementById("novedades");
+    const container = document.getElementById("newsGrid");
     if (!section || !container) return;
 
-    function validFacebookUrl(value) {
+    function validUrl(value) {
       try {
         const url = new URL(String(value || "").trim());
-        const host = url.hostname.toLowerCase();
-        return (host === "facebook.com" || host.endsWith(".facebook.com")) ? url.href : "";
+        return ["http:", "https:"].includes(url.protocol) ? url.href : "";
       } catch (_) { return ""; }
     }
 
-    fetch("/data/facebook.json", { cache: "no-store" })
-      .then(response => response.ok ? response.json() : Promise.reject(new Error("facebook unavailable")))
+    fetch("/data/novedades.json", { cache: "no-store" })
+      .then(response => response.ok ? response.json() : Promise.reject(new Error("news unavailable")))
       .then(data => {
-        const items = (Array.isArray(data) ? data : data.publicaciones || [])
+        const items = (Array.isArray(data) ? data : data.novedades || [])
           .filter(item => item && item.published !== false)
-          .map(item => ({ ...item, url: validFacebookUrl(item.url) }))
-          .filter(item => item.url);
+          .filter(item => item.title && item.summary);
         if (!items.length) return;
-
-        const configuredPage = validFacebookUrl(data.pageUrl);
-        if (pageLink && configuredPage) pageLink.href = configuredPage;
-        else if (pageLink) pageLink.hidden = true;
 
         const fragment = document.createDocumentFragment();
         items.forEach(item => {
           const article = document.createElement("article");
-          article.className = "facebook-post-card";
+          article.className = "news-card";
 
-          const heading = document.createElement("div");
-          heading.className = "facebook-post-card__head";
+          const image = validUrl(item.image);
+          if (image) {
+            const media = document.createElement("div");
+            media.className = "news-card__media";
+            const img = document.createElement("img");
+            img.src = image;
+            img.alt = item.title;
+            img.loading = "lazy";
+            img.decoding = "async";
+            media.append(img);
+            article.append(media);
+          }
+
+          const body = document.createElement("div");
+          body.className = "news-card__body";
+          const meta = document.createElement("div");
+          meta.className = "news-card__meta";
+          const category = document.createElement("span");
+          category.textContent = item.category || "Novedad";
+          meta.append(category);
+          if (item.date) {
+            const date = document.createElement("time");
+            date.dateTime = item.date;
+            date.textContent = new Intl.DateTimeFormat("es-SV", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${item.date}T12:00:00`));
+            meta.append(date);
+          }
           const title = document.createElement("h3");
-          title.textContent = item.title || "Publicación de Facebook";
-          const open = document.createElement("a");
-          open.href = item.url;
-          open.target = "_blank";
-          open.rel = "noopener";
-          open.textContent = "Abrir en Facebook";
-          heading.append(title, open);
-
-          const frameWrap = document.createElement("div");
-          frameWrap.className = "facebook-post-card__embed";
-          const frame = document.createElement("iframe");
-          frame.title = item.title || "Publicación de Facebook";
-          const itemPath = new URL(item.url).pathname.toLowerCase();
-          const isVideo = itemPath.includes("/reel/") || itemPath.includes("/videos/") || itemPath.includes("/watch/");
-          const plugin = isVideo ? "video.php" : "post.php";
-          frame.src = `https://www.facebook.com/plugins/${plugin}?href=${encodeURIComponent(item.url)}&show_text=true&width=500`;
-          frame.width = "500";
-          frame.height = String(Number(item.height) || 680);
-          frame.loading = "lazy";
-          frame.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
-          frame.allowFullscreen = true;
-          frameWrap.append(frame);
-          article.append(heading, frameWrap);
+          title.textContent = item.title;
+          const summary = document.createElement("p");
+          summary.textContent = item.summary;
+          body.append(meta, title, summary);
+          const link = validUrl(item.url);
+          if (link) {
+            const open = document.createElement("a");
+            open.className = "news-card__link";
+            open.href = link;
+            open.target = "_blank";
+            open.rel = "noopener";
+            open.textContent = "Ver más →";
+            body.append(open);
+          }
+          article.append(body);
           fragment.append(article);
         });
         container.append(fragment);
