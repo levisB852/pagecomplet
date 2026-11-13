@@ -80,7 +80,7 @@ collections:
             fields:
               - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
               - { label: "Titulo corto", name: "title", widget: "string", required: false, hint: "Ejemplo: Campaña evangelistica o Actividad juvenil." }
-              - { label: "Enlace de la publicacion", name: "url", widget: "string", hint: "Abre la publicacion en Facebook, pulsa Compartir y copia el enlace completo." }
+              - { label: "Enlace de la publicacion", name: "url", widget: "string", hint: "Abre el video o publicacion y copia su direccion permanente. No uses enlaces que comiencen con facebook.com/share/." }
 
   - name: "transmision_admin"
     label: "Transmision en vivo"

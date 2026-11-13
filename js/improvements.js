@@ -140,7 +140,10 @@
           frameWrap.className = "facebook-post-card__embed";
           const frame = document.createElement("iframe");
           frame.title = item.title || "Publicación de Facebook";
-          frame.src = `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(item.url)}&show_text=true&width=500`;
+          const itemPath = new URL(item.url).pathname.toLowerCase();
+          const isVideo = itemPath.includes("/reel/") || itemPath.includes("/videos/") || itemPath.includes("/watch/");
+          const plugin = isVideo ? "video.php" : "post.php";
+          frame.src = `https://www.facebook.com/plugins/${plugin}?href=${encodeURIComponent(item.url)}&show_text=true&width=500`;
           frame.width = "500";
           frame.height = String(Number(item.height) || 680);
           frame.loading = "lazy";

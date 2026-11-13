@@ -1,4 +1,4 @@
-const CACHE_NAME = "iadsder-pwa-v52";
+const CACHE_NAME = "iadsder-pwa-v53";
 
 const PRECACHE_URLS = [
   "/",
