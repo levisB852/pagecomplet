@@ -1163,6 +1163,15 @@ footer{
 .radio-mini small{ color:#cfe5d8; }
 .radio-mini button,.radio-mini a{ min-height:38px; padding:8px 11px; border:0; border-radius:10px; color:#174b35; background:#fff; font-weight:850; text-decoration:none; cursor:pointer; }
 .filial-share{ flex:1 1 100%; }
+.facebook-section{background:linear-gradient(180deg,transparent,#eef4ff 48%,transparent)}
+.facebook-kicker{display:inline-block;margin-bottom:.35rem;color:#1877f2;font-size:.75rem;font-weight:850;letter-spacing:.09em;text-transform:uppercase}
+.facebook-posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:18px;align-items:start}
+.facebook-post-card{overflow:hidden;border:1px solid #dce5f2;border-radius:20px;background:#fff;box-shadow:0 14px 38px rgba(31,67,116,.10)}
+.facebook-post-card__head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border-bottom:1px solid #e4ebf5}
+.facebook-post-card__head h3{margin:0;color:#173629;font-size:1rem}
+.facebook-post-card__head a{flex:0 0 auto;color:#1877f2;font-size:.78rem;font-weight:800;text-decoration:none}
+.facebook-post-card__embed{display:flex;justify-content:center;min-height:250px;overflow:hidden;background:#f3f6fa}
+.facebook-post-card iframe{display:block;width:100%;max-width:500px;border:0}
 @media(max-width:600px){.site-search-launch{right:12px;bottom:76px;padding:10px 13px}.site-search-launch b{display:none}.site-search{padding:16px 10px}.site-search__dialog{max-height:calc(100dvh - 32px);border-radius:18px}.radio-mini{bottom:10px;grid-template-columns:auto 1fr auto}.radio-mini>a{display:none}}
 
 .compact-section{

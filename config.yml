@@ -60,6 +60,28 @@ collections:
               - { label: "Titulo", name: "title", widget: "string" }
               - { label: "Descripcion corta", name: "description", widget: "text", required: false }
 
+  - name: "facebook_admin"
+    label: "Publicaciones de Facebook"
+    description: "Pega enlaces de publicaciones publicas de Facebook para mostrar eventos, anuncios y actividades en la pagina principal."
+    files:
+      - name: "facebook"
+        label: "Administrar publicaciones"
+        file: "data/facebook.json"
+        format: "json"
+        fields:
+          - { label: "Enlace de la pagina de Facebook", name: "pageUrl", widget: "string", required: false, hint: "Opcional. Se usara en el boton Visitar Facebook." }
+          - label: "Publicaciones"
+            name: "publicaciones"
+            widget: "list"
+            label_singular: "Agregar publicacion"
+            collapsed: true
+            add_to_top: true
+            hint: "Puedes agregar varias publicaciones y guardar una sola vez al terminar. Deben ser publicaciones publicas."
+            fields:
+              - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
+              - { label: "Titulo corto", name: "title", widget: "string", required: false, hint: "Ejemplo: Campaña evangelistica o Actividad juvenil." }
+              - { label: "Enlace de la publicacion", name: "url", widget: "string", hint: "Abre la publicacion en Facebook, pulsa Compartir y copia el enlace completo." }
+
   - name: "transmision_admin"
     label: "Transmision en vivo"
     description: "Muestra u oculta un Live de YouTube o Facebook en la pagina principal."

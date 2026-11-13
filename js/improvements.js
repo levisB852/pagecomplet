@@ -93,6 +93,69 @@
     }
   }
 
+  (function loadFacebookPosts() {
+    const section = document.getElementById("facebook");
+    const container = document.getElementById("facebookPosts");
+    const pageLink = document.getElementById("facebookPageLink");
+    if (!section || !container) return;
+
+    function validFacebookUrl(value) {
+      try {
+        const url = new URL(String(value || "").trim());
+        const host = url.hostname.toLowerCase();
+        return (host === "facebook.com" || host.endsWith(".facebook.com")) ? url.href : "";
+      } catch (_) { return ""; }
+    }
+
+    fetch("/data/facebook.json", { cache: "no-store" })
+      .then(response => response.ok ? response.json() : Promise.reject(new Error("facebook unavailable")))
+      .then(data => {
+        const items = (Array.isArray(data) ? data : data.publicaciones || [])
+          .filter(item => item && item.published !== false)
+          .map(item => ({ ...item, url: validFacebookUrl(item.url) }))
+          .filter(item => item.url);
+        if (!items.length) return;
+
+        const configuredPage = validFacebookUrl(data.pageUrl);
+        if (pageLink && configuredPage) pageLink.href = configuredPage;
+        else if (pageLink) pageLink.hidden = true;
+
+        const fragment = document.createDocumentFragment();
+        items.forEach(item => {
+          const article = document.createElement("article");
+          article.className = "facebook-post-card";
+
+          const heading = document.createElement("div");
+          heading.className = "facebook-post-card__head";
+          const title = document.createElement("h3");
+          title.textContent = item.title || "Publicación de Facebook";
+          const open = document.createElement("a");
+          open.href = item.url;
+          open.target = "_blank";
+          open.rel = "noopener";
+          open.textContent = "Abrir en Facebook";
+          heading.append(title, open);
+
+          const frameWrap = document.createElement("div");
+          frameWrap.className = "facebook-post-card__embed";
+          const frame = document.createElement("iframe");
+          frame.title = item.title || "Publicación de Facebook";
+          frame.src = `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(item.url)}&show_text=true&width=500`;
+          frame.width = "500";
+          frame.height = String(Number(item.height) || 680);
+          frame.loading = "lazy";
+          frame.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
+          frame.allowFullscreen = true;
+          frameWrap.append(frame);
+          article.append(heading, frameWrap);
+          fragment.append(article);
+        });
+        container.append(fragment);
+        section.hidden = false;
+      })
+      .catch(() => {});
+  })();
+
   const launch = document.getElementById("siteSearchLaunch");
   const dialog = document.getElementById("siteSearchDialog");
   const input = document.getElementById("siteSearchInput");
