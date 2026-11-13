@@ -6,7 +6,7 @@ local_backend: true
 locale: "es"
 show_preview_links: false
 editor:
-  preview: true
+  preview: false
 
 media_folder: "img/galeria/uploads"
 public_folder: "/img/galeria/uploads"
@@ -63,6 +63,8 @@ collections:
   - name: "novedades_admin"
     label: "Novedades y noticias"
     description: "Publica eventos, avisos y actividades. Si la lista esta vacia, esta seccion no aparecera en la pagina."
+    media_folder: "img/novedades"
+    public_folder: "/img/novedades"
     files:
       - name: "novedades"
         label: "Administrar novedades"
@@ -82,7 +84,7 @@ collections:
               - { label: "Titulo", name: "title", widget: "string" }
               - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, required: false }
               - { label: "Resumen", name: "summary", widget: "text" }
-              - { label: "Imagen", name: "image", widget: "image", required: false }
+              - { label: "Imagen", name: "image", widget: "image", required: false, choose_url: false, hint: "Se reducira automaticamente antes de subir desde el telefono." }
               - { label: "Enlace para ampliar", name: "url", widget: "string", required: false, hint: "Opcional: puede ser un enlace de Facebook, YouTube u otra pagina." }
 
   - name: "transmision_admin"
@@ -103,6 +105,8 @@ collections:
   - name: "filiales_admin"
     label: "Filiales"
     description: "Agrega o edita varias iglesias, guárdalas como borrador y publícalas cuando todo esté listo."
+    media_folder: "img/filiales/uploads"
+    public_folder: "/img/filiales/uploads"
     files:
       - name: "filiales"
         label: "Administrar filiales"
@@ -152,7 +156,7 @@ collections:
                   - { label: "Circuito 2", value: "2" }
                   - { label: "Circuito 3", value: "3" }
                   - { label: "Circuito 4", value: "4" }
-              - { label: "Imagen principal", name: "image", widget: "image", required: false, hint: "Es la fotografía que aparecerá en la tarjeta de la filial." }
+              - { label: "Imagen principal", name: "image", widget: "image", required: false, choose_url: false, hint: "Es la fotografía que aparecerá en la tarjeta. Se reducira automaticamente antes de subir." }
               - label: "Fotos adicionales"
                 name: "gallery"
                 widget: "list"

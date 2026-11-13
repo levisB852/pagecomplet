@@ -1,9 +1,9 @@
 (function () {
   "use strict";
 
-  var MAX_SIDE = 1800;
-  var JPEG_QUALITY = 0.82;
-  var MIN_SIZE_TO_OPTIMIZE = 900 * 1024;
+  var MAX_SIDE = 1400;
+  var JPEG_QUALITY = 0.78;
+  var MIN_SIZE_TO_OPTIMIZE = 350 * 1024;
   var redispatchedInputs = new WeakSet();
   var noticeTimer;
 
@@ -115,7 +115,10 @@
     showNotice(candidates.length === 1 ? "Preparando la fotografía…" : "Preparando las fotografías…", "working");
 
     try {
-      var optimized = await Promise.all(files.map(optimizeFile));
+      var optimized = [];
+      for (var index = 0; index < files.length; index += 1) {
+        optimized.push(await optimizeFile(files[index]));
+      }
       var transfer = new DataTransfer();
       optimized.forEach(function (file) { transfer.items.add(file); });
       input.files = transfer.files;
