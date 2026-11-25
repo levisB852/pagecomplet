@@ -16,15 +16,17 @@ logo_url: "/img/Logo_IADSDER.png"
 
 collections:
   - name: "galeria_admin"
-    label: "Galeria juvenil"
-    description: "Sube y organiza las fotografias que aparecen en Eventos Juveniles."
+    label: "Galeria por secciones"
+    description: "Organiza las fotografias por eventos, cultos, aniversarios u otras secciones."
     files:
       - name: "galeria"
         label: "Administrar fotografias"
         file: "data/galeria.json"
         format: "json"
         fields:
-          - label: "Fotografias publicadas"
+          - { label: "Nombre de la seccion principal", name: "tituloPrincipal", widget: "string", default: "Eventos juveniles" }
+          - { label: "Descripcion de la seccion principal", name: "descripcionPrincipal", widget: "string", required: false }
+          - label: "Fotografias de la seccion principal"
             name: "imagenes"
             widget: "list"
             label_singular: "Agregar fotografias"
@@ -37,6 +39,25 @@ collections:
               name: "image"
               widget: "image"
               choose_url: false
+          - label: "Otras secciones"
+            name: "secciones"
+            widget: "list"
+            required: false
+            collapsed: true
+            add_to_top: true
+            label_singular: "Agregar seccion"
+            summary: "{{fields.titulo}}"
+            fields:
+              - { label: "Mostrar en la pagina", name: "published", widget: "boolean", default: true }
+              - { label: "Nombre de la seccion", name: "titulo", widget: "string", hint: "Ejemplo: Cultos, Aniversarios o Actividades infantiles." }
+              - { label: "Descripcion", name: "descripcion", widget: "string", required: false }
+              - label: "Fotografias"
+                name: "imagenes"
+                widget: "list"
+                required: false
+                collapsed: true
+                label_singular: "Agregar fotografia"
+                field: { label: "Imagen", name: "image", widget: "image", choose_url: false }
 
   - name: "videos_admin"
     label: "Videos"

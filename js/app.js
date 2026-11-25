@@ -1137,10 +1137,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const track = document.getElementById("galleryTrack");
   const loading = document.getElementById("galleryLoading");
   const counter = document.getElementById("galleryCounter");
+  const filters = document.getElementById("galleryFilters");
+  const moreButton = document.getElementById("galleryMore");
   if (!track) return;
   const language = window.iadsderI18n?.language?.() || "es";
+  const PAGE_SIZE = 12;
+  let sections = [];
+  let activeSection = "all";
+  let visibleCount = PAGE_SIZE;
 
-  function renderImages(images) {
+  function normalizeGalleryItem(item, section) {
+    if (typeof item === "string") return [{ image: item, alt: section.title, section: section.title }];
+    if (Array.isArray(item)) return item.flatMap(entry => normalizeGalleryItem(entry, section));
+    if (!item || typeof item !== "object") return [];
+    const sources = Array.isArray(item.image) ? item.image : [item.image];
+    return sources.flatMap(source => source ? [{ ...item, image: source, section: section.title }] : []);
+  }
+
+  function activeImages() {
+    const selected = activeSection === "all"
+      ? sections
+      : sections.filter(section => section.id === activeSection);
+    return selected.flatMap(section => section.images);
+  }
+
+  function renderImages() {
+    const images = activeImages();
     if (counter) {
       counter.textContent = language === "en"
         ? `${images.length} ${images.length === 1 ? "photo" : "photos"}`
@@ -1154,23 +1176,50 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    track.innerHTML = "";
+    track.replaceChildren();
 
-    images.forEach(img => {
+    images.slice(0, visibleCount).forEach((img, index) => {
       const btn = document.createElement("button");
       btn.className = "gallery-item";
+      if (index === 0) btn.classList.add("gallery-item--featured");
       btn.type = "button";
-      btn.setAttribute("aria-label", language === "en" ? "Open youth event photo" : "Abrir fotografía de evento juvenil");
+      btn.setAttribute("aria-label", `${language === "en" ? "Open photo from" : "Abrir fotografía de"} ${img.section}`);
 
       const im = document.createElement("img");
       im.src = img.image;
-      im.alt = img.alt || "Foto";
+      im.alt = img.alt || img.section || "Foto";
       im.loading = "lazy";
       im.decoding = "async";
-      im.decoding = "async";
 
-      btn.appendChild(im);
+      const label = document.createElement("span");
+      label.className = "gallery-item__label";
+      label.textContent = img.section;
+      btn.append(im, label);
       track.appendChild(btn);
+    });
+
+    if (moreButton) moreButton.hidden = visibleCount >= images.length;
+  }
+
+  function renderFilters() {
+    if (!filters) return;
+    filters.replaceChildren();
+    const choices = sections.length > 1
+      ? [{ id: "all", title: language === "en" ? "All" : "Todas" }, ...sections]
+      : sections;
+    choices.forEach(section => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "gallery-filter";
+      button.textContent = section.title;
+      button.setAttribute("aria-pressed", String(section.id === activeSection || (sections.length === 1 && section.id === sections[0].id)));
+      button.addEventListener("click", () => {
+        activeSection = section.id;
+        visibleCount = PAGE_SIZE;
+        filters.querySelectorAll(".gallery-filter").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+        renderImages();
+      });
+      filters.append(button);
     });
   }
 
@@ -1178,23 +1227,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const response = await fetch("/data/galeria.json", { cache: "no-cache" });
     if (!response.ok) throw new Error(`Galería no disponible (${response.status})`);
     const data = await response.json();
-    const galleryItems = Array.isArray(data) ? data : data.imagenes;
-    function normalizeGalleryItem(item) {
-      if (typeof item === "string") return [{ image: item, alt: "Fotografía de evento juvenil" }];
-      if (Array.isArray(item)) return item.flatMap(normalizeGalleryItem);
-      if (!item || typeof item !== "object") return [];
-
-      const sources = Array.isArray(item.image) ? item.image : [item.image];
-      return sources.flatMap(source => {
-        if (Array.isArray(source)) return source.flatMap(normalizeGalleryItem);
-        return source ? [{ ...item, image: source }] : [];
-      });
+    const primary = {
+      id: "principal",
+      title: data.tituloPrincipal || "Eventos juveniles",
+      description: data.descripcionPrincipal || "",
+      rawImages: Array.isArray(data.imagenes) ? data.imagenes : []
+    };
+    const extraSections = (Array.isArray(data.secciones) ? data.secciones : [])
+      .filter(section => section && section.published !== false && section.titulo)
+      .map((section, index) => ({
+        id: `seccion-${index}`,
+        title: section.titulo,
+        description: section.descripcion || "",
+        rawImages: Array.isArray(section.imagenes) ? section.imagenes : []
+      }));
+    sections = [primary, ...extraSections]
+      .map(section => ({ ...section, images: section.rawImages.flatMap(item => normalizeGalleryItem(item, section)).filter(isPublished) }))
+      .filter(section => section.images.length);
+    if (!sections.length) {
+      if (loading) loading.textContent = language === "en" ? "There are no published photos yet." : "Todavía no hay fotografías publicadas.";
+      return;
     }
-
-    const normalizedItems = Array.isArray(galleryItems)
-      ? galleryItems.flatMap(normalizeGalleryItem)
-      : [];
-    renderImages(normalizedItems.filter(isPublished));
+    activeSection = sections.length > 1 ? "all" : sections[0].id;
+    renderFilters();
+    renderImages();
   } catch (e) {
     console.error(e);
     if (loading) loading.textContent = language === "en"
@@ -1202,6 +1258,11 @@ document.addEventListener("DOMContentLoaded", () => {
       : "No se pudieron cargar las fotografías. Intenta nuevamente.";
     if (counter) counter.textContent = "Galería no disponible";
   }
+
+  moreButton?.addEventListener("click", () => {
+    visibleCount += PAGE_SIZE;
+    renderImages();
+  });
 })();
 
 // ============================================================

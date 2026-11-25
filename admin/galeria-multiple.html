@@ -14,9 +14,9 @@
     <a class="bulk__back" href="/admin/">← Volver al administrador</a>
     <section class="bulk__card">
       <img class="bulk__logo" src="/img/Logo_IADSDER-1000.webp" alt="IADSDER" width="1000" height="891" />
-      <p class="bulk__eyebrow">Galería juvenil</p>
+      <p class="bulk__eyebrow">Galería de la comunidad</p>
       <h1>Subir varias fotos</h1>
-      <p class="bulk__intro">Selecciona todas las imágenes juntas. Al terminar quedarán agregadas a Eventos Juveniles.</p>
+      <p class="bulk__intro">Selecciona las imágenes y elige en qué sección de la galería deben aparecer.</p>
 
       <div id="loginPanel" class="bulk__login" hidden>
         <p>Inicia sesión para administrar la galería.</p>
@@ -24,6 +24,10 @@
       </div>
 
       <form id="uploadForm" hidden>
+        <label class="bulk__section-label" for="gallerySection">Sección de destino</label>
+        <select id="gallerySection" class="bulk__section-select">
+          <option value="principal">Eventos juveniles</option>
+        </select>
         <label class="bulk__picker" for="photos">
           <span class="bulk__picker-icon" aria-hidden="true">＋</span>
           <strong>Seleccionar fotos</strong>

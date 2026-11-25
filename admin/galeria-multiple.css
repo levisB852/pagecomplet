@@ -24,3 +24,21 @@ progress { width: 100%; height: 14px; margin-top: 12px; accent-color: #1d6548; }
 .bulk__result--error { color: #851e1e; background: #fff0f0; }
 .bulk__result--success { color: #155538; background: #e8f7ee; }
 @media (max-width: 480px) { .bulk { padding: 14px 10px 30px; } .bulk__card { border-radius: 18px; } }
+.bulk__section-label{
+  display:block;
+  margin:.2rem 0 .45rem;
+  color:#193a2b;
+  font-size:.85rem;
+  font-weight:800;
+}
+
+.bulk__section-select{
+  width:100%;
+  margin-bottom:1rem;
+  padding:.85rem .95rem;
+  border:1px solid #cfdcd5;
+  border-radius:12px;
+  color:#173629;
+  background:#fff;
+  font:700 .95rem/1.2 system-ui,sans-serif;
+}

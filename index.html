@@ -408,24 +408,23 @@
   </section>
 
   <!-- GALERÍA -->
-  <section id="galeria" class="section">
+  <section id="galeria" class="section gallery-section">
     <div class="container">
-      <div class="section-head">
+      <div class="gallery-heading">
         <div>
-          <h2>Eventos Juveniles</h2>
-          <p>Momentos especiales vividos en nuestra comunidad.</p>
+          <span class="gallery-eyebrow">Nuestra comunidad</span>
+          <h2>Galería de momentos</h2>
+          <p>Recuerdos de actividades, celebraciones y encuentros de nuestra iglesia.</p>
         </div>
         <span class="gallery-counter" id="galleryCounter" aria-live="polite"></span>
       </div>
 
-      <div class="gallery-carousel" data-reveal>
-        <button class="gallery-nav prev" type="button" aria-label="Anterior">‹</button>
-
-        <div class="gallery-track" id="galleryTrack" aria-label="Carrusel de fotos">
+      <div class="gallery-showcase" data-reveal>
+        <div class="gallery-filters" id="galleryFilters" aria-label="Secciones de la galería"></div>
+        <div class="gallery-track gallery-grid" id="galleryTrack" aria-label="Fotografías de la comunidad">
           <div class="gallery-loading muted" id="galleryLoading">Cargando fotos...</div>
         </div>
-
-        <button class="gallery-nav next" type="button" aria-label="Siguiente">›</button>
+        <button class="gallery-more btn btn-ghost" id="galleryMore" type="button" hidden>Ver más fotografías</button>
       </div>
     </div>
   </section>
