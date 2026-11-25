@@ -424,7 +424,11 @@
         <div class="gallery-track gallery-grid" id="galleryTrack" aria-label="Fotografías de la comunidad">
           <div class="gallery-loading muted" id="galleryLoading">Cargando fotos...</div>
         </div>
-        <button class="gallery-more btn btn-ghost" id="galleryMore" type="button" hidden>Ver más fotografías</button>
+        <nav class="gallery-pagination" id="galleryPagination" aria-label="Páginas de la galería" hidden>
+          <button class="gallery-page-button" id="galleryPrevPage" type="button">‹ Anterior</button>
+          <span class="gallery-page-status" id="galleryPageStatus" aria-live="polite"></span>
+          <button class="gallery-page-button" id="galleryNextPage" type="button">Siguiente ›</button>
+        </nav>
       </div>
     </div>
   </section>

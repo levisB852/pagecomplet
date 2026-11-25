@@ -1138,13 +1138,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const loading = document.getElementById("galleryLoading");
   const counter = document.getElementById("galleryCounter");
   const filters = document.getElementById("galleryFilters");
-  const moreButton = document.getElementById("galleryMore");
+  const pagination = document.getElementById("galleryPagination");
+  const previousPageButton = document.getElementById("galleryPrevPage");
+  const nextPageButton = document.getElementById("galleryNextPage");
+  const pageStatus = document.getElementById("galleryPageStatus");
   if (!track) return;
   const language = window.iadsderI18n?.language?.() || "es";
-  const PAGE_SIZE = 12;
   let sections = [];
   let activeSection = "all";
-  let visibleCount = PAGE_SIZE;
+  let currentPage = 0;
+
+  function pageSize() {
+    return window.matchMedia("(max-width: 650px)").matches ? 6 : 8;
+  }
 
   function normalizeGalleryItem(item, section) {
     if (typeof item === "string") return [{ image: item, alt: section.title, section: section.title }];
@@ -1178,10 +1184,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     track.replaceChildren();
 
-    images.slice(0, visibleCount).forEach((img, index) => {
+    const perPage = pageSize();
+    const totalPages = Math.max(1, Math.ceil(images.length / perPage));
+    currentPage = Math.min(currentPage, totalPages - 1);
+    const firstImage = currentPage * perPage;
+
+    images.slice(firstImage, firstImage + perPage).forEach((img) => {
       const btn = document.createElement("button");
       btn.className = "gallery-item";
-      if (index === 0) btn.classList.add("gallery-item--featured");
       btn.type = "button";
       btn.setAttribute("aria-label", `${language === "en" ? "Open photo from" : "Abrir fotografía de"} ${img.section}`);
 
@@ -1198,7 +1208,12 @@ document.addEventListener("DOMContentLoaded", () => {
       track.appendChild(btn);
     });
 
-    if (moreButton) moreButton.hidden = visibleCount >= images.length;
+    if (pagination) pagination.hidden = totalPages <= 1;
+    if (previousPageButton) previousPageButton.disabled = currentPage === 0;
+    if (nextPageButton) nextPageButton.disabled = currentPage >= totalPages - 1;
+    if (pageStatus) pageStatus.textContent = language === "en"
+      ? `Page ${currentPage + 1} of ${totalPages}`
+      : `Página ${currentPage + 1} de ${totalPages}`;
   }
 
   function renderFilters() {
@@ -1215,7 +1230,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.setAttribute("aria-pressed", String(section.id === activeSection || (sections.length === 1 && section.id === sections[0].id)));
       button.addEventListener("click", () => {
         activeSection = section.id;
-        visibleCount = PAGE_SIZE;
+        currentPage = 0;
         filters.querySelectorAll(".gallery-filter").forEach(item => item.setAttribute("aria-pressed", String(item === button)));
         renderImages();
       });
@@ -1259,10 +1274,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (counter) counter.textContent = "Galería no disponible";
   }
 
-  moreButton?.addEventListener("click", () => {
-    visibleCount += PAGE_SIZE;
+  previousPageButton?.addEventListener("click", () => {
+    if (currentPage <= 0) return;
+    currentPage -= 1;
     renderImages();
   });
+
+  nextPageButton?.addEventListener("click", () => {
+    const totalPages = Math.ceil(activeImages().length / pageSize());
+    if (currentPage >= totalPages - 1) return;
+    currentPage += 1;
+    renderImages();
+  });
+
+  window.addEventListener("resize", () => {
+    currentPage = 0;
+    renderImages();
+  }, { passive: true });
 })();
 
 // ============================================================
